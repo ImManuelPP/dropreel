@@ -365,10 +365,11 @@ export function Vs({ lang }: { lang: Lang }) {
 
 export function HowItWorks({ lang }: { lang: Lang }) {
   const t = content[lang].how;
+  const ref = useScrollReveal<HTMLElement>();
   return (
-    <section id="how" className="scroll-mt-20 border-t border-border/60 py-20 sm:py-28">
+    <section ref={ref} id="how" className="scroll-mt-20 border-t border-border/60 py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-5">
-        <div className="max-w-2xl">
+        <div data-reveal className="reveal max-w-2xl">
           <Eyebrow>{t.eyebrow}</Eyebrow>
           <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
             {t.title}
@@ -376,7 +377,7 @@ export function HowItWorks({ lang }: { lang: Lang }) {
         </div>
         <ol className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {t.steps.map((step, i) => (
-            <li key={step.title} className="relative rounded-2xl border border-border bg-card-gradient p-7">
+            <li key={step.title} data-reveal style={rd(i * 100)} className="reveal relative rounded-2xl border border-border bg-card-gradient p-7">
               <span className="font-mono text-xs tracking-[0.2em] text-primary">
                 {String(i + 1).padStart(2, "0")}
               </span>
@@ -397,11 +398,12 @@ export function Work({ lang }: { lang: Lang }) {
   const [expanded, setExpanded] = useState(false);
   const [active, setActive] = useState<number | null>(null);
   const visible = expanded ? sampleVideos : sampleVideos.slice(0, WORK_INITIAL_VISIBLE);
+  const ref = useScrollReveal<HTMLElement>([expanded]);
 
   return (
-    <section id="work" className="scroll-mt-20 border-t border-border/60 py-20 sm:py-28">
+    <section ref={ref} id="work" className="scroll-mt-20 border-t border-border/60 py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-5">
-        <div className="max-w-2xl">
+        <div data-reveal className="reveal max-w-2xl">
           <Eyebrow>{t.eyebrow}</Eyebrow>
           <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
             {t.title}
@@ -416,7 +418,9 @@ export function Work({ lang }: { lang: Lang }) {
               type="button"
               onClick={() => setActive(i)}
               aria-label={t.cards[i]?.alt ?? t.play}
-              className="group relative aspect-[9/16] w-full cursor-pointer overflow-hidden rounded-2xl border border-border bg-surface shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/40"
+              data-reveal
+              style={rd((i % WORK_INITIAL_VISIBLE) * 90)}
+              className="reveal group relative aspect-[9/16] w-full cursor-pointer overflow-hidden rounded-2xl border border-border bg-surface shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/40"
             >
               <video
                 src={video.src}
