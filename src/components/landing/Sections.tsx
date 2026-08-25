@@ -15,6 +15,8 @@ import {
   Check,
   X,
   Loader2,
+  Plus,
+  Minus,
 } from "lucide-react";
 import { quoteSchema, submitQuoteRequest } from "@/lib/quote.functions";
 import {
@@ -28,9 +30,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { content, type Lang } from "@/lib/i18n";
-import example1 from "@/assets/example-1.jpg";
-import example2 from "@/assets/example-2.jpg";
-import example3 from "@/assets/example-3.jpg";
+import { sampleVideos } from "@/lib/videos";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 const scrollTo = (id: string) => {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -301,9 +302,14 @@ export function HowItWorks({ lang }: { lang: Lang }) {
   );
 }
 
+const WORK_INITIAL_VISIBLE = 3;
+
 export function Work({ lang }: { lang: Lang }) {
   const t = content[lang].work;
-  const images = [example1, example2, example3];
+  const [expanded, setExpanded] = useState(false);
+  const [active, setActive] = useState<number | null>(null);
+  const visible = expanded ? sampleVideos : sampleVideos.slice(0, WORK_INITIAL_VISIBLE);
+
   return (
     <section id="work" className="scroll-mt-20 border-t border-border/60 py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-5">
@@ -316,17 +322,22 @@ export function Work({ lang }: { lang: Lang }) {
         </div>
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {t.cards.map((card, i) => (
-            <figure
-              key={i}
-              className="group relative aspect-[9/16] overflow-hidden rounded-2xl border border-border bg-surface shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/40"
+          {visible.map((video, i) => (
+            <button
+              key={video.src}
+              type="button"
+              onClick={() => setActive(i)}
+              aria-label={t.cards[i]?.alt ?? t.play}
+              className="group relative aspect-[9/16] w-full cursor-pointer overflow-hidden rounded-2xl border border-border bg-surface shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/40"
             >
-              <img
-                src={images[i % images.length]}
-                alt={card.alt}
-                width={720}
-                height={1280}
-                loading="lazy"
+              <video
+                src={video.src}
+                poster={video.poster}
+                muted
+                loop
+                autoPlay
+                playsInline
+                preload="metadata"
                 className="h-full w-full object-cover opacity-80 transition-all duration-500 group-hover:scale-[1.04] group-hover:opacity-100"
               />
               <div className="absolute inset-0 flex items-center justify-center">
@@ -334,9 +345,32 @@ export function Work({ lang }: { lang: Lang }) {
                   <Play className="h-5 w-5 fill-current" />
                 </span>
               </div>
-            </figure>
+            </button>
           ))}
         </div>
+
+        {sampleVideos.length > WORK_INITIAL_VISIBLE ? (
+          <div className="mt-8 flex justify-center">
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={() => setExpanded((v) => !v)}
+              aria-expanded={expanded}
+            >
+              {expanded ? (
+                <>
+                  {t.seeLess}
+                  <Minus className="h-4 w-4" />
+                </>
+              ) : (
+                <>
+                  {t.seeMore}
+                  <Plus className="h-4 w-4" />
+                </>
+              )}
+            </Button>
+          </div>
+        ) : null}
 
         <div className="mt-10 flex justify-center">
           <Button variant="outline" size="lg" onClick={() => scrollTo("contact")}>
@@ -345,6 +379,25 @@ export function Work({ lang }: { lang: Lang }) {
           </Button>
         </div>
       </div>
+
+      <Dialog open={active !== null} onOpenChange={(open) => { if (!open) setActive(null); }}>
+        <DialogContent className="w-auto max-w-[92vw] gap-0 border-border bg-background p-2 sm:max-w-[92vw] sm:p-3">
+          <DialogTitle className="sr-only">
+            {active !== null ? (t.cards[active]?.alt ?? t.play) : t.play}
+          </DialogTitle>
+          {active !== null && sampleVideos[active] ? (
+            <video
+              key={sampleVideos[active]!.src}
+              src={sampleVideos[active]!.src}
+              poster={sampleVideos[active]!.poster}
+              controls
+              autoPlay
+              playsInline
+              className="h-auto max-h-[82vh] w-auto max-w-[86vw] rounded-xl"
+            />
+          ) : null}
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }
