@@ -496,10 +496,11 @@ export function Work({ lang }: { lang: Lang }) {
 
 export function Faq({ lang }: { lang: Lang }) {
   const t = content[lang].faq;
+  const ref = useScrollReveal<HTMLElement>();
   return (
-    <section id="faq" className="scroll-mt-20 border-t border-border/60 py-20 sm:py-28">
+    <section ref={ref} id="faq" className="scroll-mt-20 border-t border-border/60 py-20 sm:py-28">
       <div className="mx-auto grid max-w-6xl gap-12 px-5 lg:grid-cols-[0.8fr_1.2fr]">
-        <div>
+        <div data-reveal className="reveal">
           <Eyebrow>{t.eyebrow}</Eyebrow>
           <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
             {t.title}
@@ -507,7 +508,7 @@ export function Faq({ lang }: { lang: Lang }) {
         </div>
         <Accordion type="single" collapsible className="w-full">
           {t.items.map((item, i) => (
-            <AccordionItem key={i} value={`item-${i}`} className="border-border">
+            <AccordionItem key={i} value={`item-${i}`} data-reveal style={rd(i * 80)} className="reveal border-border">
               <AccordionTrigger className="text-left text-base font-medium hover:no-underline">
                 {item.q}
               </AccordionTrigger>
@@ -565,10 +566,10 @@ export function Contact({ lang }: { lang: Lang }) {
 
 
   return (
-    <section id="contact" className="relative scroll-mt-20 border-t border-border/60 py-20 sm:py-28">
+    <section ref={ref} id="contact" className="relative scroll-mt-20 border-t border-border/60 py-20 sm:py-28">
       <div className="pointer-events-none absolute inset-0 bg-hero-glow opacity-70" aria-hidden />
       <div className="relative mx-auto grid max-w-6xl gap-12 px-5 lg:grid-cols-2 lg:items-start">
-        <div>
+        <div data-reveal className="reveal">
           <Eyebrow>{t.eyebrow}</Eyebrow>
           <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
             {t.title}
@@ -576,7 +577,7 @@ export function Contact({ lang }: { lang: Lang }) {
           <p className="mt-4 max-w-md leading-relaxed text-muted-foreground">{t.body}</p>
         </div>
 
-        <div className="rounded-2xl border border-border bg-card-gradient p-7 shadow-card sm:p-9">
+        <div data-reveal style={rd(120)} className="reveal rounded-2xl border border-border bg-card-gradient p-7 shadow-card sm:p-9">
           {sent ? (
             <div className="flex flex-col items-start gap-4 py-6">
               <span className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
