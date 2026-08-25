@@ -104,10 +104,87 @@ export function Header({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => vo
   );
 }
 
+/** Ambient looping video backdrop for the hero — blurred full-bleed layer
+ *  plus a sharper center strip, dimmed by a dark overlay so text stays crisp.
+ *  Falls back to a static blurred poster when prefers-reduced-motion is set,
+ *  and pauses playback while the hero is scrolled out of view. */
+function HeroBackdrop() {
+  const [motionOk, setMotionOk] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const clip = sampleVideos[2]!;
+
+  useEffect(() => {
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setMotionOk(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!motionOk || !root) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        for (const v of videoRefs.current) {
+          if (!v) continue;
+          if (entry?.isIntersecting) void v.play().catch(() => {});
+          else v.pause();
+        }
+      },
+      { threshold: 0.05 },
+    );
+    observer.observe(root);
+    return () => observer.disconnect();
+  }, [motionOk]);
+
+  const setVideo = (i: number) => (el: HTMLVideoElement | null) => {
+    videoRefs.current[i] = el;
+  };
+
+  return (
+    <div ref={rootRef} className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+      {motionOk ? (
+        <>
+          <video
+            ref={setVideo(0)}
+            src={clip.src}
+            poster={clip.poster}
+            muted
+            loop
+            autoPlay
+            playsInline
+            className="absolute inset-0 h-full w-full scale-125 object-cover opacity-45 blur-2xl"
+          />
+          <div className="hero-center-fade absolute inset-y-0 left-1/2 aspect-[9/16] -translate-x-1/2">
+            <video
+              ref={setVideo(1)}
+              src={clip.src}
+              poster={clip.poster}
+              muted
+              loop
+              autoPlay
+              playsInline
+              className="h-full w-full object-cover opacity-55"
+            />
+          </div>
+        </>
+      ) : (
+        <img
+          src={clip.poster}
+          alt=""
+          className="absolute inset-0 h-full w-full scale-125 object-cover opacity-35 blur-2xl"
+        />
+      )}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background" />
+    </div>
+  );
+}
+
 export function Hero({ lang }: { lang: Lang }) {
   const t = content[lang].hero;
   return (
     <section id="top" className="relative overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-28">
+      <HeroBackdrop />
       <div className="pointer-events-none absolute inset-0 bg-hero-glow" aria-hidden />
       <div className="pointer-events-none absolute inset-0 grid-lines opacity-40" aria-hidden />
       <div className="relative mx-auto max-w-4xl px-5 text-center">
