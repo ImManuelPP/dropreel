@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import {
   ArrowRight,
   Play,
@@ -12,7 +13,9 @@ import {
   Sparkles,
   Wand2,
   Check,
+  Loader2,
 } from "lucide-react";
+import { quoteSchema, submitQuoteRequest } from "@/lib/quote.functions";
 import {
   Accordion,
   AccordionContent,
@@ -380,13 +383,7 @@ export function Contact({ lang }: { lang: Lang }) {
               </Button>
             </div>
           ) : (
-            <form
-              className="grid gap-5"
-              onSubmit={(e) => {
-                e.preventDefault();
-                setSent(true);
-              }}
-            >
+            <form className="grid gap-5" onSubmit={handleSubmit}>
               <div className="grid gap-5 sm:grid-cols-2">
                 <div className="grid gap-2">
                   <Label htmlFor="name">{t.name}</Label>
@@ -409,9 +406,20 @@ export function Contact({ lang }: { lang: Lang }) {
                 <Label htmlFor="budget">{t.budget}</Label>
                 <Input id="budget" name="budget" placeholder={t.budgetPlaceholder} />
               </div>
-              <Button type="submit" size="lg" className="mt-1 w-full">
-                {t.submit}
-                <ArrowRight className="h-4 w-4" />
+              {error ? (
+                <p role="alert" className="text-sm text-destructive">
+                  {error}
+                </p>
+              ) : null}
+              <Button type="submit" size="lg" className="mt-1 w-full" disabled={submitting}>
+                {submitting ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <>
+                    {t.submit}
+                    <ArrowRight className="h-4 w-4" />
+                  </>
+                )}
               </Button>
             </form>
           )}
