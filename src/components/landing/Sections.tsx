@@ -269,10 +269,11 @@ export function Problem({ lang }: { lang: Lang }) {
 export function WhatWeDo({ lang }: { lang: Lang }) {
   const t = content[lang].what;
   const icons = [UserRound, Film, Boxes, Smartphone, Sparkles, Wand2] as const;
+  const ref = useScrollReveal<HTMLElement>();
   return (
-    <section id="what" className="scroll-mt-20 border-t border-border/60 py-20 sm:py-28">
+    <section ref={ref} id="what" className="scroll-mt-20 border-t border-border/60 py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-5">
-        <div className="max-w-3xl">
+        <div data-reveal className="reveal max-w-3xl">
           <Eyebrow>{t.eyebrow}</Eyebrow>
           <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
             {t.title}
@@ -285,7 +286,9 @@ export function WhatWeDo({ lang }: { lang: Lang }) {
             return (
               <div
                 key={item.title}
-                className="bg-card-gradient p-7 transition-colors duration-300 hover:bg-surface-elevated"
+                data-reveal
+                style={rd(i * 70)}
+                className="reveal bg-card-gradient p-7 transition-colors duration-300 hover:bg-surface-elevated"
               >
                 <Icon className="h-5 w-5 text-primary" />
                 <h3 className="mt-4 font-semibold">{item.title}</h3>
