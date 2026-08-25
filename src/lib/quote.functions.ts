@@ -43,7 +43,7 @@ export const submitQuoteRequest = createServerFn({ method: "POST" })
       });
 
     if (error) {
-      console.error("Failed to store quote request:", JSON.stringify(error), "url:", process.env["SUPABASE_URL"], "keyprefix:", (process.env["SUPABASE_PUBLISHABLE_KEY"]??"none").slice(0,18));
+      console.error("Failed to store quote request:", error);
       throw new Error("We couldn't save your request. Please try again.");
     }
 
