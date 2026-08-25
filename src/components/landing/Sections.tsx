@@ -232,7 +232,7 @@ export function Vs({ lang }: { lang: Lang }) {
             VS
           </span>
 
-          <div className="rounded-2xl border border-border/60 bg-surface/40 p-6 opacity-90 sm:p-8">
+          <div className="rounded-2xl border border-border/60 bg-surface/40 p-6 sm:p-8">
             <div className="mb-6 flex items-center gap-3">
               <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-border/60 bg-surface-elevated/60 text-muted-foreground/70">
                 <Bot className="h-5 w-5" />
@@ -242,8 +242,8 @@ export function Vs({ lang }: { lang: Lang }) {
             <ul className="space-y-4">
               {t.rows.map((row, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <X className="mt-0.5 h-5 w-5 shrink-0 text-muted-foreground/50" />
-                  <span className="text-sm leading-relaxed text-muted-foreground/80">
+                  <X className="mt-0.5 h-5 w-5 shrink-0 text-muted-foreground/60" />
+                  <span className="text-sm leading-relaxed text-muted-foreground">
                     {row.generic}
                   </span>
                 </li>
