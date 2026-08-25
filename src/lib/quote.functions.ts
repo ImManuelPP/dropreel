@@ -32,17 +32,17 @@ export const submitQuoteRequest = createServerFn({ method: "POST" })
       },
     });
 
-    const { data: row, error } = await supabase
+    const id = crypto.randomUUID();
+    const { error } = await supabase
       .from("quote_requests")
       .insert({
+        id,
         name: data.name,
         email: data.email,
         brand: data.brand,
         needs: data.needs,
         budget: data.budget || null,
-      })
-      .select("id, submitted_at")
-      .single();
+      });
 
     if (error) {
       console.error("Failed to store quote request:", error);
@@ -50,7 +50,7 @@ export const submitQuoteRequest = createServerFn({ method: "POST" })
     }
 
     const { notifyQuoteRequest } = await import("./quote-notify.server");
-    const notified = await notifyQuoteRequest({ ...data, id: row.id });
+    const notified = await notifyQuoteRequest({ ...data, id });
 
-    return { ok: true as const, id: row.id, notified };
+    return { ok: true as const, id, notified };
   });
