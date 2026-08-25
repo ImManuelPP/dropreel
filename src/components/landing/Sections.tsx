@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import {
   ArrowRight,
@@ -32,10 +32,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { content, type Lang } from "@/lib/i18n";
 import { sampleVideos } from "@/lib/videos";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { useScrollReveal } from "@/components/landing/Reveal";
 
 const scrollTo = (id: string) => {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
 };
+
+/** Reveal-delay helper: stagger items with style={rd(120)}. */
+const rd = (ms: number) => ({ "--reveal-delay": `${ms}ms` }) as CSSProperties;
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
