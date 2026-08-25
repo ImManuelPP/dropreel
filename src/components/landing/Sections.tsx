@@ -529,6 +529,7 @@ export function Contact({ lang }: { lang: Lang }) {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const submit = useServerFn(submitQuoteRequest);
+  const ref = useScrollReveal<HTMLElement>();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
