@@ -51,19 +51,19 @@
   --card-foreground: oklch(0.97 0.005 240);
   --popover: oklch(0.2 0.018 240);
   --popover-foreground: oklch(0.97 0.005 240);
-  --primary: oklch(0.82 0.16 175);
-  --primary-foreground: oklch(0.18 0.03 190);
+  --primary: oklch(0.88 0.27 133);
+  --primary-foreground: oklch(0.2 0.05 133);
   --secondary: oklch(0.26 0.02 240);
   --secondary-foreground: oklch(0.97 0.005 240);
   --muted: oklch(0.26 0.02 240);
   --muted-foreground: oklch(0.72 0.015 240);
-  --accent: oklch(0.3 0.035 200);
+  --accent: oklch(0.3 0.06 140);
   --accent-foreground: oklch(0.97 0.005 240);
   --destructive: oklch(0.62 0.22 25);
   --destructive-foreground: oklch(0.98 0.005 240);
   --border: oklch(0.31 0.02 240);
   --input: oklch(0.31 0.02 240);
-  --ring: oklch(0.82 0.16 175);
+  --ring: oklch(0.88 0.27 133);
 
   --gradient-hero: radial-gradient(
     ellipse 80% 60% at 50% -10%,
