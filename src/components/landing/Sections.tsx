@@ -58,7 +58,7 @@ export function Header({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => vo
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
             <Play className="h-4 w-4 fill-current" />
           </span>
-          <span className="text-lg font-semibold tracking-tight">Dropreel</span>
+          <span className="text-lg font-semibold tracking-tight">Droppreel</span>
         </a>
 
         <nav className="hidden items-center gap-8 md:flex">
@@ -646,11 +646,11 @@ export function Footer({ lang }: { lang: Lang }) {
           <span className="flex h-7 w-7 items-center justify-center rounded-md bg-primary text-primary-foreground">
             <Play className="h-3.5 w-3.5 fill-current" />
           </span>
-          <span className="font-semibold tracking-tight">Dropreel</span>
+          <span className="font-semibold tracking-tight">Droppreel</span>
         </div>
         <p className="max-w-sm text-sm text-muted-foreground">{t.tagline}</p>
         <p className="text-xs text-muted-foreground">
-          © {new Date().getFullYear()} Dropreel. {t.rights}
+          © {new Date().getFullYear()} Droppreel. {t.rights}
         </p>
       </div>
     </footer>
