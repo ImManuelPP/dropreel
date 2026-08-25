@@ -13,6 +13,7 @@ import {
   Sparkles,
   Wand2,
   Check,
+  X,
   Loader2,
 } from "lucide-react";
 import { quoteSchema, submitQuoteRequest } from "@/lib/quote.functions";
@@ -207,6 +208,66 @@ export function WhatWeDo({ lang }: { lang: Lang }) {
               </div>
             );
           })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function Vs({ lang }: { lang: Lang }) {
+  const t = content[lang].vs;
+  return (
+    <section className="scroll-mt-20 border-t border-border/60 py-20 sm:py-28">
+      <div className="mx-auto max-w-6xl px-5">
+        <div className="max-w-3xl">
+          <Eyebrow>{t.eyebrow}</Eyebrow>
+          <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
+            {t.title}
+          </h2>
+          <p className="mt-4 text-pretty leading-relaxed text-muted-foreground">{t.body}</p>
+        </div>
+
+        <div className="relative mt-12 grid gap-6 lg:grid-cols-2">
+          <span className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium uppercase tracking-wider text-muted-foreground lg:inline-flex">
+            VS
+          </span>
+
+          <div className="rounded-2xl border border-border/60 bg-surface/40 p-6 opacity-90 sm:p-8">
+            <div className="mb-6 flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-border/60 bg-surface-elevated/60 text-muted-foreground/70">
+                <Bot className="h-5 w-5" />
+              </span>
+              <h3 className="text-lg font-semibold text-muted-foreground">{t.genericTitle}</h3>
+            </div>
+            <ul className="space-y-4">
+              {t.rows.map((row, i) => (
+                <li key={i} className="flex items-start gap-3">
+                  <X className="mt-0.5 h-5 w-5 shrink-0 text-muted-foreground/50" />
+                  <span className="text-sm leading-relaxed text-muted-foreground/80">
+                    {row.generic}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="relative rounded-2xl border border-primary/30 bg-card-gradient p-6 shadow-glow sm:p-8">
+            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+            <div className="mb-6 flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-primary/30 bg-primary/10 text-primary">
+                <Play className="h-5 w-5 fill-current" />
+              </span>
+              <h3 className="text-lg font-semibold text-primary">{t.dropreelTitle}</h3>
+            </div>
+            <ul className="space-y-4">
+              {t.rows.map((row, i) => (
+                <li key={i} className="flex items-start gap-3">
+                  <Check className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                  <span className="text-sm leading-relaxed text-foreground">{row.dropreel}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </section>
