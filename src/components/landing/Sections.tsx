@@ -232,10 +232,11 @@ export function Hero({ lang }: { lang: Lang }) {
 export function Problem({ lang }: { lang: Lang }) {
   const t = content[lang].problem;
   const icons = [Flame, Clock3, Bot] as const;
+  const ref = useScrollReveal<HTMLElement>();
   return (
-    <section className="border-t border-border/60 py-20 sm:py-28">
+    <section ref={ref} className="border-t border-border/60 py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-5">
-        <div className="max-w-2xl">
+        <div data-reveal className="reveal max-w-2xl">
           <Eyebrow>{t.eyebrow}</Eyebrow>
           <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
             {t.title}
@@ -247,7 +248,9 @@ export function Problem({ lang }: { lang: Lang }) {
             return (
               <article
                 key={item.title}
-                className="group rounded-2xl border border-border bg-card-gradient p-7 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/40"
+                data-reveal
+                style={rd(i * 100)}
+                className="reveal group rounded-2xl border border-border bg-card-gradient p-7 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/40"
               >
                 <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-surface-elevated text-primary transition-colors group-hover:border-primary/40">
                   <Icon className="h-5 w-5" />
