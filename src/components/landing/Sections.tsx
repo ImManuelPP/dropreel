@@ -316,6 +316,44 @@ export function Faq({ lang }: { lang: Lang }) {
 export function Contact({ lang }: { lang: Lang }) {
   const t = content[lang].contact;
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const submit = useServerFn(submitQuoteRequest);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (submitting) return;
+    setError(null);
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    const parsed = quoteSchema.safeParse({
+      name: String(fd.get("name") ?? ""),
+      email: String(fd.get("email") ?? ""),
+      brand: String(fd.get("brand") ?? ""),
+      needs: String(fd.get("needs") ?? ""),
+      budget: String(fd.get("budget") ?? ""),
+    });
+    if (!parsed.success) {
+      setError(parsed.error.issues[0]?.message ?? "Please check the form fields.");
+      return;
+    }
+    setSubmitting(true);
+    try {
+      await submit({ data: parsed.data });
+      form.reset();
+      setSent(true);
+    } catch (err) {
+      console.error(err);
+      setError(
+        err instanceof Error && err.message
+          ? err.message
+          : "Something went wrong. Please try again.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
 
   return (
     <section id="contact" className="relative scroll-mt-20 border-t border-border/60 py-20 sm:py-28">
