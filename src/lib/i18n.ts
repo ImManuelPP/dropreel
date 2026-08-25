@@ -71,6 +71,35 @@ export const content = {
         },
       ],
     },
+    vs: {
+      eyebrow: "Not just another editor",
+      title: "Generic tools edit. We build ads that sell.",
+      body: "Most freelancers and AI apps will splice your clips and call it a day. Dropreel treats your product like a growth problem — and solves it with research, script, and production.",
+      genericTitle: "Generic editors",
+      dropreelTitle: "Dropreel",
+      rows: [
+        {
+          generic: "Just edits the raw clips you send",
+          dropreel: "Full AI production, from script to final cut",
+        },
+        {
+          generic: "Same template for every client",
+          dropreel: "Researches what's already working in your niche before writing a script",
+        },
+        {
+          generic: "One style, take it or leave it",
+          dropreel: "Any AI video style — talking avatar, narrated, fully animated 3D — matched to what your product needs",
+        },
+        {
+          generic: "You're one order among hundreds, anonymous",
+          dropreel: "Direct, ongoing collaboration built for recurring ad creative needs",
+        },
+        {
+          generic: "Quality is a lottery depending who you get",
+          dropreel: "Every cut reviewed internally until it holds attention end to end",
+        },
+      ],
+    },
     how: {
       eyebrow: "How it works",
       title: "From first message to ad-ready files.",
@@ -218,6 +247,35 @@ export const content = {
         {
           title: "Lo que pida tu producto",
           body: "Formatos híbridos, estilos nuevos, experimentos. Si se puede producir con IA y vende, lo hacemos.",
+        },
+      ],
+    },
+    vs: {
+      eyebrow: "No somos otro editor más",
+      title: "Las herramientas genéricas editan. Nosotros construimos anuncios que venden.",
+      body: "La mayoría de freelancers y apps de IA te cortan los clips y dan la tarea por terminada. Dropreel trata tu producto como un problema de crecimiento: lo resuelve con investigación, guion y producción.",
+      genericTitle: "Editores genéricos",
+      dropreelTitle: "Dropreel",
+      rows: [
+        {
+          generic: "Solo edita el material que le mandas",
+          dropreel: "Producción completa con IA, de guion a vídeo final",
+        },
+        {
+          generic: "Mismo formato para todos los clientes",
+          dropreel: "Investiga qué ya funciona en tu nicho antes de escribir el guion",
+        },
+        {
+          generic: "Un único estilo, lo tomas o lo dejas",
+          dropreel: "Cualquier formato IA — avatar, narrado, animado 3D — según lo que necesite tu producto",
+        },
+        {
+          generic: "Eres un pedido más entre cientos, sin nombre",
+          dropreel: "Colaboración directa pensada para volumen recurrente",
+        },
+        {
+          generic: "La calidad es una lotería según a quién le toques",
+          dropreel: "Cada corte se revisa internamente hasta que engancha de principio a fin",
         },
       ],
     },
