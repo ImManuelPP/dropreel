@@ -157,7 +157,7 @@ export function Problem({ lang }: { lang: Lang }) {
         </div>
         <div className="mt-12 grid gap-5 md:grid-cols-3">
           {t.items.map((item, i) => {
-            const Icon = icons[i % icons.length];
+            const Icon = icons[i % icons.length]!;
             return (
               <article
                 key={item.title}
@@ -192,7 +192,7 @@ export function WhatWeDo({ lang }: { lang: Lang }) {
         </div>
         <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
           {t.items.map((item, i) => {
-            const Icon = icons[i % icons.length];
+            const Icon = icons[i % icons.length]!;
             return (
               <div
                 key={item.title}
@@ -258,7 +258,7 @@ export function Work({ lang }: { lang: Lang }) {
               className="group relative aspect-[9/16] overflow-hidden rounded-2xl border border-border bg-surface shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/40"
             >
               <img
-                src={images[i]}
+                src={images[i % images.length]}
                 alt={card.alt}
                 width={720}
                 height={1280}
