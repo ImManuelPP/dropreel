@@ -247,7 +247,7 @@ export function Problem({ lang }: { lang: Lang }) {
             const Icon = icons[i % icons.length]!;
             return (
               <article
-                key={item.title}
+                key={i}
                 data-reveal
                 style={rd(i * 100)}
                 className="reveal group rounded-2xl border border-border bg-card-gradient p-7 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/40"
@@ -285,7 +285,7 @@ export function WhatWeDo({ lang }: { lang: Lang }) {
             const Icon = icons[i % icons.length]!;
             return (
               <div
-                key={item.title}
+                key={i}
                 data-reveal
                 style={rd(i * 70)}
                 className="reveal bg-card-gradient p-7 transition-colors duration-300 hover:bg-surface-elevated"
@@ -377,7 +377,7 @@ export function HowItWorks({ lang }: { lang: Lang }) {
         </div>
         <ol className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {t.steps.map((step, i) => (
-            <li key={step.title} data-reveal style={rd(i * 100)} className="reveal relative rounded-2xl border border-border bg-card-gradient p-7">
+            <li key={i} data-reveal style={rd(i * 100)} className="reveal relative rounded-2xl border border-border bg-card-gradient p-7">
               <span className="font-mono text-xs tracking-[0.2em] text-primary">
                 {String(i + 1).padStart(2, "0")}
               </span>
