@@ -8,6 +8,7 @@ import {
   Hero,
   HowItWorks,
   Problem,
+  Vs,
   WhatWeDo,
   Work,
 } from "@/components/landing/Sections";
@@ -45,6 +46,7 @@ function Index() {
         <Hero lang={lang} />
         <Problem lang={lang} />
         <WhatWeDo lang={lang} />
+        <Vs lang={lang} />
         <HowItWorks lang={lang} />
         <Work lang={lang} />
         <Faq lang={lang} />
