@@ -145,7 +145,7 @@ export function Hero({ lang }: { lang: Lang }) {
 
 export function Problem({ lang }: { lang: Lang }) {
   const t = content[lang].problem;
-  const icons = [Flame, Clock3, Bot];
+  const icons = [Flame, Clock3, Bot] as const;
   return (
     <section className="border-t border-border/60 py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-5">
@@ -157,7 +157,7 @@ export function Problem({ lang }: { lang: Lang }) {
         </div>
         <div className="mt-12 grid gap-5 md:grid-cols-3">
           {t.items.map((item, i) => {
-            const Icon = icons[i];
+            const Icon = icons[i % icons.length];
             return (
               <article
                 key={item.title}
@@ -179,7 +179,7 @@ export function Problem({ lang }: { lang: Lang }) {
 
 export function WhatWeDo({ lang }: { lang: Lang }) {
   const t = content[lang].what;
-  const icons = [UserRound, Film, Boxes, Smartphone, Sparkles, Wand2];
+  const icons = [UserRound, Film, Boxes, Smartphone, Sparkles, Wand2] as const;
   return (
     <section id="what" className="scroll-mt-20 border-t border-border/60 py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-5">
@@ -192,7 +192,7 @@ export function WhatWeDo({ lang }: { lang: Lang }) {
         </div>
         <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
           {t.items.map((item, i) => {
-            const Icon = icons[i];
+            const Icon = icons[i % icons.length];
             return (
               <div
                 key={item.title}
