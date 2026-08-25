@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import {
   ArrowRight,
@@ -32,10 +32,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { content, type Lang } from "@/lib/i18n";
 import { sampleVideos } from "@/lib/videos";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { useScrollReveal } from "@/components/landing/Reveal";
 
 const scrollTo = (id: string) => {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
 };
+
+/** Reveal-delay helper: stagger items with style={rd(120)}. */
+const rd = (ms: number) => ({ "--reveal-delay": `${ms}ms` }) as CSSProperties;
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
@@ -100,10 +104,87 @@ export function Header({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => vo
   );
 }
 
+/** Ambient looping video backdrop for the hero — blurred full-bleed layer
+ *  plus a sharper center strip, dimmed by a dark overlay so text stays crisp.
+ *  Falls back to a static blurred poster when prefers-reduced-motion is set,
+ *  and pauses playback while the hero is scrolled out of view. */
+function HeroBackdrop() {
+  const [motionOk, setMotionOk] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const clip = sampleVideos[2]!;
+
+  useEffect(() => {
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setMotionOk(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!motionOk || !root) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        for (const v of videoRefs.current) {
+          if (!v) continue;
+          if (entry?.isIntersecting) void v.play().catch(() => {});
+          else v.pause();
+        }
+      },
+      { threshold: 0.05 },
+    );
+    observer.observe(root);
+    return () => observer.disconnect();
+  }, [motionOk]);
+
+  const setVideo = (i: number) => (el: HTMLVideoElement | null) => {
+    videoRefs.current[i] = el;
+  };
+
+  return (
+    <div ref={rootRef} className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+      {motionOk ? (
+        <>
+          <video
+            ref={setVideo(0)}
+            src={clip.src}
+            poster={clip.poster}
+            muted
+            loop
+            autoPlay
+            playsInline
+            className="absolute inset-0 h-full w-full scale-125 object-cover opacity-45 blur-2xl"
+          />
+          <div className="hero-center-fade absolute inset-y-0 left-1/2 aspect-[9/16] -translate-x-1/2">
+            <video
+              ref={setVideo(1)}
+              src={clip.src}
+              poster={clip.poster}
+              muted
+              loop
+              autoPlay
+              playsInline
+              className="h-full w-full object-cover opacity-55"
+            />
+          </div>
+        </>
+      ) : (
+        <img
+          src={clip.poster}
+          alt=""
+          className="absolute inset-0 h-full w-full scale-125 object-cover opacity-35 blur-2xl"
+        />
+      )}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background" />
+    </div>
+  );
+}
+
 export function Hero({ lang }: { lang: Lang }) {
   const t = content[lang].hero;
   return (
     <section id="top" className="relative overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-28">
+      <HeroBackdrop />
       <div className="pointer-events-none absolute inset-0 bg-hero-glow" aria-hidden />
       <div className="pointer-events-none absolute inset-0 grid-lines opacity-40" aria-hidden />
       <div className="relative mx-auto max-w-4xl px-5 text-center">
@@ -151,10 +232,11 @@ export function Hero({ lang }: { lang: Lang }) {
 export function Problem({ lang }: { lang: Lang }) {
   const t = content[lang].problem;
   const icons = [Flame, Clock3, Bot] as const;
+  const ref = useScrollReveal<HTMLElement>();
   return (
-    <section className="border-t border-border/60 py-20 sm:py-28">
+    <section ref={ref} className="border-t border-border/60 py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-5">
-        <div className="max-w-2xl">
+        <div data-reveal className="reveal max-w-2xl">
           <Eyebrow>{t.eyebrow}</Eyebrow>
           <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
             {t.title}
@@ -166,7 +248,9 @@ export function Problem({ lang }: { lang: Lang }) {
             return (
               <article
                 key={item.title}
-                className="group rounded-2xl border border-border bg-card-gradient p-7 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/40"
+                data-reveal
+                style={rd(i * 100)}
+                className="reveal group rounded-2xl border border-border bg-card-gradient p-7 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/40"
               >
                 <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-surface-elevated text-primary transition-colors group-hover:border-primary/40">
                   <Icon className="h-5 w-5" />
@@ -185,10 +269,11 @@ export function Problem({ lang }: { lang: Lang }) {
 export function WhatWeDo({ lang }: { lang: Lang }) {
   const t = content[lang].what;
   const icons = [UserRound, Film, Boxes, Smartphone, Sparkles, Wand2] as const;
+  const ref = useScrollReveal<HTMLElement>();
   return (
-    <section id="what" className="scroll-mt-20 border-t border-border/60 py-20 sm:py-28">
+    <section ref={ref} id="what" className="scroll-mt-20 border-t border-border/60 py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-5">
-        <div className="max-w-3xl">
+        <div data-reveal className="reveal max-w-3xl">
           <Eyebrow>{t.eyebrow}</Eyebrow>
           <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
             {t.title}
@@ -201,7 +286,9 @@ export function WhatWeDo({ lang }: { lang: Lang }) {
             return (
               <div
                 key={item.title}
-                className="bg-card-gradient p-7 transition-colors duration-300 hover:bg-surface-elevated"
+                data-reveal
+                style={rd(i * 70)}
+                className="reveal bg-card-gradient p-7 transition-colors duration-300 hover:bg-surface-elevated"
               >
                 <Icon className="h-5 w-5 text-primary" />
                 <h3 className="mt-4 font-semibold">{item.title}</h3>
@@ -217,10 +304,11 @@ export function WhatWeDo({ lang }: { lang: Lang }) {
 
 export function Vs({ lang }: { lang: Lang }) {
   const t = content[lang].vs;
+  const ref = useScrollReveal<HTMLElement>();
   return (
-    <section className="scroll-mt-20 border-t border-border/60 py-20 sm:py-28">
+    <section ref={ref} className="scroll-mt-20 border-t border-border/60 py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-5">
-        <div className="max-w-3xl">
+        <div data-reveal className="reveal max-w-3xl">
           <Eyebrow>{t.eyebrow}</Eyebrow>
           <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
             {t.title}
@@ -233,7 +321,7 @@ export function Vs({ lang }: { lang: Lang }) {
             VS
           </span>
 
-          <div className="rounded-2xl border border-border/60 bg-surface/40 p-6 sm:p-8">
+          <div data-reveal className="reveal rounded-2xl border border-border/60 bg-surface/40 p-6 sm:p-8">
             <div className="mb-6 flex items-center gap-3">
               <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-border/60 bg-surface-elevated/60 text-muted-foreground/70">
                 <Bot className="h-5 w-5" />
@@ -242,7 +330,7 @@ export function Vs({ lang }: { lang: Lang }) {
             </div>
             <ul className="space-y-4">
               {t.rows.map((row, i) => (
-                <li key={i} className="flex items-start gap-3">
+                <li key={i} data-reveal style={rd(120 + i * 70)} className="reveal flex items-start gap-3">
                   <X className="mt-0.5 h-5 w-5 shrink-0 text-muted-foreground/60" />
                   <span className="text-sm leading-relaxed text-muted-foreground">
                     {row.generic}
@@ -252,7 +340,7 @@ export function Vs({ lang }: { lang: Lang }) {
             </ul>
           </div>
 
-          <div className="relative rounded-2xl border border-primary/30 bg-card-gradient p-6 shadow-glow sm:p-8">
+          <div data-reveal style={rd(150)} className="reveal relative rounded-2xl border border-primary/30 bg-card-gradient p-6 shadow-glow sm:p-8">
             <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
             <div className="mb-6 flex items-center gap-3">
               <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-primary/30 bg-primary/10 text-primary">
@@ -262,7 +350,7 @@ export function Vs({ lang }: { lang: Lang }) {
             </div>
             <ul className="space-y-4">
               {t.rows.map((row, i) => (
-                <li key={i} className="flex items-start gap-3">
+                <li key={i} data-reveal style={rd(270 + i * 70)} className="reveal flex items-start gap-3">
                   <Check className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
                   <span className="text-sm leading-relaxed text-foreground">{row.dropreel}</span>
                 </li>
@@ -277,10 +365,11 @@ export function Vs({ lang }: { lang: Lang }) {
 
 export function HowItWorks({ lang }: { lang: Lang }) {
   const t = content[lang].how;
+  const ref = useScrollReveal<HTMLElement>();
   return (
-    <section id="how" className="scroll-mt-20 border-t border-border/60 py-20 sm:py-28">
+    <section ref={ref} id="how" className="scroll-mt-20 border-t border-border/60 py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-5">
-        <div className="max-w-2xl">
+        <div data-reveal className="reveal max-w-2xl">
           <Eyebrow>{t.eyebrow}</Eyebrow>
           <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
             {t.title}
@@ -288,7 +377,7 @@ export function HowItWorks({ lang }: { lang: Lang }) {
         </div>
         <ol className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {t.steps.map((step, i) => (
-            <li key={step.title} className="relative rounded-2xl border border-border bg-card-gradient p-7">
+            <li key={step.title} data-reveal style={rd(i * 100)} className="reveal relative rounded-2xl border border-border bg-card-gradient p-7">
               <span className="font-mono text-xs tracking-[0.2em] text-primary">
                 {String(i + 1).padStart(2, "0")}
               </span>
@@ -309,11 +398,12 @@ export function Work({ lang }: { lang: Lang }) {
   const [expanded, setExpanded] = useState(false);
   const [active, setActive] = useState<number | null>(null);
   const visible = expanded ? sampleVideos : sampleVideos.slice(0, WORK_INITIAL_VISIBLE);
+  const ref = useScrollReveal<HTMLElement>([expanded]);
 
   return (
-    <section id="work" className="scroll-mt-20 border-t border-border/60 py-20 sm:py-28">
+    <section ref={ref} id="work" className="scroll-mt-20 border-t border-border/60 py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-5">
-        <div className="max-w-2xl">
+        <div data-reveal className="reveal max-w-2xl">
           <Eyebrow>{t.eyebrow}</Eyebrow>
           <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
             {t.title}
@@ -328,7 +418,9 @@ export function Work({ lang }: { lang: Lang }) {
               type="button"
               onClick={() => setActive(i)}
               aria-label={t.cards[i]?.alt ?? t.play}
-              className="group relative aspect-[9/16] w-full cursor-pointer overflow-hidden rounded-2xl border border-border bg-surface shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/40"
+              data-reveal
+              style={rd((i % WORK_INITIAL_VISIBLE) * 90)}
+              className="reveal group relative aspect-[9/16] w-full cursor-pointer overflow-hidden rounded-2xl border border-border bg-surface shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/40"
             >
               <video
                 src={video.src}
@@ -404,10 +496,11 @@ export function Work({ lang }: { lang: Lang }) {
 
 export function Faq({ lang }: { lang: Lang }) {
   const t = content[lang].faq;
+  const ref = useScrollReveal<HTMLElement>();
   return (
-    <section id="faq" className="scroll-mt-20 border-t border-border/60 py-20 sm:py-28">
+    <section ref={ref} id="faq" className="scroll-mt-20 border-t border-border/60 py-20 sm:py-28">
       <div className="mx-auto grid max-w-6xl gap-12 px-5 lg:grid-cols-[0.8fr_1.2fr]">
-        <div>
+        <div data-reveal className="reveal">
           <Eyebrow>{t.eyebrow}</Eyebrow>
           <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
             {t.title}
@@ -415,7 +508,7 @@ export function Faq({ lang }: { lang: Lang }) {
         </div>
         <Accordion type="single" collapsible className="w-full">
           {t.items.map((item, i) => (
-            <AccordionItem key={i} value={`item-${i}`} className="border-border">
+            <AccordionItem key={i} value={`item-${i}`} data-reveal style={rd(i * 80)} className="reveal border-border">
               <AccordionTrigger className="text-left text-base font-medium hover:no-underline">
                 {item.q}
               </AccordionTrigger>
@@ -436,6 +529,7 @@ export function Contact({ lang }: { lang: Lang }) {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const submit = useServerFn(submitQuoteRequest);
+  const ref = useScrollReveal<HTMLElement>();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -473,10 +567,10 @@ export function Contact({ lang }: { lang: Lang }) {
 
 
   return (
-    <section id="contact" className="relative scroll-mt-20 border-t border-border/60 py-20 sm:py-28">
+    <section ref={ref} id="contact" className="relative scroll-mt-20 border-t border-border/60 py-20 sm:py-28">
       <div className="pointer-events-none absolute inset-0 bg-hero-glow opacity-70" aria-hidden />
       <div className="relative mx-auto grid max-w-6xl gap-12 px-5 lg:grid-cols-2 lg:items-start">
-        <div>
+        <div data-reveal className="reveal">
           <Eyebrow>{t.eyebrow}</Eyebrow>
           <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
             {t.title}
@@ -484,7 +578,7 @@ export function Contact({ lang }: { lang: Lang }) {
           <p className="mt-4 max-w-md leading-relaxed text-muted-foreground">{t.body}</p>
         </div>
 
-        <div className="rounded-2xl border border-border bg-card-gradient p-7 shadow-card sm:p-9">
+        <div data-reveal style={rd(120)} className="reveal rounded-2xl border border-border bg-card-gradient p-7 shadow-card sm:p-9">
           {sent ? (
             <div className="flex flex-col items-start gap-4 py-6">
               <span className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
