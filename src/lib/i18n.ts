@@ -43,7 +43,7 @@ export const content = {
     what: {
       eyebrow: "What we do",
       title: "We produce any type of AI-made video your brand needs.",
-      body: "No fixed packages, no menu of tiers. We look at your product, your offer and where the ad will run, then build the format that actually converts for it.",
+      body: "No fixed packages, no menu of tiers. We look at your product, your offer, and what's already working in your niche, then build the format that actually converts for it.",
       items: [
         {
           title: "Talking AI avatars",
@@ -80,8 +80,8 @@ export const content = {
           body: "Send us your store, your product and who buys it. A few links and existing assets are enough to start.",
         },
         {
-          title: "You get a proposal and a script",
-          body: "We come back with the format we recommend, the angle, and a written script before a single frame is produced.",
+          title: "Niche research + script",
+          body: "We study competitor ads that have been running for a while — a strong signal they're converting — then send you a proposal and script built on that structure and pacing. Never copied scripts or character designs; just a proven frame adapted to your product.",
         },
         {
           title: "Production",
@@ -193,7 +193,7 @@ export const content = {
     what: {
       eyebrow: "Qué hacemos",
       title: "Producimos cualquier tipo de vídeo con IA que tu marca necesite.",
-      body: "Sin paquetes cerrados ni menú de planes. Miramos tu producto, tu oferta y dónde se va a mostrar el anuncio, y construimos el formato que realmente convierte para eso.",
+      body: "Sin paquetes cerrados ni menú de planes. Miramos tu producto, tu oferta y lo que ya está funcionando en tu nicho, y construimos el formato que realmente convierte para eso.",
       items: [
         {
           title: "Avatares que hablan",
@@ -230,8 +230,8 @@ export const content = {
           body: "Mándanos tu tienda, el producto y quién lo compra. Con unos enlaces y los materiales que ya tengas es suficiente para empezar.",
         },
         {
-          title: "Recibes propuesta y guion",
-          body: "Te devolvemos el formato recomendado, el ángulo y un guion escrito antes de producir un solo fotograma.",
+          title: "Investigación de nicho + guion",
+          body: "Estudiamos anuncios de competidores que llevan tiempo activos — una señal clara de que están convirtiendo — y te enviamos una propuesta y guion basados en esa estructura y ritmo. Nunca copiamos guiones ni diseños de personajes; solo adaptamos un esquema probado a tu producto.",
         },
         {
           title: "Producción",
