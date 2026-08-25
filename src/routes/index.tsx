@@ -17,13 +17,13 @@ import type { Lang } from "@/lib/i18n";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Dropreel — AI-made video ads & VSLs for ecommerce brands" },
+      { title: "Droppreel — AI-made video ads & VSLs for ecommerce brands" },
       {
         name: "description",
         content:
-          "Dropreel produces AI-generated video sales letters and ad creatives for ecommerce and dropshipping brands. Any format, ready to test on Meta and TikTok.",
+          "Droppreel produces AI-generated video sales letters and ad creatives for ecommerce and dropshipping brands. Any format, ready to test on Meta and TikTok.",
       },
-      { property: "og:title", content: "Dropreel — AI-made video ads & VSLs for ecommerce brands" },
+      { property: "og:title", content: "Droppreel — AI-made video ads & VSLs for ecommerce brands" },
       {
         property: "og:description",
         content:

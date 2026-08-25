@@ -13,7 +13,7 @@ export const content = {
       badge: "AI video ad studio for ecommerce",
       title: "Scroll-stopping video ads, produced with AI — at the speed your ad account burns them.",
       subtitle:
-        "Dropreel produces AI-made VSLs and ad creatives for ecommerce and dropshipping brands. Any format your product needs, delivered ready to test on Meta and TikTok.",
+        "Droppreel produces AI-made VSLs and ad creatives for ecommerce and dropshipping brands. Any format your product needs, delivered ready to test on Meta and TikTok.",
       primary: "Get a quote",
       secondary: "See examples",
       stats: [
@@ -74,9 +74,9 @@ export const content = {
     vs: {
       eyebrow: "Not just another editor",
       title: "Generic tools edit. We build ads that sell.",
-      body: "Most freelancers and AI apps will splice your clips and call it a day. Dropreel treats your product like a growth problem — and solves it with research, script, and production.",
+      body: "Most freelancers and AI apps will splice your clips and call it a day. Droppreel treats your product like a growth problem — and solves it with research, script, and production.",
       genericTitle: "Generic editors",
-      dropreelTitle: "Dropreel",
+      dropreelTitle: "Droppreel",
       rows: [
         {
           generic: "Just edits the raw clips you send",
@@ -131,12 +131,12 @@ export const content = {
       seeLess: "Show less",
       play: "Play video with sound",
       cards: [
-        { alt: "Video ad example produced by Dropreel — clip 1" },
-        { alt: "Video ad example produced by Dropreel — clip 2" },
-        { alt: "Video ad example produced by Dropreel — clip 3" },
-        { alt: "Video ad example produced by Dropreel — clip 4" },
-        { alt: "Video ad example produced by Dropreel — clip 5" },
-        { alt: "Video ad example produced by Dropreel — clip 6" },
+        { alt: "Video ad example produced by Droppreel — clip 1" },
+        { alt: "Video ad example produced by Droppreel — clip 2" },
+        { alt: "Video ad example produced by Droppreel — clip 3" },
+        { alt: "Video ad example produced by Droppreel — clip 4" },
+        { alt: "Video ad example produced by Droppreel — clip 5" },
+        { alt: "Video ad example produced by Droppreel — clip 6" },
       ],
     },
     faq: {
@@ -198,7 +198,7 @@ export const content = {
       badge: "Estudio de vídeo con IA para ecommerce",
       title: "Anuncios en vídeo que frenan el scroll, hechos con IA — al ritmo que los quema tu cuenta publicitaria.",
       subtitle:
-        "Dropreel produce VSLs y creatividades en vídeo con IA para marcas de ecommerce y dropshipping. El formato que pida tu producto, listo para testear en Meta y TikTok.",
+        "Droppreel produce VSLs y creatividades en vídeo con IA para marcas de ecommerce y dropshipping. El formato que pida tu producto, listo para testear en Meta y TikTok.",
       primary: "Pedir presupuesto",
       secondary: "Ver ejemplos",
       stats: [
@@ -259,9 +259,9 @@ export const content = {
     vs: {
       eyebrow: "No somos otro editor más",
       title: "Las herramientas genéricas editan. Nosotros construimos anuncios que venden.",
-      body: "La mayoría de freelancers y apps de IA te cortan los clips y dan la tarea por terminada. Dropreel trata tu producto como un problema de crecimiento: lo resuelve con investigación, guion y producción.",
+      body: "La mayoría de freelancers y apps de IA te cortan los clips y dan la tarea por terminada. Droppreel trata tu producto como un problema de crecimiento: lo resuelve con investigación, guion y producción.",
       genericTitle: "Editores genéricos",
-      dropreelTitle: "Dropreel",
+      dropreelTitle: "Droppreel",
       rows: [
         {
           generic: "Solo edita el material que le mandas",
@@ -316,12 +316,12 @@ export const content = {
       seeLess: "Ver menos",
       play: "Reproducir vídeo con sonido",
       cards: [
-        { alt: "Ejemplo de anuncio en vídeo producido por Dropreel — clip 1" },
-        { alt: "Ejemplo de anuncio en vídeo producido por Dropreel — clip 2" },
-        { alt: "Ejemplo de anuncio en vídeo producido por Dropreel — clip 3" },
-        { alt: "Ejemplo de anuncio en vídeo producido por Dropreel — clip 4" },
-        { alt: "Ejemplo de anuncio en vídeo producido por Dropreel — clip 5" },
-        { alt: "Ejemplo de anuncio en vídeo producido por Dropreel — clip 6" },
+        { alt: "Ejemplo de anuncio en vídeo producido por Droppreel — clip 1" },
+        { alt: "Ejemplo de anuncio en vídeo producido por Droppreel — clip 2" },
+        { alt: "Ejemplo de anuncio en vídeo producido por Droppreel — clip 3" },
+        { alt: "Ejemplo de anuncio en vídeo producido por Droppreel — clip 4" },
+        { alt: "Ejemplo de anuncio en vídeo producido por Droppreel — clip 5" },
+        { alt: "Ejemplo de anuncio en vídeo producido por Droppreel — clip 6" },
       ],
     },
     faq: {
