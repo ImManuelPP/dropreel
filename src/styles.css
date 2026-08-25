@@ -135,3 +135,35 @@
   background-size: 64px 64px;
   mask-image: radial-gradient(ellipse 70% 50% at 50% 0%, black, transparent 75%);
 }
+
+/*
+ * Scroll reveal — elements tagged `data-reveal` + `.reveal` fade/slide in
+ * when `is-visible` is added by useScrollReveal. Stagger via --reveal-delay.
+ */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 640ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 640ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Fades the side edges of the sharp center strip in the hero backdrop. */
+.hero-center-fade {
+  mask-image: linear-gradient(to right, transparent, black 24%, black 76%, transparent);
+}
