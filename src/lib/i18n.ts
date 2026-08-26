@@ -11,7 +11,7 @@ export const content = {
     },
     hero: {
       badge: "AI video ad studio for ecommerce",
-      title: "Scroll-stopping video ads, produced with AI — at the speed your ad account burns them.",
+      title: "Scroll-stopping video ads, produced with AI — built to grow your sales.",
       subtitle:
         "Droppreel produces AI-made VSLs and ad creatives for ecommerce and dropshipping brands. Any format your product needs, delivered ready to test on Meta and TikTok.",
       primary: "Get a quote",
@@ -196,7 +196,7 @@ export const content = {
     },
     hero: {
       badge: "Estudio de vídeo con IA para ecommerce",
-      title: "Anuncios en vídeo que frenan el scroll, hechos con IA — al ritmo que los quema tu cuenta publicitaria.",
+      title: "Anuncios en vídeo que frenan el scroll, hechos con IA — pensados para aumentar tus ventas.",
       subtitle:
         "Droppreel produce VSLs y creatividades en vídeo con IA para marcas de ecommerce y dropshipping. El formato que pida tu producto, listo para testear en Meta y TikTok.",
       primary: "Pedir presupuesto",
