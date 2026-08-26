@@ -77,11 +77,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Droppreel — AI-made video ads for ecommerce brands" },
+      { title: "Droppreel — Anuncios en vídeo con IA para marcas de ecommerce" },
       {
         name: "description",
         content:
-          "AI-generated VSLs and ad creatives for ecommerce and dropshipping brands.",
+          "VSLs y creatividades publicitarias generadas con IA para marcas de ecommerce y dropshipping.",
       },
       { name: "author", content: "Droppreel" },
       { property: "og:type", content: "website" },
