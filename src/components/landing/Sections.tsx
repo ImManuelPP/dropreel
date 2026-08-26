@@ -604,7 +604,7 @@ export function Contact({ lang }: { lang: Lang }) {
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="brand">{t.brand}</Label>
-                <Input id="brand" name="brand" required />
+                <Input id="brand" name="brand" />
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="needs">{t.needs}</Label>

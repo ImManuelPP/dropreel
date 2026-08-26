@@ -47,7 +47,7 @@ function QuoteNotification({ id, name, email, brand, needs, budget }: QuoteNotif
   return (
     <Html>
       <Head />
-      <Preview>New quote request from {name || 'a visitor'} ({brand || 'unknown brand'})</Preview>
+      <Preview>New quote request from {name || 'a visitor'} ({brand || 'brand not provided'})</Preview>
       <Body style={{ margin: 0, backgroundColor: '#f4f4f5', fontFamily: 'Helvetica, Arial, sans-serif' }}>
         <Container
           style={{
@@ -68,7 +68,7 @@ function QuoteNotification({ id, name, email, brand, needs, budget }: QuoteNotif
           <Hr style={{ borderColor: '#e4e4e7', margin: '0 0 24px' }} />
           <Field label="Name" value={name} />
           <Field label="Email" value={email} />
-          <Field label="Brand" value={brand} />
+          <Field label="Brand" value={brand || '(not provided)'} />
           <Field label="What they need" value={needs} />
           <Field label="Budget note" value={budget || undefined} />
         </Container>
@@ -80,7 +80,7 @@ function QuoteNotification({ id, name, email, brand, needs, budget }: QuoteNotif
 export const template = {
   component: QuoteNotification,
   subject: (data: Record<string, any>) =>
-    `New quote request — ${data['brand'] || 'Unknown brand'} (${data['name'] || 'Unknown'})`,
+    `New quote request — ${data['brand'] || 'No brand provided'} (${data['name'] || 'Unknown'})`,
   displayName: 'Quote request notification',
   to: 'srpareja20@gmail.com',
   previewData: {
