@@ -21,7 +21,7 @@ interface QuoteNotificationProps {
   budget?: string
 }
 
-function Field({ label, value }: { label: string; value?: string }) {
+function Field({ label, value }: { label: string; value?: string | undefined }) {
   return (
     <Section style={{ marginBottom: '12px' }}>
       <Text
