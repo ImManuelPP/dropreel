@@ -48,6 +48,8 @@ function Index() {
     document.querySelector('meta[property="og:title"]')?.setAttribute("content", document.title);
     document.querySelector('meta[property="og:description"]')?.setAttribute("content", desc);
   }, [lang]);
+
+  return (
     <div className="min-h-screen bg-background">
       <Header lang={lang} setLang={setLang} />
       <main>
