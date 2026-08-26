@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Contact,
   Faq,
@@ -12,22 +12,22 @@ import {
   WhatWeDo,
   Work,
 } from "@/components/landing/Sections";
-import type { Lang } from "@/lib/i18n";
+import { content, type Lang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Droppreel — AI-made video ads & VSLs for ecommerce brands" },
+      { title: "Droppreel — Anuncios en vídeo con IA y VSLs para marcas de ecommerce" },
       {
         name: "description",
         content:
-          "Droppreel produces AI-generated video sales letters and ad creatives for ecommerce and dropshipping brands. Any format, ready to test on Meta and TikTok.",
+          "Droppreel produce VSLs y creatividades publicitarias generadas con IA para marcas de ecommerce y dropshipping. Cualquier formato, listo para testear en Meta y TikTok.",
       },
-      { property: "og:title", content: "Droppreel — AI-made video ads & VSLs for ecommerce brands" },
+      { property: "og:title", content: "Droppreel — Anuncios en vídeo con IA y VSLs para marcas de ecommerce" },
       {
         property: "og:description",
         content:
-          "AI-made VSLs and ad creatives for ecommerce brands: talking avatars, narrated b-roll, 3D animation. Get a quote.",
+          "VSLs y creatividades publicitarias hechas con IA para marcas de ecommerce: avatares hablados, metraje narrado, animación 3D. Pide presupuesto.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -37,9 +37,17 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const [lang, setLang] = useState<Lang>("en");
+  const [lang, setLang] = useState<Lang>("es");
 
-  return (
+  useEffect(() => {
+    const t = content[lang];
+    document.documentElement.lang = lang;
+    document.title = `${t.hero.badge} · Droppreel`;
+    const desc = `${t.hero.subtitle.slice(0, 155)}${t.hero.subtitle.length > 155 ? "..." : ""}`;
+    document.querySelector('meta[name="description"]')?.setAttribute("content", desc);
+    document.querySelector('meta[property="og:title"]')?.setAttribute("content", document.title);
+    document.querySelector('meta[property="og:description"]')?.setAttribute("content", desc);
+  }, [lang]);
     <div className="min-h-screen bg-background">
       <Header lang={lang} setLang={setLang} />
       <main>
