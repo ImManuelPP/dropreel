@@ -7,7 +7,7 @@ import type { Database } from "@/integrations/supabase/types";
 export const quoteSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
   email: z.string().trim().email("Invalid email address").max(255),
-  brand: z.string().trim().min(1, "Brand is required").max(150),
+  brand: z.string().trim().max(150).optional().default(""),
   needs: z.string().trim().min(1, "Please describe what you need").max(2000),
   budget: z.string().trim().max(200).optional().default(""),
 });
@@ -37,7 +37,7 @@ export const submitQuoteRequest = createServerFn({ method: "POST" })
         id,
         name: data.name,
         email: data.email,
-        brand: data.brand,
+        brand: data.brand || null,
         needs: data.needs,
         budget: data.budget || null,
       });
