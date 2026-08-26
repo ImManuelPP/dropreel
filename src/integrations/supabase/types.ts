@@ -16,7 +16,7 @@ export type Database = {
     Tables: {
       quote_requests: {
         Row: {
-          brand: string
+          brand: string | null
           budget: string | null
           email: string
           id: string
@@ -25,7 +25,7 @@ export type Database = {
           submitted_at: string
         }
         Insert: {
-          brand: string
+          brand?: string | null
           budget?: string | null
           email: string
           id?: string
@@ -34,7 +34,7 @@ export type Database = {
           submitted_at?: string
         }
         Update: {
-          brand?: string
+          brand?: string | null
           budget?: string | null
           email?: string
           id?: string
