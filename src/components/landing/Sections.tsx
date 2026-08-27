@@ -89,8 +89,10 @@ export function Header({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => vo
               </button>
             ))}
           </div>
-          <Button size="sm" onClick={() => scrollTo("contact")} className="hidden sm:inline-flex">
-            {t.nav.cta}
+          <Button size="sm" asChild className="hidden sm:inline-flex">
+            <a href={content[lang].contact.whatsappUrl} target="_blank" rel="noopener noreferrer">
+              {t.nav.cta}
+            </a>
           </Button>
         </div>
       </div>
