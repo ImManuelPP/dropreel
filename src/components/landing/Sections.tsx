@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
-import { useServerFn } from "@tanstack/react-start";
 import {
   ArrowRight,
   Play,
@@ -14,11 +13,9 @@ import {
   Wand2,
   Check,
   X,
-  Loader2,
   Plus,
   Minus,
 } from "lucide-react";
-import { quoteSchema, submitQuoteRequest } from "@/lib/quote.functions";
 import {
   Accordion,
   AccordionContent,
@@ -26,9 +23,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { content, type Lang } from "@/lib/i18n";
 import { sampleVideos } from "@/lib/videos";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
@@ -95,8 +89,10 @@ export function Header({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => vo
               </button>
             ))}
           </div>
-          <Button size="sm" onClick={() => scrollTo("contact")} className="hidden sm:inline-flex">
-            {t.nav.cta}
+          <Button size="sm" asChild className="hidden sm:inline-flex">
+            <a href={content[lang].contact.whatsappUrl} target="_blank" rel="noopener noreferrer">
+              {t.nav.cta}
+            </a>
           </Button>
         </div>
       </div>
@@ -199,9 +195,11 @@ export function Hero({ lang }: { lang: Lang }) {
           {t.subtitle}
         </p>
         <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <Button size="lg" className="w-full sm:w-auto" onClick={() => scrollTo("contact")}>
-            {t.primary}
-            <ArrowRight className="h-4 w-4" />
+          <Button size="lg" className="w-full sm:w-auto" asChild>
+            <a href={content[lang].contact.whatsappUrl} target="_blank" rel="noopener noreferrer">
+              {t.primary}
+              <ArrowRight className="h-4 w-4" />
+            </a>
           </Button>
           <Button
             size="lg"
@@ -465,9 +463,11 @@ export function Work({ lang }: { lang: Lang }) {
         ) : null}
 
         <div className="mt-10 flex justify-center">
-          <Button variant="outline" size="lg" onClick={() => scrollTo("contact")}>
-            {t.cta}
-            <ArrowRight className="h-4 w-4" />
+          <Button variant="outline" size="lg" asChild>
+            <a href={content[lang].contact.whatsappUrl} target="_blank" rel="noopener noreferrer">
+              {t.cta}
+              <ArrowRight className="h-4 w-4" />
+            </a>
           </Button>
         </div>
       </div>
@@ -525,112 +525,26 @@ export function Faq({ lang }: { lang: Lang }) {
 
 export function Contact({ lang }: { lang: Lang }) {
   const t = content[lang].contact;
-  const [sent, setSent] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const submit = useServerFn(submitQuoteRequest);
   const ref = useScrollReveal<HTMLElement>();
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (submitting) return;
-    setError(null);
-    const form = e.currentTarget;
-    const fd = new FormData(form);
-    const parsed = quoteSchema.safeParse({
-      name: String(fd.get("name") ?? ""),
-      email: String(fd.get("email") ?? ""),
-      brand: String(fd.get("brand") ?? ""),
-      needs: String(fd.get("needs") ?? ""),
-      budget: String(fd.get("budget") ?? ""),
-    });
-    if (!parsed.success) {
-      setError(parsed.error.issues[0]?.message ?? "Please check the form fields.");
-      return;
-    }
-    setSubmitting(true);
-    try {
-      await submit({ data: parsed.data });
-      form.reset();
-      setSent(true);
-    } catch (err) {
-      console.error(err);
-      setError(
-        err instanceof Error && err.message
-          ? err.message
-          : "Something went wrong. Please try again.",
-      );
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-
   return (
     <section ref={ref} id="contact" className="relative scroll-mt-20 border-t border-border/60 py-20 sm:py-28">
       <div className="pointer-events-none absolute inset-0 bg-hero-glow opacity-70" aria-hidden />
-      <div className="relative mx-auto grid max-w-6xl gap-12 px-5 lg:grid-cols-2 lg:items-start">
+      <div className="relative mx-auto max-w-3xl px-5 text-center">
         <div data-reveal className="reveal">
           <Eyebrow>{t.eyebrow}</Eyebrow>
           <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
             {t.title}
           </h2>
-          <p className="mt-4 max-w-md leading-relaxed text-muted-foreground">{t.body}</p>
+          <p className="mx-auto mt-4 max-w-xl leading-relaxed text-muted-foreground">{t.body}</p>
         </div>
 
-        <div data-reveal style={rd(120)} className="reveal rounded-2xl border border-border bg-card-gradient p-7 shadow-card sm:p-9">
-          {sent ? (
-            <div className="flex flex-col items-start gap-4 py-6">
-              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                <Check className="h-6 w-6" />
-              </span>
-              <h3 className="text-xl font-semibold">{t.successTitle}</h3>
-              <p className="text-sm leading-relaxed text-muted-foreground">{t.successBody}</p>
-              <Button variant="outline" size="sm" onClick={() => setSent(false)}>
-                {t.again}
-              </Button>
-            </div>
-          ) : (
-            <form className="grid gap-5" onSubmit={handleSubmit}>
-              <div className="grid gap-5 sm:grid-cols-2">
-                <div className="grid gap-2">
-                  <Label htmlFor="name">{t.name}</Label>
-                  <Input id="name" name="name" required autoComplete="name" />
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="email">{t.email}</Label>
-                  <Input id="email" name="email" type="email" required autoComplete="email" />
-                </div>
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="brand">{t.brand}</Label>
-                <Input id="brand" name="brand" />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="needs">{t.needs}</Label>
-                <Textarea id="needs" name="needs" rows={4} required placeholder={t.needsPlaceholder} />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="budget">{t.budget}</Label>
-                <Input id="budget" name="budget" placeholder={t.budgetPlaceholder} />
-              </div>
-              {error ? (
-                <p role="alert" className="text-sm text-destructive">
-                  {error}
-                </p>
-              ) : null}
-              <Button type="submit" size="lg" className="mt-1 w-full" disabled={submitting}>
-                {submitting ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                ) : (
-                  <>
-                    {t.submit}
-                    <ArrowRight className="h-4 w-4" />
-                  </>
-                )}
-              </Button>
-            </form>
-          )}
+        <div data-reveal style={rd(120)} className="reveal mt-10">
+          <Button size="lg" className="w-full sm:w-auto" asChild>
+            <a href={t.whatsappUrl} target="_blank" rel="noopener noreferrer">
+              {t.cta}
+              <ArrowRight className="h-4 w-4" />
+            </a>
+          </Button>
         </div>
       </div>
     </section>
