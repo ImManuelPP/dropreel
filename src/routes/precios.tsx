@@ -152,9 +152,8 @@ function PreciosPage() {
 
           <div className="mt-8 rounded-xl border border-border/60 bg-surface/50 p-5 text-sm leading-relaxed text-muted-foreground">
             <p>
-              Estos precios son de referencia, calculados para la duración estándar de cada formato
-              (hasta ~45 segundos). Si el research previo de tu nicho muestra que conviene un vídeo
-              más largo (por ejemplo, 2-3 minutos), el presupuesto se ajusta a esa duración real —{" "}
+              Estos precios cubren vídeos de hasta 2-3 minutos de duración. Si el research de tu nicho
+              recomienda un formato más largo, el presupuesto se ajusta a esa duración real —{" "}
               <span className="font-medium text-foreground">nunca se factura de más</span> sin
               decírtelo antes.
             </p>
