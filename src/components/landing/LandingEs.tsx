@@ -28,6 +28,68 @@ import { useScrollReveal } from "@/components/landing/Reveal";
 export const WHATSAPP_URL =
   "https://wa.me/34603053272?text=%C2%A1Hola%21%20Me%20gustar%C3%ADa%20pedir%20un%20presupuesto%20para%20un%20v%C3%ADdeo.";
 
+/**
+ * Fila que se desplaza sola de forma continua, pero el usuario puede tomar
+ * el control en cualquier momento arrastrando con el dedo o el ratón — al
+ * soltar, retoma el deslizamiento automático tras una pausa breve. El
+ * contenido que se le pase ya tiene que venir duplicado una vez (2x) para
+ * que el bucle sea perfecto (al llegar a la mitad del ancho total, se
+ * reinicia justo donde empezaba la copia).
+ */
+function useAutoScrollRow(speedPxPerSec = 36) {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let raf = 0;
+    let last = performance.now();
+    let paused = false;
+    let resumeTimer: ReturnType<typeof setTimeout>;
+
+    const tick = (now: number) => {
+      const dt = (now - last) / 1000;
+      last = now;
+      if (!paused) el.scrollLeft += speedPxPerSec * dt;
+      const half = el.scrollWidth / 2;
+      if (half > 0) {
+        if (el.scrollLeft >= half) el.scrollLeft -= half;
+        else if (el.scrollLeft < 0) el.scrollLeft += half;
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+
+    const pause = () => {
+      paused = true;
+      clearTimeout(resumeTimer);
+    };
+    const scheduleResume = () => {
+      clearTimeout(resumeTimer);
+      resumeTimer = setTimeout(() => {
+        paused = false;
+        last = performance.now();
+      }, 1500);
+    };
+
+    el.addEventListener("pointerdown", pause);
+    el.addEventListener("pointerup", scheduleResume);
+    el.addEventListener("pointercancel", scheduleResume);
+    el.addEventListener("pointerleave", scheduleResume);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(resumeTimer);
+      el.removeEventListener("pointerdown", pause);
+      el.removeEventListener("pointerup", scheduleResume);
+      el.removeEventListener("pointercancel", scheduleResume);
+      el.removeEventListener("pointerleave", scheduleResume);
+    };
+  }, [speedPxPerSec]);
+  return ref;
+}
+
 const rd = (ms: number) => ({ "--reveal-delay": `${ms}ms` }) as CSSProperties;
 
 function Eyebrow({ children }: { children: ReactNode }) {
@@ -292,9 +354,10 @@ export function Formats() {
       tag: "[EJEMPLO FORMATO 3]",
     },
   ];
-  // Se duplica una vez para que el bucle de la marquesina sea perfecto: al
-  // desplazarse -50% queda justo donde empezaba la copia, sin salto visible.
+  // Se duplica una vez para que el bucle sea perfecto: al llegar a la
+  // mitad del scroll total, se reinicia justo donde empezaba la copia.
   const looped = [...formats, ...formats];
+  const rowRef = useAutoScrollRow(36);
   return (
     <Section id="formatos">
       <div data-reveal className="reveal max-w-2xl">
@@ -303,31 +366,35 @@ export function Formats() {
           No es un formato. Son 3.
         </h2>
       </div>
-      <div data-reveal className="reveal mt-12 overflow-hidden">
-        <div className="animate-marquee flex w-max gap-6">
-          {looped.map((f, i) => (
-            <div
-              key={`${f.title}-${i}`}
-              className="w-64 shrink-0 sm:w-72"
-              aria-hidden={i >= formats.length}
-            >
-              <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
-                {f.tagLabel}
-              </span>
-              <Placeholder label={f.tag} className="mt-3 aspect-[9/16] w-full" />
-              <h3 className="mt-4 font-semibold">{f.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.body}</p>
-            </div>
-          ))}
-        </div>
+      <div
+        data-reveal
+        ref={rowRef}
+        className="reveal no-scrollbar mt-12 flex touch-pan-x gap-6 overflow-x-auto"
+      >
+        {looped.map((f, i) => (
+          <div
+            key={`${f.title}-${i}`}
+            className="w-64 shrink-0 sm:w-72"
+            aria-hidden={i >= formats.length}
+          >
+            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+              {f.tagLabel}
+            </span>
+            <Placeholder label={f.tag} className="mt-3 aspect-[9/16] w-full" />
+            <h3 className="mt-4 font-semibold">{f.title}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.body}</p>
+          </div>
+        ))}
       </div>
     </Section>
   );
 }
 
-/* 6 — Ejemplos reales */
+/* 6 — Ejemplos reales (carrusel que se desliza solo, arrastrable con el dedo) */
 export function RealExamples() {
-  const [active, setActive] = useState<number | null>(null);
+  const examples = Array.from({ length: 6 }, (_, i) => `[EJEMPLO REAL ${i + 1}]`);
+  const looped = [...examples, ...examples];
+  const rowRef = useAutoScrollRow(40);
   return (
     <Section id="ejemplos">
       <div data-reveal className="reveal max-w-2xl">
@@ -339,38 +406,21 @@ export function RealExamples() {
           Ningún actor, ninguna cámara — 100% generado con IA.
         </p>
       </div>
-      <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {sampleVideos.map((v, i) => (
-          <div key={v.src} data-reveal style={rd((i % 3) * 90)} className="reveal">
-            <VideoCard
-              src={v.src}
-              poster={v.poster}
-              label={`Ejemplo real ${i + 1}`}
-              onClick={() => setActive(i)}
-            />
-            <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.18em] text-primary/70">
-              {`[EJEMPLO REAL ${i + 1}]`}
-            </p>
+      <div
+        data-reveal
+        ref={rowRef}
+        className="reveal no-scrollbar mt-12 flex touch-pan-x gap-6 overflow-x-auto"
+      >
+        {looped.map((tag, i) => (
+          <div
+            key={`${tag}-${i}`}
+            className="w-56 shrink-0 sm:w-64"
+            aria-hidden={i >= examples.length}
+          >
+            <Placeholder label={tag} className="aspect-[9/16] w-full" />
           </div>
         ))}
       </div>
-
-      <Dialog open={active !== null} onOpenChange={(o) => !o && setActive(null)}>
-        <DialogContent className="w-auto max-w-[92vw] gap-0 border-border bg-background p-2 sm:max-w-[92vw] sm:p-3">
-          <DialogTitle className="sr-only">Ejemplo real</DialogTitle>
-          {active !== null && sampleVideos[active] ? (
-            <video
-              key={sampleVideos[active]!.src}
-              src={sampleVideos[active]!.src}
-              poster={sampleVideos[active]!.poster}
-              controls
-              autoPlay
-              playsInline
-              className="h-auto max-h-[82vh] w-auto max-w-[86vw] rounded-xl"
-            />
-          ) : null}
-        </DialogContent>
-      </Dialog>
     </Section>
   );
 }
