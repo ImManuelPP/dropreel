@@ -124,8 +124,8 @@ export function AlertBanner() {
     <div className="fixed inset-x-0 top-0 z-50 border-b border-primary/30 bg-primary/10 backdrop-blur-md">
       <p className="mx-auto flex max-w-6xl items-center justify-center gap-2 px-4 py-2 text-center text-xs font-medium text-primary sm:text-sm">
         <AlertTriangle className="hidden h-4 w-4 shrink-0 sm:block" />
-        Si llevas meses pagando pauta con el mismo anuncio, no tienes un problema de
-        presupuesto: tienes un problema de creatividades.
+        Si llevas meses pagando pauta con el mismo anuncio, no tienes un problema de presupuesto:
+        tienes un problema de creatividades.
       </p>
     </div>
   );
@@ -157,11 +157,7 @@ export function HeroEs() {
   const clip = sampleVideos[2]!;
   const ref = useScrollReveal<HTMLElement>();
   return (
-    <section
-      ref={ref}
-      id="top"
-      className="relative overflow-hidden pt-36 pb-16 sm:pt-44 sm:pb-24"
-    >
+    <section ref={ref} id="top" className="relative overflow-hidden pt-36 pb-16 sm:pt-44 sm:pb-24">
       <div className="pointer-events-none absolute inset-0 bg-hero-glow" aria-hidden />
       <div className="pointer-events-none absolute inset-0 grid-lines opacity-40" aria-hidden />
       <div className="relative mx-auto max-w-4xl px-5 text-center">
@@ -176,9 +172,9 @@ export function HeroEs() {
           </span>
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-pretty leading-relaxed text-muted-foreground sm:text-lg">
-          Estudiamos qué anuncios ya funcionan en tu nicho y producimos tus vídeos con IA:
-          avatares que hablan, VSLs narrados en off y animación 3D. Tú pones el producto,
-          nosotros ponemos las creatividades.
+          Estudiamos qué anuncios ya funcionan en tu nicho y producimos tus vídeos con IA: avatares
+          que hablan, VSLs narrados en off y animación 3D. Tú pones el producto, nosotros ponemos
+          las creatividades.
         </p>
         <div className="mx-auto mt-10 max-w-xs">
           <VideoCard
@@ -219,8 +215,8 @@ export function Trust() {
           El sistema que ya usamos con marcas reales
         </p>
         <p className="mt-4 text-pretty text-lg leading-relaxed text-foreground">
-          Mismo método en cada proyecto: research del nicho, guion a medida y producción
-          íntegra con IA. Sin actores, sin rodajes, sin esperas de semanas.
+          Mismo método en cada proyecto: research del nicho, guion a medida y producción íntegra con
+          IA. Sin actores, sin rodajes, sin esperas de semanas.
         </p>
       </div>
     </Section>
@@ -274,32 +270,31 @@ export function ProblemEs() {
   );
 }
 
-/* 5 — Carrusel de formatos (desliza horizontal, etiqueta encima del vídeo) */
+/* 5 — Carrusel de formatos (desliza solo, en bucle continuo) */
 export function Formats() {
   const formats = [
     {
       tagLabel: "AVATAR DE IA",
       title: "Avatar de IA que habla",
       body: "Un personaje hablando a cámara: gancho directo, testimonio o explicación de producto.",
-      video: sampleVideos[0]!,
       tag: "[EJEMPLO FORMATO 1]",
     },
     {
       tagLabel: "VSL NARRADO",
       title: "VSL narrado en off",
       body: "Voz en off sobre imágenes reales de tu producto y b-roll, con estructura de VSL.",
-      video: sampleVideos[1]!,
       tag: "[EJEMPLO FORMATO 2]",
     },
     {
       tagLabel: "ANIMACIÓN 3D",
       title: "Animación 3D con sincronía labial",
       body: "Personaje animado en 3D que habla o canta, ideal para marcas con carácter propio.",
-      video: sampleVideos[2]!,
       tag: "[EJEMPLO FORMATO 3]",
     },
   ];
-  const [active, setActive] = useState<number | null>(null);
+  // Se duplica una vez para que el bucle de la marquesina sea perfecto: al
+  // desplazarse -50% queda justo donde empezaba la copia, sin salto visible.
+  const looped = [...formats, ...formats];
   return (
     <Section id="formatos">
       <div data-reveal className="reveal max-w-2xl">
@@ -308,54 +303,24 @@ export function Formats() {
           No es un formato. Son 3.
         </h2>
       </div>
-      <div className="-mx-5 mt-12 overflow-x-auto px-5 pb-2">
-        <div className="flex snap-x snap-mandatory gap-6">
-          {formats.map((f, i) => (
+      <div data-reveal className="reveal mt-12 overflow-hidden">
+        <div className="animate-marquee flex w-max gap-6">
+          {looped.map((f, i) => (
             <div
-              key={f.title}
-              data-reveal
-              style={rd(i * 90)}
-              className="reveal w-64 shrink-0 snap-start sm:w-72"
+              key={`${f.title}-${i}`}
+              className="w-64 shrink-0 sm:w-72"
+              aria-hidden={i >= formats.length}
             >
               <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
                 {f.tagLabel}
               </span>
-              <div className="mt-3">
-                <VideoCard
-                  src={f.video.src}
-                  poster={f.video.poster}
-                  label={f.title}
-                  onClick={() => setActive(i)}
-                />
-              </div>
+              <Placeholder label={f.tag} className="mt-3 aspect-[9/16] w-full" />
               <h3 className="mt-4 font-semibold">{f.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.body}</p>
-              <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.18em] text-primary/70">
-                {f.tag}
-              </p>
             </div>
           ))}
         </div>
       </div>
-
-      <Dialog open={active !== null} onOpenChange={(o) => !o && setActive(null)}>
-        <DialogContent className="w-auto max-w-[92vw] gap-0 border-border bg-background p-2 sm:max-w-[92vw] sm:p-3">
-          <DialogTitle className="sr-only">
-            {active !== null ? formats[active]!.title : "Vídeo"}
-          </DialogTitle>
-          {active !== null ? (
-            <video
-              key={formats[active]!.video.src}
-              src={formats[active]!.video.src}
-              poster={formats[active]!.video.poster}
-              controls
-              autoPlay
-              playsInline
-              className="h-auto max-h-[82vh] w-auto max-w-[86vw] rounded-xl"
-            />
-          ) : null}
-        </DialogContent>
-      </Dialog>
     </Section>
   );
 }
@@ -534,7 +499,11 @@ export function IsThisForYou() {
             ))}
           </ul>
         </div>
-        <div data-reveal style={rd(120)} className="reveal rounded-2xl border border-border/60 bg-surface/40 p-7">
+        <div
+          data-reveal
+          style={rd(120)}
+          className="reveal rounded-2xl border border-border/60 bg-surface/40 p-7"
+        >
           <h3 className="text-lg font-semibold text-muted-foreground">No es para ti si…</h3>
           <ul className="mt-5 space-y-3">
             {[
