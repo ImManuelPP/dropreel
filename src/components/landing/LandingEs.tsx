@@ -274,22 +274,25 @@ export function ProblemEs() {
   );
 }
 
-/* 5 — Rejilla de formatos */
+/* 5 — Carrusel de formatos (desliza horizontal, etiqueta encima del vídeo) */
 export function Formats() {
   const formats = [
     {
+      tagLabel: "AVATAR DE IA",
       title: "Avatar de IA que habla",
       body: "Un personaje hablando a cámara: gancho directo, testimonio o explicación de producto.",
       video: sampleVideos[0]!,
       tag: "[EJEMPLO FORMATO 1]",
     },
     {
+      tagLabel: "VSL NARRADO",
       title: "VSL narrado en off",
       body: "Voz en off sobre imágenes reales de tu producto y b-roll, con estructura de VSL.",
       video: sampleVideos[1]!,
       tag: "[EJEMPLO FORMATO 2]",
     },
     {
+      tagLabel: "ANIMACIÓN 3D",
       title: "Animación 3D con sincronía labial",
       body: "Personaje animado en 3D que habla o canta, ideal para marcas con carácter propio.",
       video: sampleVideos[2]!,
@@ -305,22 +308,34 @@ export function Formats() {
           No es un formato. Son 3.
         </h2>
       </div>
-      <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {formats.map((f, i) => (
-          <div key={f.title} data-reveal style={rd(i * 90)} className="reveal">
-            <VideoCard
-              src={f.video.src}
-              poster={f.video.poster}
-              label={f.title}
-              onClick={() => setActive(i)}
-            />
-            <h3 className="mt-4 font-semibold">{f.title}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.body}</p>
-            <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.18em] text-primary/70">
-              {f.tag}
-            </p>
-          </div>
-        ))}
+      <div className="-mx-5 mt-12 overflow-x-auto px-5 pb-2">
+        <div className="flex snap-x snap-mandatory gap-6">
+          {formats.map((f, i) => (
+            <div
+              key={f.title}
+              data-reveal
+              style={rd(i * 90)}
+              className="reveal w-64 shrink-0 snap-start sm:w-72"
+            >
+              <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                {f.tagLabel}
+              </span>
+              <div className="mt-3">
+                <VideoCard
+                  src={f.video.src}
+                  poster={f.video.poster}
+                  label={f.title}
+                  onClick={() => setActive(i)}
+                />
+              </div>
+              <h3 className="mt-4 font-semibold">{f.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.body}</p>
+              <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.18em] text-primary/70">
+                {f.tag}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
 
       <Dialog open={active !== null} onOpenChange={(o) => !o && setActive(null)}>
