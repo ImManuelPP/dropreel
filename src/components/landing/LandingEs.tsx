@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { Link } from "@tanstack/react-router";
 import {
   AlertTriangle,
   ArrowRight,
@@ -639,10 +640,13 @@ export function Offer() {
         style={rd(120)}
         className="reveal mx-auto mt-10 max-w-xl rounded-2xl border border-primary/30 bg-card-gradient p-8 text-center shadow-glow"
       >
-        <p className="font-mono text-3xl font-semibold tracking-tight text-primary">[PRECIO]</p>
+        <p className="font-mono text-3xl font-semibold tracking-tight text-primary">
+          Desde 65€/vídeo
+        </p>
+        <p className="mt-1 text-sm text-muted-foreground">En pack mensual · precio por formato</p>
         <ul className="mt-6 space-y-3 text-left">
           {[
-            "[NÚMERO DE VÍDEOS] vídeos al mes en los formatos que elijas.",
+            "8 vídeos al mes en los formatos que elijas (avatar, VSL o 3D).",
             "Research de nicho y guion incluidos en cada vídeo.",
             "Variantes de gancho para testear.",
             "Entrega en [DÍAS DE ENTREGA] días.",
@@ -653,8 +657,14 @@ export function Offer() {
             </li>
           ))}
         </ul>
-        <div className="mt-8 flex justify-center">
+        <div className="mt-8 flex flex-col items-center gap-3">
           <Cta />
+          <Link
+            to="/precios"
+            className="text-sm text-muted-foreground underline-offset-4 hover:text-primary hover:underline"
+          >
+            Ver precio por formato →
+          </Link>
         </div>
       </div>
     </Section>
