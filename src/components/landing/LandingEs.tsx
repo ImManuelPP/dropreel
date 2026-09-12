@@ -111,6 +111,24 @@ function Placeholder({ label, className = "" }: { label: string; className?: str
   );
 }
 
+/**
+ * Hueco de vídeo a pantalla casi completa, sin borde ni recuadro de
+ * "pendiente" — para los carruseles de Formatos y Ejemplos reales, donde
+ * el vídeo (cuando lo haya) debe ocupar casi toda la altura visible, como
+ * en la referencia del competidor, no una cajita pequeña con marco.
+ */
+function MediaSlot({ label, className = "" }: { label: string; className?: string }) {
+  return (
+    <div
+      className={`relative flex aspect-[9/16] items-end overflow-hidden rounded-xl bg-surface-elevated ${className}`}
+    >
+      <span className="w-full bg-gradient-to-t from-black/70 to-transparent p-3 text-center font-mono text-[10px] uppercase tracking-[0.18em] text-primary/80">
+        {label}
+      </span>
+    </div>
+  );
+}
+
 function Cta({ label = "Pide tu presupuesto", size = "lg" as const }) {
   return (
     <Button size={size} asChild className="w-full sm:w-auto">
@@ -366,25 +384,24 @@ export function Formats() {
           No es un formato. Son 3.
         </h2>
       </div>
-      <div
-        data-reveal
-        ref={rowRef}
-        className="reveal no-scrollbar mt-12 flex touch-pan-x gap-6 overflow-x-auto"
-      >
-        {looped.map((f, i) => (
-          <div
-            key={`${f.title}-${i}`}
-            className="w-64 shrink-0 sm:w-72"
-            aria-hidden={i >= formats.length}
-          >
-            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
-              {f.tagLabel}
-            </span>
-            <Placeholder label={f.tag} className="mt-3 aspect-[9/16] w-full" />
-            <h3 className="mt-4 font-semibold">{f.title}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.body}</p>
-          </div>
-        ))}
+      {/* Sale del ancho central (max-w-6xl) para llegar de borde a borde de
+          la pantalla, como en la referencia -- los vídeos van a pantalla
+          casi completa, no metidos en una cajita pequeña. */}
+      <div data-reveal className="reveal relative left-1/2 right-1/2 -mx-[50vw] mt-12 w-screen">
+        <div ref={rowRef} className="no-scrollbar flex touch-pan-x gap-4 overflow-x-auto px-5">
+          {looped.map((f, i) => (
+            <div key={`${f.title}-${i}`} className="shrink-0" aria-hidden={i >= formats.length}>
+              <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                {f.tagLabel}
+              </span>
+              <MediaSlot label={f.tag} className="mt-3 h-[62vh] w-auto sm:h-[68vh]" />
+              <h3 className="mt-4 max-w-64 font-semibold">{f.title}</h3>
+              <p className="mt-2 max-w-64 text-sm leading-relaxed text-muted-foreground">
+                {f.body}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
     </Section>
   );
@@ -406,20 +423,14 @@ export function RealExamples() {
           Ningún actor, ninguna cámara — 100% generado con IA.
         </p>
       </div>
-      <div
-        data-reveal
-        ref={rowRef}
-        className="reveal no-scrollbar mt-12 flex touch-pan-x gap-6 overflow-x-auto"
-      >
-        {looped.map((tag, i) => (
-          <div
-            key={`${tag}-${i}`}
-            className="w-56 shrink-0 sm:w-64"
-            aria-hidden={i >= examples.length}
-          >
-            <Placeholder label={tag} className="aspect-[9/16] w-full" />
-          </div>
-        ))}
+      <div data-reveal className="reveal relative left-1/2 right-1/2 -mx-[50vw] mt-12 w-screen">
+        <div ref={rowRef} className="no-scrollbar flex touch-pan-x gap-4 overflow-x-auto px-5">
+          {looped.map((tag, i) => (
+            <div key={`${tag}-${i}`} className="shrink-0" aria-hidden={i >= examples.length}>
+              <MediaSlot label={tag} className="h-[62vh] w-auto sm:h-[68vh]" />
+            </div>
+          ))}
+        </div>
       </div>
     </Section>
   );
