@@ -4,6 +4,8 @@ import {
   AlertTriangle,
   ArrowRight,
   Check,
+  ChevronLeft,
+  ChevronRight,
   Clock3,
   Flame,
   Gift,
@@ -437,62 +439,144 @@ export function RealExamples() {
 }
 
 /* 7 y 9 — Bloques de clonación (dos columnas) */
+/**
+ * Fila con flechas Anterior/Siguiente (como la referencia), más deslizable
+ * con el dedo o el ratón. Se ocultan/deshabilitan las flechas al llegar a
+ * cada extremo.
+ */
+function useCarouselNav() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [atStart, setAtStart] = useState(true);
+  const [atEnd, setAtEnd] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const update = () => {
+      setAtStart(el.scrollLeft <= 4);
+      setAtEnd(el.scrollLeft >= el.scrollWidth - el.clientWidth - 4);
+    };
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      el.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+
+  const scrollByPage = (dir: 1 | -1) => {
+    const el = ref.current;
+    if (!el) return;
+    el.scrollBy({ left: dir * el.clientWidth * 0.85, behavior: "smooth" });
+  };
+
+  return { ref, atStart, atEnd, scrollByPage };
+}
+
+function CarouselArrows({
+  atStart,
+  atEnd,
+  onPrev,
+  onNext,
+}: {
+  atStart: boolean;
+  atEnd: boolean;
+  onPrev: () => void;
+  onNext: () => void;
+}) {
+  return (
+    <div className="flex gap-2">
+      <button
+        type="button"
+        aria-label="Anterior"
+        disabled={atStart}
+        onClick={onPrev}
+        className="flex h-10 w-10 items-center justify-center rounded-full border border-border text-foreground transition-colors disabled:opacity-30 enabled:hover:border-primary/50 enabled:hover:text-primary"
+      >
+        <ChevronLeft className="h-4 w-4" />
+      </button>
+      <button
+        type="button"
+        aria-label="Siguiente"
+        disabled={atEnd}
+        onClick={onNext}
+        className="flex h-10 w-10 items-center justify-center rounded-full border border-border text-foreground transition-colors disabled:opacity-30 enabled:hover:border-primary/50 enabled:hover:text-primary"
+      >
+        <ChevronRight className="h-4 w-4" />
+      </button>
+    </div>
+  );
+}
+
 function CloneBlock({
   eyebrow,
   title,
   body,
-  before,
-  after,
+  pairs,
   beforeLabel,
   afterLabel,
+  aspect = "aspect-[9/16]",
 }: {
   eyebrow: string;
   title: string;
   body: string;
-  before: string;
-  after: string;
+  pairs: { before: string; after: string }[];
   beforeLabel: string;
   afterLabel: string;
+  aspect?: string;
 }) {
+  const { ref, atStart, atEnd, scrollByPage } = useCarouselNav();
   return (
     <Section>
-      <div data-reveal className="reveal max-w-3xl">
-        <Eyebrow>{eyebrow}</Eyebrow>
-        <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
-          {title}
-        </h2>
-        <p className="mt-4 text-pretty leading-relaxed text-muted-foreground">{body}</p>
+      <div className="flex flex-wrap items-end justify-between gap-6">
+        <div data-reveal className="reveal max-w-3xl">
+          <Eyebrow>{eyebrow}</Eyebrow>
+          <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
+            {title}
+          </h2>
+          <p className="mt-4 text-pretty leading-relaxed text-muted-foreground">{body}</p>
+        </div>
+        <CarouselArrows
+          atStart={atStart}
+          atEnd={atEnd}
+          onPrev={() => scrollByPage(-1)}
+          onNext={() => scrollByPage(1)}
+        />
       </div>
-      <div className="mt-12 grid gap-6 lg:grid-cols-2">
-        <div data-reveal className="reveal rounded-2xl border border-border/60 bg-surface/40 p-6">
-          <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-            {beforeLabel}
-          </p>
-          <Placeholder label={before} className="mt-4 aspect-[4/3]" />
-        </div>
-        <div
-          data-reveal
-          style={rd(120)}
-          className="reveal rounded-2xl border border-primary/30 bg-card-gradient p-6 shadow-glow"
-        >
-          <p className="text-sm font-semibold uppercase tracking-wider text-primary">
-            {afterLabel}
-          </p>
-          <Placeholder label={after} className="mt-4 aspect-[4/3]" />
-        </div>
+      <div ref={ref} className="no-scrollbar mt-12 flex touch-pan-x gap-8 overflow-x-auto">
+        {pairs.map((pair, i) => (
+          <div key={i} className="flex shrink-0 gap-4">
+            <div className="w-40 sm:w-48">
+              <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+                {beforeLabel}
+              </p>
+              <Placeholder label={pair.before} className={`mt-3 w-full ${aspect}`} />
+            </div>
+            <div className="w-40 sm:w-48">
+              <p className="text-sm font-semibold uppercase tracking-wider text-primary">
+                {afterLabel}
+              </p>
+              <Placeholder label={pair.after} className={`mt-3 w-full ${aspect}`} />
+            </div>
+          </div>
+        ))}
       </div>
     </Section>
   );
 }
 
 export function CloneWinner() {
+  const pairs = [1, 2, 3].map((n) => ({
+    before: `[ANUNCIO ORIGINAL ${n}]`,
+    after: `[TU VERSIÓN ${n}]`,
+  }));
   return (
     <CloneBlock
       eyebrow="Clonación de estructura"
       title="El mismo anuncio ganador. Ahora con tu marca."
       body="Buscamos anuncios que ya llevan meses corriendo en tu nicho, extraemos su estructura (gancho, ritmo, orden de argumentos) y la reconstruimos con tu producto. Nunca copiamos su vídeo ni su guion."
-      before="[EJEMPLO ANTES]"
-      after="[EJEMPLO DESPUÉS]"
+      pairs={pairs}
       beforeLabel="Anuncio que ya funciona"
       afterLabel="Tu versión"
     />
@@ -500,15 +584,19 @@ export function CloneWinner() {
 }
 
 export function CloneAdapted() {
+  const pairs = [1, 2, 3, 4].map((n) => ({
+    before: `[ESTRUCTURA DE ORIGEN ${n}]`,
+    after: `[ADAPTADA A TU MARCA ${n}]`,
+  }));
   return (
     <CloneBlock
       eyebrow="Adaptación"
       title="No copies el diseño. Clona lo que ya convierte."
       body="Un mismo esqueleto de VSL puede servir a productos muy distintos. Adaptamos el ángulo, el tono y el formato a tu público sin perder lo que hace que ese anuncio venda."
-      before="[EJEMPLO ADAPTADO ANTES]"
-      after="[EJEMPLO ADAPTADO DESPUÉS]"
+      pairs={pairs}
       beforeLabel="Estructura de origen"
       afterLabel="Adaptada a tu marca"
+      aspect="aspect-[7/8]"
     />
   );
 }
