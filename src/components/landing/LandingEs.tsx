@@ -131,6 +131,44 @@ function MediaSlot({ label, className = "" }: { label: string; className?: strin
   );
 }
 
+/**
+ * Tarjeta numerada (imagen + número + título + descripción) — el mismo
+ * patrón que usa el competidor en "Esto es lo que vas a recibir" y en sus
+ * bonos, en vez de una lista plana de bullets.
+ */
+function NumberedCard({
+  n,
+  title,
+  body,
+  imageLabel,
+}: {
+  n: number;
+  title: string;
+  body: string;
+  imageLabel: string;
+}) {
+  return (
+    <div
+      data-reveal
+      style={rd((n - 1) * 70)}
+      className="reveal flex flex-col overflow-hidden rounded-2xl border border-border bg-card-gradient"
+    >
+      <div className="flex aspect-[4/3] items-center justify-center bg-surface-elevated text-center font-mono text-[10px] uppercase tracking-[0.18em] text-primary/70">
+        {imageLabel}
+      </div>
+      <div className="flex flex-1 flex-col p-6">
+        <div className="flex items-center gap-3">
+          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/15 text-xs font-semibold text-primary">
+            {n}
+          </span>
+          <h3 className="font-semibold">{title}</h3>
+        </div>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{body}</p>
+      </div>
+    </div>
+  );
+}
+
 function Cta({ label = "Pide tu presupuesto", size = "lg" as const }) {
   return (
     <Button size={size} asChild className="w-full sm:w-auto">
@@ -678,12 +716,41 @@ export function IsThisForYou() {
 /* 11 — Esto es lo que vas a recibir */
 export function Deliverables() {
   const items = [
-    "[NÚMERO DE VÍDEOS] vídeos publicitarios al mes, listos para subir.",
-    "Los 3 formatos disponibles: avatar hablado, VSL narrado y animación 3D.",
-    "Research del nicho y guion a medida antes de producir.",
-    "Variantes de gancho para testear el mismo vídeo con distintos inicios.",
-    "Entrega en [DÍAS DE ENTREGA] días desde la aprobación del guion.",
-    "Formatos verticales listos para Meta y TikTok.",
+    {
+      title: "[NÚMERO DE VÍDEOS] vídeos al mes",
+      body: "El volumen exacto se fija según el plan mensual que elijas.",
+      imageLabel: "[FOTO ENTREGABLE 1]",
+    },
+    {
+      title: "Research de tu nicho",
+      body: "Analizamos qué está funcionando de verdad en tu categoría antes de escribir nada.",
+      imageLabel: "[FOTO ENTREGABLE 2]",
+    },
+    {
+      title: "Guion a medida",
+      body: "Aprobado por ti antes de producir, no una plantilla genérica reciclada.",
+      imageLabel: "[FOTO ENTREGABLE 3]",
+    },
+    {
+      title: "Los 3 formatos",
+      body: "Avatar de IA, VSL narrado o animación 3D — el que mejor encaje con tu producto.",
+      imageLabel: "[FOTO ENTREGABLE 4]",
+    },
+    {
+      title: "Variantes de gancho",
+      body: "Varios inicios distintos para testear el mismo vídeo y quedarte con el que rinda.",
+      imageLabel: "[FOTO ENTREGABLE 5]",
+    },
+    {
+      title: "Formato vertical listo",
+      body: "Entregado listo para subir directo a Meta o TikTok.",
+      imageLabel: "[FOTO ENTREGABLE 6]",
+    },
+    {
+      title: "Entrega en [DÍAS DE ENTREGA] días",
+      body: "Contados desde que apruebas el guion, no desde que empezamos a grabar.",
+      imageLabel: "[FOTO ENTREGABLE 7]",
+    },
   ];
   return (
     <Section>
@@ -693,19 +760,11 @@ export function Deliverables() {
           Esto es lo que vas a recibir
         </h2>
       </div>
-      <ul className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2">
-        {items.map((t, i) => (
-          <li
-            key={t}
-            data-reveal
-            style={rd(i * 70)}
-            className="reveal flex items-start gap-3 bg-card-gradient p-6 text-sm leading-relaxed"
-          >
-            <Check className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-            {t}
-          </li>
+      <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {items.map((item, i) => (
+          <NumberedCard key={item.title} n={i + 1} {...item} />
         ))}
-      </ul>
+      </div>
     </Section>
   );
 }
@@ -719,6 +778,10 @@ export function SocialProof() {
         <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
           Resultados reales de campañas
         </h2>
+        <p className="mt-4 leading-relaxed text-muted-foreground">
+          No es teoría: esto es lo que marcas de ecommerce como la tuya ya están consiguiendo con
+          estos mismos vídeos en su pauta.
+        </p>
       </div>
       <div className="mt-12 grid gap-6 md:grid-cols-3">
         {[1, 2, 3].map((n) => (
@@ -731,27 +794,25 @@ export function SocialProof() {
 
 /* 13 — Bonos */
 export function Bonuses() {
+  const bonuses = [1, 2, 3, 4, 5, 6].map((n) => ({
+    title: `[TÍTULO BONO ${n}]`,
+    body: `[DESCRIPCIÓN BONO ${n}]`,
+    imageLabel: `[FOTO BONO ${n}]`,
+  }));
   return (
     <Section>
       <div data-reveal className="reveal max-w-2xl">
-        <Eyebrow>Bonos</Eyebrow>
+        <Eyebrow>
+          <Gift className="h-3.5 w-3.5 text-primary" />
+          Bonos
+        </Eyebrow>
         <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
           Extras incluidos en la oferta
         </h2>
       </div>
       <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {[1, 2, 3, 4, 5, 6].map((n) => (
-          <div
-            key={n}
-            data-reveal
-            style={rd((n - 1) * 70)}
-            className="reveal rounded-2xl border border-border bg-card-gradient p-7"
-          >
-            <Gift className="h-5 w-5 text-primary" />
-            <p className="mt-4 font-mono text-xs uppercase tracking-[0.18em] text-primary/80">
-              {`[BONO ${n}]`}
-            </p>
-          </div>
+        {bonuses.map((bonus, i) => (
+          <NumberedCard key={bonus.title} n={i + 1} {...bonus} />
         ))}
       </div>
     </Section>
@@ -760,6 +821,16 @@ export function Bonuses() {
 
 /* 14 — Precio y oferta */
 export function Offer() {
+  const included = [
+    "[NÚMERO DE VÍDEOS] vídeos al mes.",
+    "Research de tu nicho antes de escribir el guion.",
+    "Guion a medida, aprobado por ti antes de producir.",
+    "Los 3 formatos disponibles: avatar de IA, VSL narrado o animación 3D.",
+    "Variantes de gancho para testear el mismo vídeo.",
+    "Formato vertical listo para Meta y TikTok.",
+    "Entrega en [DÍAS DE ENTREGA] días desde la aprobación del guion.",
+    "Los bonos de arriba, incluidos en tu pack.",
+  ];
   return (
     <Section>
       <div data-reveal className="reveal mx-auto max-w-2xl text-center">
@@ -773,23 +844,22 @@ export function Offer() {
         style={rd(120)}
         className="reveal mx-auto mt-10 max-w-xl rounded-2xl border border-primary/30 bg-card-gradient p-8 text-center shadow-glow"
       >
-        <p className="font-mono text-3xl font-semibold tracking-tight text-primary">
-          Desde 65€/vídeo
-        </p>
-        <p className="mt-1 text-sm text-muted-foreground">En pack mensual · precio por formato</p>
+        <span className="mx-auto flex w-fit items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+          <Repeat className="h-3.5 w-3.5" />
+          Pack mensual · ~8 vídeos al mes
+        </span>
         <ul className="mt-6 space-y-3 text-left">
-          {[
-            "8 vídeos al mes en los formatos que elijas (avatar, VSL o 3D).",
-            "Research de nicho y guion incluidos en cada vídeo.",
-            "Variantes de gancho para testear.",
-            "Entrega en [DÍAS DE ENTREGA] días.",
-          ].map((t) => (
+          {included.map((t) => (
             <li key={t} className="flex items-start gap-3 text-sm leading-relaxed">
               <Check className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
               {t}
             </li>
           ))}
         </ul>
+        <p className="mt-7 font-mono text-3xl font-semibold tracking-tight text-primary">
+          Desde 65€/vídeo
+        </p>
+        <p className="mt-1 text-sm text-muted-foreground">En pack mensual · precio por formato</p>
         <div className="mt-8 flex flex-col items-center gap-3">
           <Cta />
           <Link
@@ -798,6 +868,16 @@ export function Offer() {
           >
             Ver precio por formato →
           </Link>
+          <div className="mt-1 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
+            <span className="inline-flex items-center gap-1.5">
+              <ShieldCheck className="h-3.5 w-3.5 text-primary" />
+              Revisión incluida
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <Check className="h-3.5 w-3.5 text-primary" />
+              Sin actores ni rodaje
+            </span>
+          </div>
         </div>
       </div>
     </Section>
