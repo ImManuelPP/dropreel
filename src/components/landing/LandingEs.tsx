@@ -613,7 +613,7 @@ export function CloneWinner() {
     <CloneBlock
       eyebrow="Clonación de estructura"
       title="El mismo anuncio ganador. Ahora con tu marca."
-      body="Buscamos anuncios que ya llevan meses corriendo en tu nicho, extraemos su estructura (gancho, ritmo, orden de argumentos) y la reconstruimos con tu producto. Nunca copiamos su vídeo ni su guion."
+      body="Clona el mismo anuncio para tu marca, o adáptalo a un producto distinto."
       pairs={pairs}
       beforeLabel="Anuncio que ya funciona"
       afterLabel="Tu versión"
@@ -630,17 +630,20 @@ export function CloneAdapted() {
     <CloneBlock
       eyebrow="Adaptación"
       title="No copies el diseño. Clona lo que ya convierte."
-      body="Un mismo esqueleto de VSL puede servir a productos muy distintos. Adaptamos el ángulo, el tono y el formato a tu público sin perder lo que hace que ese anuncio venda."
+      body="Adaptado para tu producto."
       pairs={pairs}
       beforeLabel="Estructura de origen"
       afterLabel="Adaptada a tu marca"
-      aspect="aspect-[7/8]"
+      aspect="aspect-square"
     />
   );
 }
 
 /* 8 — Galería de imágenes con IA */
 export function AiImages() {
+  const images = Array.from({ length: 10 }, (_, i) => `[IMAGEN IA ${i + 1}]`);
+  const looped = [...images, ...images];
+  const rowRef = useAutoScrollRow(30);
   return (
     <Section>
       <div data-reveal className="reveal max-w-2xl">
@@ -648,16 +651,19 @@ export function AiImages() {
         <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
           Imágenes que detienen el scroll — creadas 100% con IA.
         </h2>
+        <p className="mt-4 leading-relaxed text-muted-foreground">
+          Sin fotógrafo, sin estudio, sin sesión de producto — solo tus fotos y unas líneas de
+          texto.
+        </p>
       </div>
-      <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-        {Array.from({ length: 10 }, (_, i) => (
-          <Placeholder
-            key={i}
-            data-reveal
-            label={`[IMAGEN IA ${i + 1}]`}
-            className="aspect-square"
-          />
-        ))}
+      <div data-reveal className="reveal relative left-1/2 right-1/2 -mx-[50vw] mt-12 w-screen">
+        <div ref={rowRef} className="no-scrollbar flex touch-pan-x gap-4 overflow-x-auto px-5">
+          {looped.map((label, i) => (
+            <div key={`${label}-${i}`} className="shrink-0" aria-hidden={i >= images.length}>
+              <Placeholder label={label} className="aspect-square w-56 sm:w-64" />
+            </div>
+          ))}
+        </div>
       </div>
     </Section>
   );
