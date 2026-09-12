@@ -15,7 +15,7 @@ export const Route = createFileRoute("/precios")({
       {
         property: "og:description",
         content:
-          "Tarifas de referencia para vídeos publicitarios con IA. Avatar hablado, VSL narrado y animación 3D.",
+          "Tarifas de referencia para vídeos publicitarios con IA, en los estilos que mejor encajen con tu producto.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -48,13 +48,11 @@ const formats = [
 const included = [
   {
     title: "Research de tu nicho",
-    body:
-      "Buscamos qué VSLs ya están funcionando de verdad (anuncios con volumen real y tiempo activo, no inspiración al azar).",
+    body: "Buscamos qué VSLs ya están funcionando de verdad (anuncios con volumen real y tiempo activo, no inspiración al azar).",
   },
   {
     title: "Guion a medida",
-    body:
-      "Basado en la estructura de esos ganadores y en el ICP de tu cliente, no en una plantilla genérica.",
+    body: "Basado en la estructura de esos ganadores y en el ICP de tu cliente, no en una plantilla genérica.",
   },
   {
     title: "Producción del vídeo final",
@@ -105,7 +103,9 @@ function PreciosPage() {
                   </span>
                   <div>
                     <p className="font-medium">{item.title}</p>
-                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{item.body}</p>
+                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                      {item.body}
+                    </p>
                   </div>
                 </li>
               ))}
@@ -152,8 +152,8 @@ function PreciosPage() {
 
           <div className="mt-8 rounded-xl border border-border/60 bg-surface/50 p-5 text-sm leading-relaxed text-muted-foreground">
             <p>
-              Estos precios cubren vídeos de hasta 2-3 minutos de duración. Si el research de tu nicho
-              recomienda un formato más largo, el presupuesto se ajusta a esa duración real —{" "}
+              Estos precios cubren vídeos de hasta 2-3 minutos de duración. Si el research de tu
+              nicho recomienda un formato más largo, el presupuesto se ajusta a esa duración real —{" "}
               <span className="font-medium text-foreground">nunca se factura de más</span> sin
               decírtelo antes.
             </p>

@@ -292,9 +292,9 @@ export function HeroEs() {
           </span>
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-pretty leading-relaxed text-muted-foreground sm:text-lg">
-          Estudiamos qué anuncios ya funcionan en tu nicho y producimos tus vídeos con IA: avatares
-          que hablan, VSLs narrados en off y animación 3D. Tú pones el producto, nosotros ponemos
-          las creatividades.
+          Estudiamos qué anuncios ya funcionan en tu nicho y los producimos con IA, en el formato
+          que mejor encaje: UGC, esqueleto AI, claymation, objeto parlante y más. Tú pones el
+          producto, nosotros ponemos las creatividades.
         </p>
         <div className="mx-auto mt-10 max-w-xs">
           <VideoCard
@@ -394,22 +394,46 @@ export function ProblemEs() {
 export function Formats() {
   const formats = [
     {
-      tagLabel: "AVATAR DE IA",
-      title: "Avatar de IA que habla",
-      body: "Un personaje hablando a cámara: gancho directo, testimonio o explicación de producto.",
-      tag: "[EJEMPLO FORMATO 1]",
+      tagLabel: "UGC",
+      title: "Anuncios estilo UGC",
+      body: "Actores de IA hablando de tu producto a cámara, como si fuera contenido orgánico.",
+      tag: "[EJEMPLO UGC]",
     },
     {
-      tagLabel: "VSL NARRADO",
-      title: "VSL narrado en off",
-      body: "Voz en off sobre imágenes reales de tu producto y b-roll, con estructura de VSL.",
-      tag: "[EJEMPLO FORMATO 2]",
+      tagLabel: "OBJETO PARLANTE",
+      title: "Objeto parlante",
+      body: "Personajes 3D que hablan en primera persona y venden por ti.",
+      tag: "[EJEMPLO OBJETO PARLANTE]",
     },
     {
-      tagLabel: "ANIMACIÓN 3D",
-      title: "Animación 3D con sincronía labial",
-      body: "Personaje animado en 3D que habla o canta, ideal para marcas con carácter propio.",
-      tag: "[EJEMPLO FORMATO 3]",
+      tagLabel: "ESQUELETO AI",
+      title: "Esqueleto AI",
+      body: "El formato viral que está dominando TikTok y Meta ahora mismo.",
+      tag: "[EJEMPLO ESQUELETO AI]",
+    },
+    {
+      tagLabel: "CLAYMATION",
+      title: "Plastilina (Claymation)",
+      body: "Animación stop-motion que casi nadie está usando todavía en tu nicho.",
+      tag: "[EJEMPLO CLAYMATION]",
+    },
+    {
+      tagLabel: "ZACK D FILMS",
+      title: "Estilo Zack D Films",
+      body: "Vídeos tipo mini-documental que explican tu producto y generan intriga.",
+      tag: "[EJEMPLO ZACK D FILMS]",
+    },
+    {
+      tagLabel: "CROCHET",
+      title: "Crochet",
+      body: "Escenas tejidas a ganchillo, con un encanto artesanal que frena el scroll.",
+      tag: "[EJEMPLO CROCHET]",
+    },
+    {
+      tagLabel: "MUSICAL",
+      title: "Musical",
+      body: "Una canción original sobre tu producto, del tipo que no se te va de la cabeza.",
+      tag: "[EJEMPLO MUSICAL]",
     },
   ];
   // Se duplica una vez para que el bucle sea perfecto: al llegar a la
@@ -421,7 +445,7 @@ export function Formats() {
       <div data-reveal className="reveal max-w-2xl">
         <Eyebrow>Formatos</Eyebrow>
         <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
-          No es un formato. Son 3.
+          No es un formato. Son 7.
         </h2>
       </div>
       {/* Sale del ancho central (max-w-6xl) para llegar de borde a borde de
@@ -738,8 +762,8 @@ export function Deliverables() {
       imageLabel: "[FOTO ENTREGABLE 3]",
     },
     {
-      title: "Los 3 formatos",
-      body: "Avatar de IA, VSL narrado o animación 3D — el que mejor encaje con tu producto.",
+      title: "7 estilos distintos",
+      body: "UGC, esqueleto AI, claymation, objeto parlante, Zack D Films, crochet o musical — el que mejor encaje con tu producto.",
       imageLabel: "[FOTO ENTREGABLE 4]",
     },
     {
@@ -831,7 +855,7 @@ export function Offer() {
     "[NÚMERO DE VÍDEOS] vídeos al mes.",
     "Research de tu nicho antes de escribir el guion.",
     "Guion a medida, aprobado por ti antes de producir.",
-    "Los 3 formatos disponibles: avatar de IA, VSL narrado o animación 3D.",
+    "Los 7 estilos disponibles: UGC, esqueleto AI, claymation, objeto parlante, Zack D Films, crochet o musical.",
     "Variantes de gancho para testear el mismo vídeo.",
     "Formato vertical listo para Meta y TikTok.",
     "Entrega en [DÍAS DE ENTREGA] días desde la aprobación del guion.",

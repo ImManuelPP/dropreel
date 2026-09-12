@@ -28,9 +28,12 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Producimos anuncios en vídeo con IA para ecommerce y dropshipping: avatares que hablan, VSLs narrados y animación 3D, con research de tu nicho.",
+          "Producimos anuncios en vídeo con IA para ecommerce y dropshipping en 7 estilos distintos (UGC, esqueleto AI, claymation y más), con research de tu nicho.",
       },
-      { property: "og:title", content: "Droppreel — Anuncios en vídeo con IA para marcas de ecommerce" },
+      {
+        property: "og:title",
+        content: "Droppreel — Anuncios en vídeo con IA para marcas de ecommerce",
+      },
       {
         property: "og:description",
         content:
