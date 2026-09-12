@@ -1,21 +1,22 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { Check, Play } from "lucide-react";
+import { WHATSAPP_URL } from "@/components/landing/LandingEs";
 
 export const Route = createFileRoute("/precios")({
   head: () => ({
     meta: [
-      { title: "Precios 2026 — Droppreel" },
+      { title: "Presupuesto — Droppreel" },
       {
         name: "description",
         content:
-          "Tarifas de referencia para vídeos publicitarios con IA de Droppreel. Formatos sueltos y packs mensuales.",
+          "Vídeos publicitarios con IA de Droppreel: presupuesto a medida según el estilo y el volumen mensual.",
       },
-      { property: "og:title", content: "Precios 2026 — Droppreel" },
+      { property: "og:title", content: "Presupuesto — Droppreel" },
       {
         property: "og:description",
         content:
-          "Tarifas de referencia para vídeos publicitarios con IA, en los estilos que mejor encajen con tu producto.",
+          "Vídeos publicitarios con IA en los estilos que mejor encajen con tu producto. Presupuesto a medida.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -24,31 +25,23 @@ export const Route = createFileRoute("/precios")({
   component: PreciosPage,
 });
 
-const formats = [
+const styles = [
+  { title: "UGC", body: "Actores de IA hablando de tu producto a cámara." },
+  { title: "Objeto parlante", body: "Personajes 3D que hablan en primera persona." },
+  { title: "Esqueleto AI", body: "El formato viral que domina TikTok y Meta ahora mismo." },
   {
-    title: "Avatar de IA que habla",
-    subtitle: "Personaje hablando a cámara, sin cantar",
-    suelto: "90€/vídeo",
-    pack: "65€/vídeo",
+    title: "Claymation",
+    body: "Animación stop-motion, poco usada todavía en la mayoría de nichos.",
   },
-  {
-    title: "VSL narrado en off",
-    subtitle: "Voz en off sobre imágenes reales o b-roll",
-    suelto: "90€/vídeo",
-    pack: "65€/vídeo",
-  },
-  {
-    title: "Animación 3D con sincronía labial",
-    subtitle: "Personaje animado en 3D, cantando",
-    suelto: "150€/vídeo",
-    pack: "100€/vídeo",
-  },
+  { title: "Zack D Films", body: "Vídeos tipo mini-documental que generan intriga." },
+  { title: "Crochet", body: "Escenas tejidas a ganchillo, con encanto artesanal." },
+  { title: "Musical", body: "Una canción original sobre tu producto." },
 ];
 
 const included = [
   {
     title: "Research de tu nicho",
-    body: "Buscamos qué VSLs ya están funcionando de verdad (anuncios con volumen real y tiempo activo, no inspiración al azar).",
+    body: "Buscamos qué anuncios ya están funcionando de verdad (volumen real y tiempo activo, no inspiración al azar).",
   },
   {
     title: "Guion a medida",
@@ -81,14 +74,14 @@ function PreciosPage() {
       <main className="pt-24 pb-20 sm:pt-32 sm:pb-28">
         <section className="mx-auto max-w-4xl px-5">
           <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
-            Precios 2026
+            Presupuesto
           </span>
           <h1 className="mt-6 text-balance text-3xl font-semibold leading-[1.1] tracking-tight sm:text-5xl">
-            Precios por formato de vídeo
+            Presupuesto a medida, según el estilo y el volumen
           </h1>
           <p className="mt-5 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Tarifas de referencia para vídeos publicitarios con IA. El precio final depende del
-            formato y del volumen mensual acordado.
+            No publicamos una tarifa fija por estilo: cada presupuesto depende del estilo elegido y
+            del volumen mensual acordado. Escríbenos y te lo confirmamos sin compromiso.
           </p>
         </section>
 
@@ -114,49 +107,42 @@ function PreciosPage() {
         </section>
 
         <section className="mx-auto mt-12 max-w-4xl px-5 sm:mt-16">
-          <div className="overflow-hidden rounded-2xl border border-border">
-            <div className="hidden grid-cols-[1fr_200px_200px] gap-4 border-b border-border bg-surface px-6 py-4 text-sm font-medium text-muted-foreground md:grid">
-              <span>Formato</span>
-              <span>Suelto</span>
-              <span>En pack</span>
-            </div>
-            {formats.map((row) => (
+          <h2 className="text-lg font-semibold tracking-tight">Los 7 estilos disponibles</h2>
+          <div className="mt-5 overflow-hidden rounded-2xl border border-border">
+            {styles.map((row) => (
               <div
                 key={row.title}
-                className="grid grid-cols-1 gap-4 border-b border-border px-5 py-5 last:border-b-0 md:grid-cols-[1fr_200px_200px] md:px-6 md:py-6"
+                className="flex flex-col gap-1 border-b border-border px-5 py-4 last:border-b-0 sm:px-6"
               >
-                <div className="flex flex-col justify-center">
-                  <h3 className="font-semibold tracking-tight">{row.title}</h3>
-                  <p className="text-sm text-muted-foreground">{row.subtitle}</p>
-                </div>
-                <div className="flex flex-col justify-center rounded-xl border border-border bg-surface px-4 py-3 md:border-none md:bg-transparent md:p-0">
-                  <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground md:hidden">
-                    Suelto
-                  </span>
-                  <span className="text-xl font-semibold sm:text-2xl">{row.suelto}</span>
-                </div>
-                <div className="flex flex-col justify-center rounded-xl border border-primary/30 bg-primary/10 px-4 py-3">
-                  <span className="text-xs font-medium uppercase tracking-wider text-primary md:hidden">
-                    En pack
-                  </span>
-                  <span className="text-xl font-semibold text-primary sm:text-2xl">{row.pack}</span>
-                </div>
+                <h3 className="font-semibold tracking-tight">{row.title}</h3>
+                <p className="text-sm text-muted-foreground">{row.body}</p>
               </div>
             ))}
           </div>
 
           <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
-            Pack mensual: pensado para ~8 vídeos al mes (2 por semana). El precio en pack se aplica
-            desde ese volumen mensual acordado.
+            Pack mensual: pensado para ~8 vídeos al mes (2 por semana). El presupuesto en pack se
+            acuerda contigo según los estilos que elijas.
           </p>
 
           <div className="mt-8 rounded-xl border border-border/60 bg-surface/50 p-5 text-sm leading-relaxed text-muted-foreground">
             <p>
-              Estos precios cubren vídeos de hasta 2-3 minutos de duración. Si el research de tu
-              nicho recomienda un formato más largo, el presupuesto se ajusta a esa duración real —{" "}
+              Los vídeos cubren hasta 2-3 minutos de duración. Si el research de tu nicho recomienda
+              un formato más largo, el presupuesto se ajusta a esa duración real —{" "}
               <span className="font-medium text-foreground">nunca se factura de más</span> sin
               decírtelo antes.
             </p>
+          </div>
+
+          <div className="mt-8 flex justify-center">
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+            >
+              Pide tu presupuesto
+            </a>
           </div>
         </section>
       </main>

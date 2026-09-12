@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
-import { Link } from "@tanstack/react-router";
 import {
   AlertTriangle,
   ArrowRight,
@@ -886,18 +885,12 @@ export function Offer() {
             </li>
           ))}
         </ul>
-        <p className="mt-7 font-mono text-3xl font-semibold tracking-tight text-primary">
-          Desde 65€/vídeo
+        <p className="mt-7 font-mono text-xl font-semibold tracking-tight text-primary">
+          Presupuesto a medida
         </p>
-        <p className="mt-1 text-sm text-muted-foreground">En pack mensual · precio por formato</p>
+        <p className="mt-1 text-sm text-muted-foreground">Según el estilo y el volumen mensual</p>
         <div className="mt-8 flex flex-col items-center gap-3">
           <Cta />
-          <Link
-            to="/precios"
-            className="text-sm text-muted-foreground underline-offset-4 hover:text-primary hover:underline"
-          >
-            Ver precio por formato →
-          </Link>
           <div className="mt-1 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
             <span className="inline-flex items-center gap-1.5">
               <ShieldCheck className="h-3.5 w-3.5 text-primary" />
