@@ -436,7 +436,7 @@ export function Formats() {
       title: "Crochet",
       body: "Escenas tejidas a ganchillo, con un encanto artesanal que frena el scroll.",
       tag: "[EJEMPLO CROCHET]",
-      video: null,
+      video: { src: "/videos/crochet.mp4", poster: "/videos/crochet-poster.jpg" },
     },
     {
       tagLabel: "MUSICAL",
