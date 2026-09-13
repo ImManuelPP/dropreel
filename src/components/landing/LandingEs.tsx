@@ -205,18 +205,20 @@ function VideoCard({
   poster,
   onClick,
   label,
+  className = "aspect-[9/16] w-full",
 }: {
   src: string;
   poster: string;
   onClick?: () => void;
   label: string;
+  className?: string;
 }) {
   return (
     <button
       type="button"
       onClick={onClick}
       aria-label={label}
-      className="group relative aspect-[9/16] w-full cursor-pointer overflow-hidden rounded-2xl border border-border bg-surface shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/40"
+      className={`group relative cursor-pointer overflow-hidden rounded-2xl border border-border bg-surface shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 ${className}`}
     >
       <video
         src={src}
@@ -390,6 +392,8 @@ export function ProblemEs() {
 }
 
 /* 5 — Carrusel de formatos (desliza solo, en bucle continuo) */
+const MEDIA_SLOT_SIZE = "mt-3 h-[62vh] w-auto sm:h-[68vh]";
+
 export function Formats() {
   const formats = [
     {
@@ -397,48 +401,56 @@ export function Formats() {
       title: "Anuncios estilo UGC",
       body: "Actores de IA hablando de tu producto a cámara, como si fuera contenido orgánico.",
       tag: "[EJEMPLO UGC]",
+      video: { src: "/videos/ugc.mp4", poster: "/videos/ugc-poster.jpg" },
     },
     {
       tagLabel: "OBJETO PARLANTE",
       title: "Objeto parlante",
       body: "Personajes 3D que hablan en primera persona y venden por ti.",
       tag: "[EJEMPLO OBJETO PARLANTE]",
+      video: { src: "/videos/objeto-parlante.mp4", poster: "/videos/objeto-parlante-poster.jpg" },
     },
     {
       tagLabel: "ESQUELETO AI",
       title: "Esqueleto AI",
       body: "El formato viral que está dominando TikTok y Meta ahora mismo.",
       tag: "[EJEMPLO ESQUELETO AI]",
+      video: { src: "/videos/esqueleto-ai.mp4", poster: "/videos/esqueleto-ai-poster.jpg" },
     },
     {
       tagLabel: "CLAYMATION",
       title: "Plastilina (Claymation)",
       body: "Animación stop-motion que casi nadie está usando todavía en tu nicho.",
       tag: "[EJEMPLO CLAYMATION]",
+      video: { src: "/videos/claymation.mp4", poster: "/videos/claymation-poster.jpg" },
     },
     {
       tagLabel: "ZACK D FILMS",
       title: "Estilo Zack D Films",
       body: "Vídeos tipo mini-documental que explican tu producto y generan intriga.",
       tag: "[EJEMPLO ZACK D FILMS]",
+      video: null,
     },
     {
       tagLabel: "CROCHET",
       title: "Crochet",
       body: "Escenas tejidas a ganchillo, con un encanto artesanal que frena el scroll.",
       tag: "[EJEMPLO CROCHET]",
+      video: null,
     },
     {
       tagLabel: "MUSICAL",
       title: "Musical",
       body: "Una canción original sobre tu producto, del tipo que no se te va de la cabeza.",
       tag: "[EJEMPLO MUSICAL]",
+      video: { src: "/videos/musical.mp4", poster: "/videos/musical-poster.jpg" },
     },
   ];
   // Se duplica una vez para que el bucle sea perfecto: al llegar a la
   // mitad del scroll total, se reinicia justo donde empezaba la copia.
   const looped = [...formats, ...formats];
   const rowRef = useAutoScrollRow(36);
+  const [activeVideo, setActiveVideo] = useState<{ src: string; poster: string } | null>(null);
   return (
     <Section id="formatos">
       <div data-reveal className="reveal max-w-2xl">
@@ -457,7 +469,17 @@ export function Formats() {
               <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
                 {f.tagLabel}
               </span>
-              <MediaSlot label={f.tag} className="mt-3 h-[62vh] w-auto sm:h-[68vh]" />
+              {f.video ? (
+                <VideoCard
+                  src={f.video.src}
+                  poster={f.video.poster}
+                  label={`Ver ejemplo — ${f.title}`}
+                  onClick={() => setActiveVideo(f.video)}
+                  className={MEDIA_SLOT_SIZE}
+                />
+              ) : (
+                <MediaSlot label={f.tag} className={MEDIA_SLOT_SIZE} />
+              )}
               <h3 className="mt-4 max-w-64 font-semibold">{f.title}</h3>
               <p className="mt-2 max-w-64 text-sm leading-relaxed text-muted-foreground">
                 {f.body}
@@ -466,6 +488,22 @@ export function Formats() {
           ))}
         </div>
       </div>
+
+      <Dialog open={!!activeVideo} onOpenChange={(next) => !next && setActiveVideo(null)}>
+        <DialogContent className="w-auto max-w-[92vw] gap-0 border-border bg-background p-2 sm:max-w-[92vw] sm:p-3">
+          <DialogTitle className="sr-only">Ejemplo de formato</DialogTitle>
+          {activeVideo && (
+            <video
+              src={activeVideo.src}
+              poster={activeVideo.poster}
+              controls
+              autoPlay
+              playsInline
+              className="h-auto max-h-[82vh] w-auto max-w-[86vw] rounded-xl"
+            />
+          )}
+        </DialogContent>
+      </Dialog>
     </Section>
   );
 }
