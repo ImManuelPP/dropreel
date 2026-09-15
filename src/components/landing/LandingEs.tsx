@@ -764,7 +764,7 @@ export function AiImages() {
                 src={img.src}
                 alt={img.alt}
                 loading="lazy"
-                className="aspect-[4/5] w-56 rounded-2xl border border-border object-cover shadow-card sm:w-64"
+                className="aspect-[4/5] h-[62vh] w-auto rounded-2xl border border-border object-cover shadow-card sm:h-[68vh]"
               />
             </div>
           ))}
