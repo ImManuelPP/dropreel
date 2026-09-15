@@ -735,7 +735,13 @@ export function CloneAdapted() {
 
 /* 8 — Galería de imágenes con IA */
 export function AiImages() {
-  const images = Array.from({ length: 10 }, (_, i) => `[IMAGEN IA ${i + 1}]`);
+  const images = [
+    { src: "/images/ad-glowra.jpg", alt: "Anuncio de Glowra generado con IA" },
+    { src: "/images/ad-klipp.jpg", alt: "Anuncio de KLIPP generado con IA" },
+    { src: "/images/ad-sora.jpg", alt: "Anuncio de SORA generado con IA" },
+    { src: "/images/ad-ignyte.jpg", alt: "Anuncio de IGNYTE generado con IA" },
+    { src: "/images/ad-aura.jpg", alt: "Anuncio de AURA generado con IA" },
+  ];
   const looped = [...images, ...images];
   const rowRef = useAutoScrollRow(30);
   return (
@@ -752,9 +758,14 @@ export function AiImages() {
       </div>
       <div data-reveal className="reveal relative left-1/2 right-1/2 -mx-[50vw] mt-12 w-screen">
         <div ref={rowRef} className="no-scrollbar flex touch-pan-x gap-4 overflow-x-auto px-5">
-          {looped.map((label, i) => (
-            <div key={`${label}-${i}`} className="shrink-0" aria-hidden={i >= images.length}>
-              <Placeholder label={label} className="aspect-square w-56 sm:w-64" />
+          {looped.map((img, i) => (
+            <div key={`${img.src}-${i}`} className="shrink-0" aria-hidden={i >= images.length}>
+              <img
+                src={img.src}
+                alt={img.alt}
+                loading="lazy"
+                className="aspect-[4/5] w-56 rounded-2xl border border-border object-cover shadow-card sm:w-64"
+              />
             </div>
           ))}
         </div>
