@@ -26,7 +26,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Producimos anuncios en vídeo con IA para ecommerce y dropshipping en 7 estilos distintos (UGC, esqueleto AI, claymation y más), con research de tu nicho.",
+          "Producimos anuncios en vídeo con IA para ecommerce y dropshipping en 6 estilos distintos (UGC, esqueleto AI, claymation y más), con research de tu nicho.",
       },
       {
         property: "og:title",

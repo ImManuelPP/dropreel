@@ -423,13 +423,6 @@ export function Formats() {
       video: { src: "/videos/claymation.mp4", poster: "/videos/claymation-poster.jpg" },
     },
     {
-      tagLabel: "ZACK D FILMS",
-      title: "Estilo Zack D Films",
-      body: "Vídeos tipo mini-documental que explican tu producto y generan intriga.",
-      tag: "[EJEMPLO ZACK D FILMS]",
-      video: null,
-    },
-    {
       tagLabel: "CROCHET",
       title: "Crochet",
       body: "Escenas tejidas a ganchillo, con un encanto artesanal que frena el scroll.",
@@ -695,8 +688,8 @@ export function Deliverables() {
       imageLabel: "[FOTO ENTREGABLE 3]",
     },
     {
-      title: "7 estilos distintos",
-      body: "UGC, esqueleto AI, claymation, objeto parlante, Zack D Films, crochet o musical — el que mejor encaje con tu producto.",
+      title: "6 estilos distintos",
+      body: "UGC, esqueleto AI, claymation, objeto parlante, crochet o musical — el que mejor encaje con tu producto.",
       imageLabel: "[FOTO ENTREGABLE 4]",
     },
     {
@@ -788,7 +781,7 @@ export function Offer() {
     "[NÚMERO DE VÍDEOS] vídeos al mes.",
     "Research de tu nicho antes de escribir el guion.",
     "Guion a medida, aprobado por ti antes de producir.",
-    "Los 7 estilos disponibles: UGC, esqueleto AI, claymation, objeto parlante, Zack D Films, crochet o musical.",
+    "Los 6 estilos disponibles: UGC, esqueleto AI, claymation, objeto parlante, crochet o musical.",
     "Variantes de gancho para testear el mismo vídeo.",
     "Formato vertical listo para Meta y TikTok.",
     "Entrega en [DÍAS DE ENTREGA] días desde la aprobación del guion.",

@@ -33,7 +33,6 @@ const styles = [
     title: "Claymation",
     body: "Animación stop-motion, poco usada todavía en la mayoría de nichos.",
   },
-  { title: "Zack D Films", body: "Vídeos tipo mini-documental que generan intriga." },
   { title: "Crochet", body: "Escenas tejidas a ganchillo, con encanto artesanal." },
   { title: "Musical", body: "Una canción original sobre tu producto." },
 ];
@@ -107,7 +106,7 @@ function PreciosPage() {
         </section>
 
         <section className="mx-auto mt-12 max-w-4xl px-5 sm:mt-16">
-          <h2 className="text-lg font-semibold tracking-tight">Los 7 estilos disponibles</h2>
+          <h2 className="text-lg font-semibold tracking-tight">Los 6 estilos disponibles</h2>
           <div className="mt-5 overflow-hidden rounded-2xl border border-border">
             {styles.map((row) => (
               <div
