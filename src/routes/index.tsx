@@ -3,7 +3,6 @@ import {
   AiImages,
   AlertBanner,
   Bonuses,
-  CloneAdapted,
   Deliverables,
   FaqEs,
   FinalCta,
@@ -57,7 +56,6 @@ function Index() {
         <Formats />
         <RealExamples />
         <AiImages />
-        <CloneAdapted />
         <IsThisForYou />
         <Deliverables />
         <SocialProof />
