@@ -99,17 +99,6 @@ function Eyebrow({ children }: { children: ReactNode }) {
   );
 }
 
-/** Marcador visible para contenido pendiente de rellenar. */
-function Placeholder({ label, className = "" }: { label: string; className?: string }) {
-  return (
-    <div
-      className={`flex items-center justify-center rounded-2xl border border-dashed border-primary/40 bg-surface/40 p-6 text-center font-mono text-xs uppercase tracking-[0.18em] text-primary/80 ${className}`}
-    >
-      {label}
-    </div>
-  );
-}
-
 /**
  * Hueco de vídeo a pantalla casi completa, sin borde ni recuadro de
  * "pendiente" — para los carruseles de Formatos y Ejemplos reales, donde
@@ -664,85 +653,6 @@ export function IsThisForYou() {
             ))}
           </ul>
         </div>
-      </div>
-    </Section>
-  );
-}
-
-/* 11 — Esto es lo que vas a recibir */
-export function Deliverables() {
-  const items = [
-    {
-      title: "[NÚMERO DE VÍDEOS] vídeos al mes",
-      body: "El volumen exacto se fija según el plan mensual que elijas.",
-      imageLabel: "[FOTO ENTREGABLE 1]",
-    },
-    {
-      title: "Research de tu nicho",
-      body: "Analizamos qué está funcionando de verdad en tu categoría antes de escribir nada.",
-      imageLabel: "[FOTO ENTREGABLE 2]",
-    },
-    {
-      title: "Guion a medida",
-      body: "Aprobado por ti antes de producir, no una plantilla genérica reciclada.",
-      imageLabel: "[FOTO ENTREGABLE 3]",
-    },
-    {
-      title: "6 estilos distintos",
-      body: "UGC, esqueleto AI, claymation, objeto parlante, crochet o musical — el que mejor encaje con tu producto.",
-      imageLabel: "[FOTO ENTREGABLE 4]",
-    },
-    {
-      title: "Variantes de gancho",
-      body: "Varios inicios distintos para testear el mismo vídeo y quedarte con el que rinda.",
-      imageLabel: "[FOTO ENTREGABLE 5]",
-    },
-    {
-      title: "Formato vertical listo",
-      body: "Entregado listo para subir directo a Meta o TikTok.",
-      imageLabel: "[FOTO ENTREGABLE 6]",
-    },
-    {
-      title: "Entrega en [DÍAS DE ENTREGA] días",
-      body: "Contados desde que apruebas el guion, no desde que empezamos a grabar.",
-      imageLabel: "[FOTO ENTREGABLE 7]",
-    },
-  ];
-  return (
-    <Section>
-      <div data-reveal className="reveal max-w-2xl">
-        <Eyebrow>Entregables</Eyebrow>
-        <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
-          Esto es lo que vas a recibir
-        </h2>
-      </div>
-      <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {items.map((item, i) => (
-          <NumberedCard key={item.title} n={i + 1} {...item} />
-        ))}
-      </div>
-    </Section>
-  );
-}
-
-/* 12 — Prueba social */
-export function SocialProof() {
-  return (
-    <Section>
-      <div data-reveal className="reveal max-w-2xl">
-        <Eyebrow>Resultados</Eyebrow>
-        <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
-          Resultados reales de campañas
-        </h2>
-        <p className="mt-4 leading-relaxed text-muted-foreground">
-          No es teoría: esto es lo que marcas de ecommerce como la tuya ya están consiguiendo con
-          estos mismos vídeos en su pauta.
-        </p>
-      </div>
-      <div className="mt-12 grid gap-6 md:grid-cols-3">
-        {[1, 2, 3].map((n) => (
-          <Placeholder key={n} label={`[CAPTURA RESULTADO ${n}]`} className="aspect-[4/3]" />
-        ))}
       </div>
     </Section>
   );

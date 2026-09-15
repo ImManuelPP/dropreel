@@ -3,7 +3,6 @@ import {
   AiImages,
   AlertBanner,
   Bonuses,
-  Deliverables,
   FaqEs,
   FinalCta,
   FooterEs,
@@ -15,7 +14,6 @@ import {
   Offer,
   ProblemEs,
   RealExamples,
-  SocialProof,
   Trust,
 } from "@/components/landing/LandingEs";
 
@@ -57,8 +55,6 @@ function Index() {
         <RealExamples />
         <AiImages />
         <IsThisForYou />
-        <Deliverables />
-        <SocialProof />
         <Bonuses />
         <Offer />
         <Guarantee />
