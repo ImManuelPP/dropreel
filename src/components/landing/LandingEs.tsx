@@ -524,8 +524,8 @@ export function RealExamples() {
       video: { src: "/videos/real-ejemplo-reformas.mp4", poster: "/videos/real-ejemplo-reformas-poster.jpg" },
     },
     {
-      tagLabel: "COCINA",
-      video: { src: "/videos/real-ejemplo-cocina.mp4", poster: "/videos/real-ejemplo-cocina-poster.jpg" },
+      tagLabel: "CALMA",
+      video: { src: "/videos/real-ejemplo-calma.mp4", poster: "/videos/real-ejemplo-calma-poster.jpg" },
     },
     {
       tagLabel: "MATCHA",
@@ -712,23 +712,6 @@ function CloneBlock({
         ))}
       </div>
     </Section>
-  );
-}
-
-export function CloneWinner() {
-  const pairs = [1, 2, 3].map((n) => ({
-    before: `[ANUNCIO ORIGINAL ${n}]`,
-    after: `[TU VERSIÓN ${n}]`,
-  }));
-  return (
-    <CloneBlock
-      eyebrow="Clonación de estructura"
-      title="El mismo anuncio ganador. Ahora con tu marca."
-      body="Clona el mismo anuncio para tu marca, o adáptalo a un producto distinto."
-      pairs={pairs}
-      beforeLabel="Anuncio que ya funciona"
-      afterLabel="Tu versión"
-    />
   );
 }
 

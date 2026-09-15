@@ -4,7 +4,6 @@ import {
   AlertBanner,
   Bonuses,
   CloneAdapted,
-  CloneWinner,
   Deliverables,
   FaqEs,
   FinalCta,
@@ -57,7 +56,6 @@ function Index() {
         <ProblemEs />
         <Formats />
         <RealExamples />
-        <CloneWinner />
         <AiImages />
         <CloneAdapted />
         <IsThisForYou />
