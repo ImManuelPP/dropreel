@@ -510,9 +510,35 @@ export function Formats() {
 
 /* 6 — Ejemplos reales (carrusel que se desliza solo, arrastrable con el dedo) */
 export function RealExamples() {
-  const examples = Array.from({ length: 6 }, (_, i) => `[EJEMPLO REAL ${i + 1}]`);
+  const examples = [
+    {
+      tagLabel: "SKINCARE",
+      video: { src: "/videos/real-ejemplo-skincare.mp4", poster: "/videos/real-ejemplo-skincare-poster.jpg" },
+    },
+    {
+      tagLabel: "TECH",
+      video: { src: "/videos/real-ejemplo-tech.mp4", poster: "/videos/real-ejemplo-tech-poster.jpg" },
+    },
+    {
+      tagLabel: "REFORMAS",
+      video: { src: "/videos/real-ejemplo-reformas.mp4", poster: "/videos/real-ejemplo-reformas-poster.jpg" },
+    },
+    {
+      tagLabel: "COCINA",
+      video: { src: "/videos/real-ejemplo-cocina.mp4", poster: "/videos/real-ejemplo-cocina-poster.jpg" },
+    },
+    {
+      tagLabel: "MATCHA",
+      video: { src: "/videos/real-ejemplo-matcha.mp4", poster: "/videos/real-ejemplo-matcha-poster.jpg" },
+    },
+    {
+      tagLabel: "GIMNASIO",
+      video: { src: "/videos/real-ejemplo-gimnasio.mp4", poster: "/videos/real-ejemplo-gimnasio-poster.jpg" },
+    },
+  ];
   const looped = [...examples, ...examples];
   const rowRef = useAutoScrollRow(40);
+  const [activeVideo, setActiveVideo] = useState<{ src: string; poster: string } | null>(null);
   return (
     <Section id="ejemplos">
       <div data-reveal className="reveal max-w-2xl">
@@ -526,13 +552,37 @@ export function RealExamples() {
       </div>
       <div data-reveal className="reveal relative left-1/2 right-1/2 -mx-[50vw] mt-12 w-screen">
         <div ref={rowRef} className="no-scrollbar flex touch-pan-x gap-4 overflow-x-auto px-5">
-          {looped.map((tag, i) => (
-            <div key={`${tag}-${i}`} className="shrink-0" aria-hidden={i >= examples.length}>
-              <MediaSlot label={tag} className="h-[62vh] w-auto sm:h-[68vh]" />
+          {looped.map((ex, i) => (
+            <div key={`${ex.tagLabel}-${i}`} className="shrink-0" aria-hidden={i >= examples.length}>
+              <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                {ex.tagLabel}
+              </span>
+              <VideoCard
+                src={ex.video.src}
+                poster={ex.video.poster}
+                label={`Ver ejemplo — ${ex.tagLabel}`}
+                onClick={() => setActiveVideo(ex.video)}
+                className="mt-3 h-[62vh] w-auto sm:h-[68vh]"
+              />
             </div>
           ))}
         </div>
       </div>
+      <Dialog open={!!activeVideo} onOpenChange={(next) => !next && setActiveVideo(null)}>
+        <DialogContent className="w-auto max-w-[92vw] gap-0 border-border bg-background p-2 sm:max-w-[92vw] sm:p-3">
+          <DialogTitle className="sr-only">Ejemplo real</DialogTitle>
+          {activeVideo && (
+            <video
+              src={activeVideo.src}
+              poster={activeVideo.poster}
+              controls
+              autoPlay
+              playsInline
+              className="h-auto max-h-[82vh] w-auto max-w-[86vw] rounded-xl"
+            />
+          )}
+        </DialogContent>
+      </Dialog>
     </Section>
   );
 }
