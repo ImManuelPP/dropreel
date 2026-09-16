@@ -436,7 +436,7 @@ export function Formats() {
       <div data-reveal className="reveal max-w-2xl">
         <Eyebrow>Formatos</Eyebrow>
         <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
-          No es un formato. Son 7.
+          Con más de 7 diferentes tipos de Formato
         </h2>
       </div>
       {/* Sale del ancho central (max-w-6xl) para llegar de borde a borde de
