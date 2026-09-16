@@ -5,7 +5,6 @@ import {
   Check,
   Clock3,
   Flame,
-  Gift,
   Play,
   Repeat,
   Search,
@@ -113,44 +112,6 @@ function MediaSlot({ label, className = "" }: { label: string; className?: strin
       <span className="w-full bg-gradient-to-t from-black/70 to-transparent p-3 text-center font-mono text-[10px] uppercase tracking-[0.18em] text-primary/80">
         {label}
       </span>
-    </div>
-  );
-}
-
-/**
- * Tarjeta numerada (imagen + número + título + descripción) — el mismo
- * patrón que usa el competidor en "Esto es lo que vas a recibir" y en sus
- * bonos, en vez de una lista plana de bullets.
- */
-function NumberedCard({
-  n,
-  title,
-  body,
-  imageLabel,
-}: {
-  n: number;
-  title: string;
-  body: string;
-  imageLabel: string;
-}) {
-  return (
-    <div
-      data-reveal
-      style={rd((n - 1) * 70)}
-      className="reveal flex flex-col overflow-hidden rounded-2xl border border-border bg-card-gradient"
-    >
-      <div className="flex aspect-[4/3] items-center justify-center bg-surface-elevated text-center font-mono text-[10px] uppercase tracking-[0.18em] text-primary/70">
-        {imageLabel}
-      </div>
-      <div className="flex flex-1 flex-col p-6">
-        <div className="flex items-center gap-3">
-          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/15 text-xs font-semibold text-primary">
-            {n}
-          </span>
-          <h3 className="font-semibold">{title}</h3>
-        </div>
-        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{body}</p>
-      </div>
     </div>
   );
 }
@@ -658,33 +619,6 @@ export function IsThisForYou() {
   );
 }
 
-/* 13 — Bonos */
-export function Bonuses() {
-  const bonuses = [1, 2, 3, 4, 5, 6].map((n) => ({
-    title: `[TÍTULO BONO ${n}]`,
-    body: `[DESCRIPCIÓN BONO ${n}]`,
-    imageLabel: `[FOTO BONO ${n}]`,
-  }));
-  return (
-    <Section>
-      <div data-reveal className="reveal max-w-2xl">
-        <Eyebrow>
-          <Gift className="h-3.5 w-3.5 text-primary" />
-          Bonos
-        </Eyebrow>
-        <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
-          Extras incluidos en la oferta
-        </h2>
-      </div>
-      <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {bonuses.map((bonus, i) => (
-          <NumberedCard key={bonus.title} n={i + 1} {...bonus} />
-        ))}
-      </div>
-    </Section>
-  );
-}
-
 /* 14 — Precio y oferta */
 export function Offer() {
   const included = [
@@ -695,7 +629,6 @@ export function Offer() {
     "Variantes de gancho para testear el mismo vídeo.",
     "Formato vertical listo para Meta y TikTok.",
     "Entrega en [DÍAS DE ENTREGA] días desde la aprobación del guion.",
-    "Los bonos de arriba, incluidos en tu pack.",
   ];
   return (
     <Section>

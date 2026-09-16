@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import {
   AiImages,
   AlertBanner,
-  Bonuses,
   FaqEs,
   FinalCta,
   FooterEs,
@@ -55,7 +54,6 @@ function Index() {
         <RealExamples />
         <AiImages />
         <IsThisForYou />
-        <Bonuses />
         <Offer />
         <Guarantee />
         <FaqEs />
