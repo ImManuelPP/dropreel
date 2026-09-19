@@ -20,7 +20,6 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { sampleVideos } from "@/lib/videos";
 import { useScrollReveal } from "@/components/landing/Reveal";
 
 export const WHATSAPP_URL =
@@ -257,7 +256,8 @@ export function Nav() {
 /* 2 — Hero */
 export function HeroEs() {
   const [open, setOpen] = useState(false);
-  const clip = sampleVideos[2]!;
+  // Vídeo de presentación: el de la crema Equalberry (el mismo que el formato UGC).
+  const clip = { src: "/videos/ugc.mp4", poster: "/videos/ugc-poster.jpg" };
   const ref = useScrollReveal<HTMLElement>();
   return (
     <section ref={ref} id="top" className="relative overflow-hidden pt-36 pb-16 sm:pt-44 sm:pb-24">
