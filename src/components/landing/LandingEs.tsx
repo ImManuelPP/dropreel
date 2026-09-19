@@ -161,22 +161,56 @@ function VideoCard({
   label: string;
   className?: string;
 }) {
+  // El vídeo solo se descarga cuando la tarjeta está cerca de la pantalla y
+  // solo se reproduce mientras se ve. Antes los 12 vídeos de cada carrusel
+  // (duplicados por el bucle) empezaban a bajar a la vez, algo inviable en móvil.
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [near, setNear] = useState(false);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = buttonRef.current;
+    if (!el) return;
+    const nearObs = new IntersectionObserver(
+      ([entry]) => entry?.isIntersecting && setNear(true),
+      { rootMargin: "0px 300px" },
+    );
+    const visibleObs = new IntersectionObserver(([entry]) => setVisible(!!entry?.isIntersecting), {
+      threshold: 0.25,
+    });
+    nearObs.observe(el);
+    visibleObs.observe(el);
+    return () => {
+      nearObs.disconnect();
+      visibleObs.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v || !near) return;
+    if (visible) v.play().catch(() => {});
+    else v.pause();
+  }, [near, visible]);
+
   return (
     <button
+      ref={buttonRef}
       type="button"
       onClick={onClick}
       aria-label={label}
       className={`group relative cursor-pointer overflow-hidden rounded-2xl border border-border bg-surface shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 ${className}`}
     >
       <video
-        src={src}
+        ref={videoRef}
+        src={near ? src : undefined}
         poster={poster}
         muted
         loop
-        autoPlay
         playsInline
         preload="metadata"
-        className="h-full w-full object-cover opacity-80 transition-all duration-500 group-hover:scale-[1.04] group-hover:opacity-100"
+        className="absolute inset-0 h-full w-full object-cover opacity-80 transition-all duration-500 group-hover:scale-[1.04] group-hover:opacity-100"
       />
       <span className="absolute inset-0 flex items-center justify-center">
         <span className="flex h-14 w-14 items-center justify-center rounded-full border border-primary/40 bg-background/60 text-primary backdrop-blur-md transition-transform duration-300 group-hover:scale-110">
@@ -340,7 +374,10 @@ export function ProblemEs() {
 }
 
 /* 5 — Carrusel de formatos (desliza solo, en bucle continuo) */
-const MEDIA_SLOT_SIZE = "mt-3 h-[62vh] w-auto sm:h-[68vh]";
+// Proporción 9:16 explícita: en móvil el ancho sale del viewport (no del vídeo),
+// en escritorio de la altura. Así todas las tarjetas miden lo mismo.
+const MEDIA_SLOT_SIZE =
+  "mt-3 aspect-[9/16] w-[64vw] max-w-[300px] sm:h-[68vh] sm:w-auto sm:max-w-none";
 
 export function Formats() {
   const formats = [
@@ -406,7 +443,7 @@ export function Formats() {
       <div data-reveal className="reveal relative left-1/2 right-1/2 -mx-[50vw] mt-12 w-screen">
         <div ref={rowRef} className="no-scrollbar flex touch-pan-x gap-4 overflow-x-auto px-5">
           {looped.map((f, i) => (
-            <div key={`${f.title}-${i}`} className="shrink-0" aria-hidden={i >= formats.length}>
+            <div key={`${f.title}-${i}`} className="flex shrink-0 flex-col items-start" aria-hidden={i >= formats.length}>
               <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
                 {f.tagLabel}
               </span>
@@ -494,7 +531,7 @@ export function RealExamples() {
       <div data-reveal className="reveal relative left-1/2 right-1/2 -mx-[50vw] mt-12 w-screen">
         <div ref={rowRef} className="no-scrollbar flex touch-pan-x gap-4 overflow-x-auto px-5">
           {looped.map((ex, i) => (
-            <div key={`${ex.tagLabel}-${i}`} className="shrink-0" aria-hidden={i >= examples.length}>
+            <div key={`${ex.tagLabel}-${i}`} className="flex shrink-0 flex-col items-start" aria-hidden={i >= examples.length}>
               <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
                 {ex.tagLabel}
               </span>
@@ -503,7 +540,7 @@ export function RealExamples() {
                 poster={ex.video.poster}
                 label={`Ver ejemplo — ${ex.tagLabel}`}
                 onClick={() => setActiveVideo(ex.video)}
-                className="mt-3 h-[62vh] w-auto sm:h-[68vh]"
+                className={MEDIA_SLOT_SIZE}
               />
             </div>
           ))}
