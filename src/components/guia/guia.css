@@ -1,0 +1,115 @@
+/* Landing de la Guía Genjutsu (/guia). Estilos aislados bajo .guia */
+.guia{color-scheme: dark;
+  --bg: oklch(16% .015 240);
+  --surface: oklch(20% .018 240);
+  --surface-2: oklch(24% .02 240);
+  --fg: oklch(97% .005 240);
+  --muted: oklch(72% .015 240);
+  --border: oklch(31% .02 240);
+  --lime: oklch(88% .27 133);
+  --lime-ink: oklch(20% .05 133);
+  --bad: oklch(70% .17 25);
+  --sans: "Space Grotesk", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;}
+.guia, .guia *{box-sizing:border-box}
+
+@media (prefers-reduced-motion: reduce){
+.guia{scroll-behavior:auto}
+.guia, .guia *{transition:none!important; animation:none!important}
+}
+.guia{margin:0; background:var(--bg); color:var(--fg); font-family:var(--sans); font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased}
+.guia .wrap{max-width:34rem; margin:0 auto; padding-inline:18px}
+.guia .glow{position:absolute; inset:0 0 auto 0; height:560px; pointer-events:none; background:radial-gradient(ellipse 90% 60% at 50% -10%, color-mix(in oklab, var(--lime) 24%, transparent), transparent 70%)}
+.guia .top{position:sticky; top:env(safe-area-inset-top,0px); z-index:25; border-bottom:1px solid color-mix(in oklab, var(--lime) 25%, var(--border)); background:linear-gradient(90deg, color-mix(in oklab, var(--lime) 10%, var(--bg)), color-mix(in oklab, var(--lime) 4%, var(--bg)) 60%, color-mix(in oklab, var(--lime) 10%, var(--bg))); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px)}
+.guia .promo-in{max-width:34rem; margin:0 auto; padding:10px 18px; display:flex; align-items:center; justify-content:space-between; gap:12px}
+.guia .promo-txt{display:flex; align-items:center; gap:8px; font-size:.82rem; color:var(--muted); line-height:1.25; min-width:0}
+.guia .promo-txt s{color:var(--muted); text-decoration-color:var(--bad); text-decoration-thickness:1.5px; white-space:nowrap}
+.guia .btn s{opacity:.6; text-decoration-thickness:1.5px; font-weight:500}
+.guia .bar .info s{display:block; font-size:.78rem; font-weight:500; color:var(--muted); text-decoration-color:var(--bad); text-decoration-thickness:1.5px}
+.guia .promo-txt b{color:var(--fg); font-weight:600; white-space:nowrap}
+.guia .live{flex:none; width:8px; height:8px; border-radius:50%; background:var(--lime); box-shadow:0 0 0 0 color-mix(in oklab, var(--lime) 60%, transparent); animation:guia-ping 1.8s infinite}
+@keyframes guia-ping{0%{box-shadow:0 0 0 0 color-mix(in oklab, var(--lime) 55%, transparent)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
+.guia .cd{flex:none; display:flex; align-items:flex-start; gap:4px}
+.guia .cd .u{display:flex; flex-direction:column; align-items:center; gap:3px}
+.guia .cd .u b{display:grid; place-items:center; min-width:40px; height:38px; padding:0 6px; border-radius:.6rem; background:linear-gradient(180deg, var(--surface-2), var(--surface)); border:1px solid color-mix(in oklab, var(--lime) 30%, var(--border)); color:var(--lime); font-family:var(--mono); font-size:1.15rem; font-weight:500; font-variant-numeric:tabular-nums; box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 6px 16px -8px color-mix(in oklab, var(--lime) 50%, transparent)}
+.guia .cd .u i{font-style:normal; font-size:.56rem; letter-spacing:.16em; text-transform:uppercase; color:var(--muted)}
+.guia .cd .sep{color:var(--lime); font-family:var(--mono); font-weight:500; height:38px; display:grid; place-items:center; opacity:.7}
+@media (max-width:380px){
+.guia .promo-in{flex-direction:column; gap:8px}
+}
+.guia .pill{display:inline-flex; align-items:center; gap:8px; border:1px solid var(--border); background:var(--surface); border-radius:999px; padding:.3rem .8rem; font-size:.68rem; font-weight:500; text-transform:uppercase; letter-spacing:.18em; color:var(--muted)}
+.guia .pill .dot{width:6px; height:6px; border-radius:50%; background:var(--lime); box-shadow:0 0 10px var(--lime)}
+.guia .btn{display:flex; width:100%; align-items:center; justify-content:center; gap:8px; padding:1rem 1.2rem; border-radius:.9rem; background:var(--lime); color:var(--lime-ink); font:700 1.05rem/1 var(--sans); text-decoration:none; border:0; cursor:pointer; box-shadow:0 10px 30px -10px color-mix(in oklab, var(--lime) 70%, transparent); transition:transform .15s}
+.guia .btn:active{transform:scale(.98)}
+.guia .btn:focus-visible{outline:2px solid var(--fg); outline-offset:3px}
+.guia .btn small{font-weight:500; opacity:.75}
+.guia .hero{position:relative; padding-block:28px 8px; text-align:center}
+.guia .hero h1{margin:16px 0 0; font-size:clamp(2rem, 8.5vw, 2.7rem); line-height:1.05; font-weight:700; letter-spacing:-.035em; text-wrap:balance}
+.guia .hero h1 em{font-style:normal; color:var(--lime)}
+.guia .sub{margin:14px auto 0; color:var(--muted); font-size:1.05rem; max-width:28rem; text-wrap:pretty}
+.guia .shot{position:relative; margin:24px auto 0; width:min(78%, 300px); aspect-ratio:9/16; border-radius:1.4rem; overflow:hidden; border:1px solid var(--border); box-shadow:0 30px 60px -20px rgba(0,0,0,.6), 0 0 0 6px var(--surface)}
+.guia .shot img, .guia .shot video{width:100%; height:100%; object-fit:cover; display:block; background:var(--surface)}
+.guia .shot .label{position:absolute; left:10px; bottom:10px; right:10px; display:flex; justify-content:space-between; gap:8px; align-items:center; padding:8px 10px; border-radius:.7rem; background:rgba(8,12,16,.72); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); font-size:.72rem; text-align:left}
+.guia .shot .label b{color:var(--lime); font-family:var(--mono); font-weight:500; white-space:nowrap}
+.guia .hero .btn{margin-top:26px}
+.guia .micro{margin-top:10px; font-size:.78rem; color:var(--muted)}
+.guia section{padding-block:44px 0}
+.guia h2{margin:12px 0 0; font-size:clamp(1.5rem, 6vw, 1.9rem); line-height:1.12; font-weight:700; letter-spacing:-.03em; text-wrap:balance}
+.guia h2 em{font-style:normal; color:var(--lime)}
+.guia .lead{color:var(--muted); margin:10px 0 0}
+.guia .pains{list-style:none; margin:18px 0 0; padding:0; display:grid; gap:10px}
+.guia .pains li{display:flex; gap:12px; align-items:flex-start; padding:14px 16px; border:1px solid var(--border); border-radius:1rem; background:var(--surface)}
+.guia .pains li .x{flex:none; display:grid; place-items:center; width:26px; height:26px; border-radius:50%; background:color-mix(in oklab, var(--bad) 18%, transparent); color:var(--bad); font-weight:700; font-size:.85rem; margin-top:1px}
+.guia .pains li p{margin:0}
+.guia .pains li b{display:block; font-weight:600}
+.guia .pains li span{color:var(--muted); font-size:.92rem}
+.guia .turn{margin-top:18px; padding:16px; border-radius:1rem; border:1px solid color-mix(in oklab, var(--lime) 40%, transparent); background:color-mix(in oklab, var(--lime) 8%, var(--bg)); font-size:1rem}
+.guia .turn b{color:var(--lime)}
+.guia .steps{counter-reset:s; display:grid; gap:10px; margin-top:18px}
+.guia .steps div{counter-increment:s; display:flex; gap:14px; align-items:flex-start; padding:14px 16px; border-radius:1rem; background:linear-gradient(160deg, var(--surface-2), var(--surface)); border:1px solid var(--border)}
+.guia .steps div::before{content:counter(s); flex:none; display:grid; place-items:center; width:32px; height:32px; border-radius:.6rem; background:var(--lime); color:var(--lime-ink); font-family:var(--mono); font-weight:500}
+.guia .steps b{display:block}
+.guia .steps span{color:var(--muted); font-size:.92rem}
+.guia .inside{margin-top:18px; border:1px solid var(--border); border-radius:1rem; background:var(--surface); overflow:hidden}
+.guia .inside div{display:flex; gap:12px; padding:13px 16px; border-bottom:1px solid var(--border); align-items:flex-start}
+.guia .inside div:last-child{border-bottom:0}
+.guia .inside .ok{flex:none; color:var(--lime); font-weight:700; margin-top:1px}
+.guia .inside b{font-weight:600}
+.guia .inside .bonus{background:color-mix(in oklab, var(--lime) 7%, var(--surface))}
+.guia .btag{display:inline-block; font-family:var(--mono); font-size:.62rem; font-weight:500; letter-spacing:.12em; color:var(--lime-ink); background:var(--lime); padding:2px 6px; border-radius:.35rem; margin-right:8px; vertical-align:2px}
+.guia .inside span{color:var(--muted); font-size:.92rem; display:block}
+.guia .prompt{margin-top:16px; border:1px solid var(--border); border-radius:1rem; overflow:hidden; background:oklch(13% .015 240); position:relative}
+.guia .prompt-bar{padding:8px 14px; border-bottom:1px solid var(--border); background:var(--surface); font-family:var(--mono); font-size:.72rem; color:var(--muted); display:flex; justify-content:space-between}
+.guia .prompt pre{margin:0; padding:14px; font-family:var(--mono); font-size:.74rem; line-height:1.6; color:oklch(88% .01 240); white-space:pre-wrap; word-break:break-word; max-height:140px; overflow:hidden; -webkit-mask-image:linear-gradient(#000 45%, transparent)}
+.guia .prompt pre .ph{color:var(--lime)}
+.guia .lock{position:absolute; left:50%; bottom:14px; transform:translateX(-50%); font-size:.78rem; color:var(--fg); background:var(--surface-2); border:1px solid var(--border); padding:6px 12px; border-radius:999px; white-space:nowrap}
+.guia .offer{margin-top:20px; border-radius:1.3rem; padding:24px 20px; border:1px solid color-mix(in oklab, var(--lime) 45%, transparent); background:radial-gradient(ellipse 80% 70% at 50% 0%, color-mix(in oklab, var(--lime) 14%, transparent), transparent 70%), var(--surface); text-align:center; scroll-margin-top:20px}
+.guia .offer .name{font-size:1.15rem; font-weight:600}
+.guia .price{display:flex; align-items:baseline; justify-content:center; gap:10px; margin:14px 0 4px; font-variant-numeric:tabular-nums}
+.guia .price b{font-size:3rem; font-weight:700; letter-spacing:-.04em; line-height:1}
+.guia .price s{color:var(--muted); font-size:1.6rem; font-weight:500; text-decoration-color:var(--bad); text-decoration-thickness:2px}
+.guia .offer ul{list-style:none; padding:0; margin:18px 0 20px; text-align:left; display:grid; gap:8px}
+.guia .offer li{display:flex; gap:10px; font-size:.95rem}
+.guia .offer li::before{content:"✓"; color:var(--lime); font-weight:700}
+.guia .trust{display:flex; justify-content:center; flex-wrap:wrap; gap:6px 14px; margin-top:12px; font-size:.76rem; color:var(--muted)}
+.guia .trust span{display:inline-flex; align-items:center; gap:5px; white-space:nowrap}
+.guia .trust svg{flex:none; color:var(--lime)}
+.guia details{border:1px solid var(--border); border-radius:1rem; background:var(--surface); padding:0 16px}
+.guia details + details{margin-top:8px}
+.guia summary{cursor:pointer; list-style:none; padding:15px 0; font-weight:600; display:flex; justify-content:space-between; gap:12px}
+.guia summary::-webkit-details-marker{display:none}
+.guia summary::after{content:"+"; color:var(--lime); font-family:var(--mono); font-size:1.1rem; line-height:1}
+.guia details[open] summary::after{content:"–"}
+.guia details p{margin:0 0 15px; color:var(--muted); font-size:.95rem}
+.guia summary:focus-visible{outline:2px solid var(--lime); outline-offset:2px; border-radius:6px}
+.guia footer{margin-top:48px; padding-block:22px 110px; border-top:1px solid var(--border); text-align:center; color:var(--muted); font-size:.78rem}
+.guia footer a{color:var(--muted)}
+.guia .bar{position:fixed; left:0; right:0; bottom:0; z-index:30; padding:10px 14px calc(10px + env(safe-area-inset-bottom, 0px)); background:color-mix(in oklab, var(--bg) 85%, transparent); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-top:1px solid var(--border); transform:translateY(0); transition:transform .25s}
+.guia .bar.hide{transform:translateY(110%)}
+.guia .bar .wrap{display:flex; align-items:center; gap:12px; padding-inline:0}
+.guia .bar .info{flex:none; line-height:1.15}
+.guia .bar .info b{display:block; font-size:1.15rem}
+.guia .bar .info span{font-size:.72rem; color:var(--muted)}
+.guia .bar .info span.p-now{font-size:1.15rem; color:var(--fg); font-weight:700}
+.guia .bar .btn{padding:.85rem 1rem; font-size:.98rem}
+.guia .inside span.btag{display:inline-block; width:auto; color:var(--lime-ink)}
