@@ -10,6 +10,8 @@ import {
   Search,
   ShieldCheck,
   Sparkles,
+  Volume2,
+  VolumeX,
   X,
 } from "lucide-react";
 import {
@@ -254,57 +256,92 @@ export function Nav() {
 }
 
 /* 2 — Hero */
+
+/**
+ * Vídeo de presentación del hero: se reproduce solo (en silencio) mientras se
+ * ve en pantalla y se pausa al salir, para no gastar datos ni batería. El
+ * botón activa el sonido (la música solo suena si el visitante lo pide).
+ */
+function HeroVideo() {
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [muted, setMuted] = useState(true);
+
+  useEffect(() => {
+    const el = wrapRef.current;
+    const v = videoRef.current;
+    if (!el || !v) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) v.play().catch(() => {});
+        else v.pause();
+      },
+      { threshold: 0.35 },
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (videoRef.current) videoRef.current.muted = muted;
+  }, [muted]);
+
+  return (
+    <div
+      ref={wrapRef}
+      className="relative aspect-video w-full overflow-hidden rounded-2xl border border-border bg-surface shadow-glow"
+    >
+      <video
+        ref={videoRef}
+        src="/videos/presentacion.mp4"
+        poster="/videos/presentacion-poster.jpg"
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+      <button
+        type="button"
+        onClick={() => setMuted((m) => !m)}
+        aria-label={muted ? "Activar sonido" : "Silenciar"}
+        className="absolute bottom-3 right-3 flex h-11 w-11 items-center justify-center rounded-full border border-primary/40 bg-background/70 text-primary backdrop-blur-md transition-transform hover:scale-105"
+      >
+        {muted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
+      </button>
+    </div>
+  );
+}
+
 export function HeroEs() {
-  const [open, setOpen] = useState(false);
-  // Vídeo de presentación: el de la crema Equalberry (el mismo que el formato UGC).
-  const clip = { src: "/videos/ugc.mp4", poster: "/videos/ugc-poster.jpg" };
   const ref = useScrollReveal<HTMLElement>();
   return (
     <section ref={ref} id="top" className="relative overflow-hidden pt-36 pb-16 sm:pt-44 sm:pb-24">
       <div className="pointer-events-none absolute inset-0 bg-hero-glow" aria-hidden />
       <div className="pointer-events-none absolute inset-0 grid-lines opacity-40" aria-hidden />
-      <div className="relative mx-auto max-w-4xl px-5 text-center">
-        <Eyebrow>
-          <Sparkles className="h-3.5 w-3.5 text-primary" />
-          Producción de anuncios con IA
-        </Eyebrow>
-        <h1 className="mt-6 text-balance text-4xl font-semibold leading-[1.08] tracking-tight sm:text-6xl">
-          <span className="text-gradient">
-            Anuncios en vídeo que frenan el scroll, hechos con IA — pensados para aumentar tus
-            ventas.
-          </span>
-        </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-pretty leading-relaxed text-muted-foreground sm:text-lg">
-          Estudiamos qué anuncios ya funcionan en tu nicho y los producimos con IA, en el formato
-          que mejor encaje: UGC, esqueleto AI, claymation, objeto parlante y más. Tú pones el
-          producto, nosotros ponemos las creatividades.
-        </p>
-        <div className="mx-auto mt-10 max-w-xs">
-          <VideoCard
-            src={clip.src}
-            poster={clip.poster}
-            label="Ver vídeo de presentación"
-            onClick={() => setOpen(true)}
-          />
+      <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-5 lg:grid-cols-[1fr_1.1fr] lg:gap-14">
+        <div className="text-center lg:text-left">
+          <Eyebrow>
+            <Sparkles className="h-3.5 w-3.5 text-primary" />
+            Producción de anuncios con IA
+          </Eyebrow>
+          <h1 className="mt-6 text-balance text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-[2.75rem] xl:text-5xl">
+            <span className="text-gradient">
+              Anuncios en vídeo que frenan el scroll, hechos con IA — pensados para aumentar tus
+              ventas.
+            </span>
+          </h1>
+          <p className="mx-auto mt-6 max-w-2xl text-pretty leading-relaxed text-muted-foreground sm:text-lg lg:mx-0">
+            Estudiamos qué anuncios ya funcionan en tu nicho y los producimos con IA, en el formato
+            que mejor encaje: UGC, esqueleto AI, claymation, objeto parlante y más. Tú pones el
+            producto, nosotros ponemos las creatividades.
+          </p>
+          <div className="mt-9 flex justify-center lg:justify-start">
+            <Cta />
+          </div>
         </div>
-        <div className="mt-9 flex justify-center">
-          <Cta />
-        </div>
+        <HeroVideo />
       </div>
-
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="w-auto max-w-[92vw] gap-0 border-border bg-background p-2 sm:max-w-[92vw] sm:p-3">
-          <DialogTitle className="sr-only">Vídeo de presentación</DialogTitle>
-          <video
-            src={clip.src}
-            poster={clip.poster}
-            controls
-            autoPlay
-            playsInline
-            className="h-auto max-h-[82vh] w-auto max-w-[86vw] rounded-xl"
-          />
-        </DialogContent>
-      </Dialog>
     </section>
   );
 }
