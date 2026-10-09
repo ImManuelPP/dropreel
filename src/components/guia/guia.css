@@ -141,3 +141,8 @@
 .guia .bar .wrap{align-items:center}
 .guia .bar .bar-sub{margin-top:4px; font-size:.75rem; line-height:1.3}
 .guia footer{padding-bottom:140px}
+.guia .pro-sub{margin:2px 0 0; font-size:.82rem; color:var(--lime); font-family:var(--mono)}
+.guia .pro-note{margin:0; color:var(--fg)}
+/* List items as one text run so bold words do not split into columns */
+.guia .offer li{display:block; position:relative; padding-left:1.6em}
+.guia .offer li::before{position:absolute; left:0; top:0}

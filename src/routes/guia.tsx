@@ -10,7 +10,7 @@ const PRICE_NORMAL = "39,99 €";
 // Enlaces de pago: uno con el precio de oferta (con el cupón) y otro con el precio normal
 const CHECKOUT_OFFER = "https://droppreel.gumroad.com/l/ygwyz/LANZAMIENTO";
 const CHECKOUT_NORMAL = "https://droppreel.gumroad.com/l/ygwyz";
-// Mentoría (129 €, 5 plazas: el límite se controla en Gumroad). Vacío = la tarjeta no se muestra.
+// Mentoría (129 € de lanzamiento para 5 plazas, después 250 €; el límite se controla en Gumroad). Vacío = la tarjeta no se muestra.
 const CHECKOUT_MENTORIA = "";
 const PRICE_MENTORIA = "129 €";
 
@@ -294,9 +294,10 @@ function GuiaPage() {
               <div className="offer offer-pro">
                 <span className="pro-tag">PREMIUM · SOLO 5 PLAZAS</span>
                 <p className="pro-lead">¿Quieres ir más rápido y que te acompañemos?</p>
-                <p className="name">Guía + Mentoría 1 mes</p>
+                <p className="name">Mentoría IA Viral: 30 días</p>
+                <p className="pro-sub">Guía incluida</p>
                 <div className="price"><b>{PRICE_MENTORIA}</b></div>
-                <p className="micro" style={{ margin: 0 }}>Pago único · plazas limitadas a 5</p>
+                <p className="micro pro-note">Precio de lanzamiento · 5 plazas · después 250 €</p>
                 <ul>
                   <li><b>Todo lo de la guía</b>&nbsp;+ comunidad y asistencia</li>
                   <li>8 llamadas individuales: 2 por semana durante 1 mes</li>
