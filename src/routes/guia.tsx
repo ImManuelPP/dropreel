@@ -2,24 +2,25 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import guiaCss from "@/components/guia/guia.css?url";
 
-// Fin real de la oferta (hora de España). Al llegar, la página pasa sola al precio normal.
-const OFFER_END = new Date("2026-10-09T19:38:00+02:00").getTime();
+// Oferta de bienvenida: 24 h desde la primera visita de cada persona. No se reinicia al volver.
+const OFFER_MS = 24 * 60 * 60 * 1000;
+const OFFER_KEY = "guia_offer_start";
 const PRICE_OFFER = "19,99 €";
 const PRICE_NORMAL = "39,99 €";
 // Enlaces de pago: uno con el precio de oferta (con el cupón) y otro con el precio normal
-const CHECKOUT_OFFER = "";
-const CHECKOUT_NORMAL = "";
+const CHECKOUT_OFFER = "https://droppreel.gumroad.com/l/ygwyz/LANZAMIENTO";
+const CHECKOUT_NORMAL = "https://droppreel.gumroad.com/l/ygwyz";
 
 export const Route = createFileRoute("/guia")({
   head: () => ({
     meta: [
-      { title: "Guía Genjutsu — Droppreel" },
+      { title: "Guía IA Viral + Pack de Prompts — Droppreel" },
       {
         name: "description",
         content:
           "Pon tu cara en cualquier vídeo sin saber nada de IA: guía paso a paso con prompts listos para copiar, asistencia y comunidad de WhatsApp.",
       },
-      { property: "og:title", content: "Guía Genjutsu — Droppreel" },
+      { property: "og:title", content: "Guía IA Viral + Pack de Prompts — Droppreel" },
       {
         property: "og:description",
         content: "Pon tu cara en cualquier vídeo. Sin saber nada de IA.",
@@ -35,14 +36,28 @@ export const Route = createFileRoute("/guia")({
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
-function useCountdown(end: number) {
+// First visit is remembered in this browser so the clock keeps running instead of restarting
+function readOfferEnd() {
+  let start = Date.now();
+  try {
+    const saved = Number(localStorage.getItem(OFFER_KEY));
+    if (saved > 0 && saved <= Date.now()) start = saved;
+    else localStorage.setItem(OFFER_KEY, String(start));
+  } catch {
+    // Storage blocked: the offer still runs for this visit
+  }
+  return start + OFFER_MS;
+}
+
+function useCountdown() {
   const [left, setLeft] = useState<number | null>(null);
   useEffect(() => {
+    const end = readOfferEnd();
     const tick = () => setLeft(Math.max(0, end - Date.now()));
     tick();
     const id = setInterval(tick, 1000);
     return () => clearInterval(id);
-  }, [end]);
+  }, []);
   return left;
 }
 
@@ -79,7 +94,7 @@ const bonuses = [
 
 const faqs = [
   ["¿Necesito saber de IA o de edición?", "No. Está pensada para empezar de cero: qué fotos hacer, qué prompt copiar y qué cambiar."],
-  ["¿Qué necesito para empezar?", "Tu móvil para las fotos, un clip de vídeo de 4 a 30 segundos y una cuenta con acceso a Genjutsu."],
+  ["¿Qué necesito para empezar?", "Tu móvil para las fotos, un clip de vídeo de 4 a 30 segundos y una cuenta en la herramienta de IA que explica la guía."],
   ["¿Cómo la recibo?", "Al pagar te llega el PDF al momento a tu email, junto con el enlace para entrar en la comunidad de WhatsApp."],
   ["¿Cómo funciona la asistencia?", "Si te atascas con un vídeo, nos escribes por WhatsApp con tus fotos, el clip y el prompt, y te decimos qué cambiar. Respondemos en menos de 24 horas."],
   ["¿Qué se comparte en la comunidad?", "Prompts nuevos, trucos que van funcionando, ideas de vídeos y novedades de herramientas de IA. Puedes preguntar y ver lo que hacen los demás."],
@@ -96,7 +111,7 @@ function Check() {
 }
 
 function GuiaPage() {
-  const left = useCountdown(OFFER_END);
+  const left = useCountdown();
   // Until the clock is known on the client, show the offer (matches the server render)
   const onOffer = left === null || left > 0;
   const price = onOffer ? PRICE_OFFER : PRICE_NORMAL;
@@ -123,7 +138,7 @@ function GuiaPage() {
             <div className="promo-txt">
               <span className="live" />
               <span>
-                Oferta {old} <b>{PRICE_OFFER}</b> · termina en
+                Tu oferta {old} <b>{PRICE_OFFER}</b> · termina en
               </span>
             </div>
             <div className="cd" role="timer">
@@ -226,10 +241,14 @@ function GuiaPage() {
 
           <section id="comprar" className="offer-wrap">
             <div className="offer" ref={offerRef}>
-              <span className="pill"><span className="dot" />{onOffer ? "Oferta 24 horas" : "Acceso inmediato"}</span>
-              <p className="name" style={{ margin: "14px 0 0" }}>Guía Genjutsu + pack de prompts</p>
+              <span className="pill"><span className="dot" />{onOffer ? "Oferta de bienvenida · 24 h" : "Acceso inmediato"}</span>
+              <p className="name" style={{ margin: "14px 0 0" }}>Guía IA Viral + Pack de Prompts</p>
               <div className="price">{old}<b className="p-now">{price}</b></div>
-              <p className="micro" style={{ margin: 0 }}>Pago único · sin suscripción</p>
+              <p className="micro" style={{ margin: 0 }}>
+                {onOffer
+                  ? `Pago único · precio normal ${PRICE_NORMAL}, válido 24 h desde tu primera visita`
+                  : "Pago único · sin suscripción"}
+              </p>
               <ul>
                 <li>Guía en PDF de 11 pasos</li>
                 <li>8 prompts listos para copiar</li>
