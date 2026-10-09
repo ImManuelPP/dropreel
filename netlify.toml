@@ -19,3 +19,16 @@
   to = "/guia"
   status = 301
   force = true
+
+# Enlaces con "#comprar" que algunas apps convierten en "%23comprar"
+[[redirects]]
+  from = "/guia%23comprar"
+  to = "/guia"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/guia/%23comprar"
+  to = "/guia"
+  status = 301
+  force = true
