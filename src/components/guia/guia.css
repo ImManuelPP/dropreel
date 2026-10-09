@@ -146,3 +146,13 @@
 /* List items as one text run so bold words do not split into columns */
 .guia .offer li{display:block; position:relative; padding-left:1.6em}
 .guia .offer li::before{position:absolute; left:0; top:0}
+/* Premium card: gold accents so the mentorship stands out from the guide */
+.guia .offer-pro{border-color:rgba(255,206,110,.7); background:radial-gradient(ellipse 90% 55% at 50% 0%, rgba(255,190,70,.22), transparent 70%), linear-gradient(170deg, #17140c, var(--surface)); box-shadow:0 0 0 1px rgba(255,206,110,.25), 0 24px 60px -20px rgba(255,190,70,.5)}
+.guia .offer-pro .pro-tag{background:linear-gradient(90deg,#fff1c2,#e2ac45 60%,#b9811f); color:#1a1205}
+.guia .offer-pro .pro-sub{color:#f0c35c}
+.guia .offer-pro .price b{background:linear-gradient(180deg,#fff3c9,#f0c35c 50%,#c8922a); -webkit-background-clip:text; background-clip:text; color:transparent}
+.guia .offer-pro li::before{color:#f0c35c}
+.guia .btn-pro{background:linear-gradient(90deg,#fff1c2,#e2ac45 60%,#b9811f); color:#1a1205; border:0; box-shadow:0 10px 30px -10px rgba(255,190,70,.7)}
+.guia .btn-pro:hover{background:linear-gradient(90deg,#fff6d6,#ecb954 60%,#c58c25)}
+.guia .offer-pro .trust svg{color:#f0c35c}
+.guia .pack-pro{width:100%; margin:12px 0 0}

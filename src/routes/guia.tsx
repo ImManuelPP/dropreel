@@ -293,6 +293,14 @@ function GuiaPage() {
             {CHECKOUT_MENTORIA && (
               <div className="offer offer-pro">
                 <span className="pro-tag">PREMIUM · SOLO 5 PLAZAS</span>
+                <img
+                  className="pack pack-pro"
+                  src="/images/mentoria-pack.webp"
+                  alt="Mentoría IA Viral: 30 días, con la guía, el pack de prompts y la comunidad incluidos"
+                  width={1080}
+                  height={768}
+                  loading="lazy"
+                />
                 <p className="pro-lead">¿Quieres ir más rápido y que te acompañemos?</p>
                 <p className="name">Mentoría IA Viral: 30 días</p>
                 <p className="pro-sub">Guía incluida</p>
