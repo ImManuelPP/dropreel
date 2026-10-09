@@ -31,6 +31,7 @@ export const Route = createFileRoute("/guia")({
       { property: "og:type", content: "website" },
       { property: "og:image", content: "/videos/guia-demo-poster.jpg" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
     ],
     links: [{ rel: "stylesheet", href: guiaCss }],
   }),
