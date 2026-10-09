@@ -215,6 +215,14 @@ function GuiaPage() {
           <section>
             <span className="pill">Qué incluye</span>
             <h2>Todo lo que necesitas, <em>nada de relleno</em></h2>
+            <img
+              className="pack"
+              src="/images/guia-pack.webp"
+              alt="Lo que recibes: Pack de Prompts, Guía IA Viral y Comunidad de WhatsApp"
+              width={1080}
+              height={768}
+              loading="lazy"
+            />
             <div className="inside">
               {inside.map(([title, body]) => (
                 <div key={title}>
@@ -242,7 +250,15 @@ function GuiaPage() {
           <section id="comprar" className="offer-wrap">
             <div className="offer" ref={offerRef}>
               <span className="pill"><span className="dot" />{onOffer ? "Oferta de bienvenida · 24 h" : "Acceso inmediato"}</span>
-              <p className="name" style={{ margin: "14px 0 0" }}>Guía IA Viral + Pack de Prompts</p>
+              <img
+                className="pack pack-offer"
+                src="/images/guia-pack.webp"
+                alt=""
+                width={1080}
+                height={768}
+                loading="lazy"
+              />
+              <p className="name" style={{ margin: "6px 0 0" }}>Guía IA Viral + Pack de Prompts</p>
               <div className="price">{old}<b className="p-now">{price}</b></div>
               <p className="micro" style={{ margin: 0 }}>
                 {onOffer
