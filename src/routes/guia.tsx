@@ -177,7 +177,7 @@ function GuiaPage() {
               />
               <div className="label"><span>Hecho con el método de la guía</span><b>IA</b></div>
             </div>
-            <a className="btn" href="#comprar">
+            <a className="btn checkout" href={checkout}>
               Quiero la guía <small>· {old} <span className="p-now">{price}</span></small>
             </a>
             <p className="micro">PDF + asistencia + comunidad de WhatsApp</p>
@@ -259,8 +259,7 @@ function GuiaPage() {
               </ul>
               <a
                 className="btn checkout"
-                href={checkout || "#comprar"}
-                {...(checkout ? { target: "_blank", rel: "noopener" } : {})}
+                href={checkout}
               >
                 Comprar ahora
               </a>
@@ -299,7 +298,7 @@ function GuiaPage() {
             <b>{old} <span className="p-now">{price}</span></b>
             <span>PDF + comunidad WhatsApp</span>
           </div>
-          <a className="btn" href="#comprar">Quiero la guía</a>
+          <a className="btn checkout" href={checkout}>Quiero la guía</a>
         </div>
       </div>
     </div>
