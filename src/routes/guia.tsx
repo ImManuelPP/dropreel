@@ -10,6 +10,9 @@ const PRICE_NORMAL = "39,99 €";
 // Enlaces de pago: uno con el precio de oferta (con el cupón) y otro con el precio normal
 const CHECKOUT_OFFER = "https://droppreel.gumroad.com/l/ygwyz/LANZAMIENTO";
 const CHECKOUT_NORMAL = "https://droppreel.gumroad.com/l/ygwyz";
+// Mentoría (129 €, 5 plazas: el límite se controla en Gumroad). Vacío = la tarjeta no se muestra.
+const CHECKOUT_MENTORIA = "";
+const PRICE_MENTORIA = "129 €";
 
 export const Route = createFileRoute("/guia")({
   head: () => ({
@@ -285,6 +288,30 @@ function GuiaPage() {
                 <span><Check />En español</span>
               </div>
             </div>
+
+            {CHECKOUT_MENTORIA && (
+              <div className="offer offer-pro">
+                <span className="pro-tag">PREMIUM · SOLO 5 PLAZAS</span>
+                <p className="pro-lead">¿Quieres ir más rápido y que te acompañemos?</p>
+                <p className="name">Guía + Mentoría 1 mes</p>
+                <div className="price"><b>{PRICE_MENTORIA}</b></div>
+                <p className="micro" style={{ margin: 0 }}>Pago único · plazas limitadas a 5</p>
+                <ul>
+                  <li><b>Todo lo de la guía</b>&nbsp;+ comunidad y asistencia</li>
+                  <li>8 llamadas individuales: 2 por semana durante 1 mes</li>
+                  <li>Revisión de tus vídeos y de tu cuenta</li>
+                  <li>Estrategia para crecer y monetizar como creador de contenido con IA</li>
+                </ul>
+                <a className="btn btn-pro" href={CHECKOUT_MENTORIA}>
+                  Quiero la mentoría
+                </a>
+                <div className="trust">
+                  <span><Check />Llamadas 1 a 1</span>
+                  <span><Check />Pago seguro</span>
+                  <span><Check />En español</span>
+                </div>
+              </div>
+            )}
           </section>
 
           <section>
