@@ -121,3 +121,18 @@
 .guia .offer-pro .name{margin:4px 0 0}
 .guia .btn-pro{background:transparent; color:var(--lime); border:1.5px solid var(--lime); box-shadow:none}
 .guia .btn-pro:hover{background:color-mix(in oklab, var(--lime) 12%, transparent)}
+/* Diagonal strike so "39,99" stays readable (a centered line made the 9 look like a 0) */
+.guia s.p-old,.guia .price s,.guia .promo-txt s,.guia .bar .info s{text-decoration:none; position:relative; display:inline-block; padding:0 .08em}
+.guia s.p-old::after,.guia .price s::after,.guia .promo-txt s::after,.guia .bar .info s::after{content:""; position:absolute; left:-4%; right:-4%; top:54%; height:2px; border-radius:2px; background:var(--bad); transform:rotate(-9deg); pointer-events:none}
+.guia .price s::after{height:3px}
+/* Sticky bar: the info column takes the free space and wraps; the button never shrinks */
+.guia .bar .info{flex:1 1 auto; min-width:0; line-height:1.2}
+.guia .bar .bar-price{display:flex; align-items:baseline; gap:6px; flex-wrap:wrap}
+.guia .bar .info s{display:inline-block; font-size:.8rem}
+.guia .bar .bar-sub{display:block; margin-top:3px; font-size:.72rem; color:var(--muted); white-space:normal; overflow-wrap:anywhere}
+.guia .bar .btn{flex:0 0 auto; width:auto; white-space:nowrap; padding:.85rem 1.1rem}
+.guia .promo-txt s,.guia .bar .info s{margin-right:.15em}
+.guia .promo-txt s::after,.guia .bar .info s::after,.guia .btn s::after{left:0; right:0}
+.guia .bar .bar-price{gap:9px}
+.guia .btn s{text-decoration:none; position:relative; display:inline-block; margin-right:.2em}
+.guia .btn s::after{content:""; position:absolute; top:54%; height:1.5px; background:currentColor; transform:rotate(-9deg)}

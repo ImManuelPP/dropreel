@@ -338,8 +338,8 @@ function GuiaPage() {
       <div className={`bar${offerVisible ? " hide" : ""}`}>
         <div className="wrap">
           <div className="info">
-            <b>{old} <span className="p-now">{price}</span></b>
-            <span>PDF + comunidad WhatsApp</span>
+            <b className="bar-price">{old}<span className="p-now">{price}</span></b>
+            <small className="bar-sub">PDF + comunidad WhatsApp</small>
           </div>
           <a className="btn checkout" href={checkout}>Quiero la guía</a>
         </div>
