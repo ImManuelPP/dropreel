@@ -11,7 +11,7 @@ const PRICE_NORMAL = "39,99 €";
 const CHECKOUT_OFFER = "https://droppreel.gumroad.com/l/ygwyz/LANZAMIENTO";
 const CHECKOUT_NORMAL = "https://droppreel.gumroad.com/l/ygwyz";
 // Mentoría (129 € de lanzamiento para 5 plazas, después 250 €; el límite se controla en Gumroad). Vacío = la tarjeta no se muestra.
-const CHECKOUT_MENTORIA = "";
+const CHECKOUT_MENTORIA = "https://droppreel.gumroad.com/l/hxfhyj";
 const PRICE_MENTORIA = "129 €";
 
 export const Route = createFileRoute("/guia")({
