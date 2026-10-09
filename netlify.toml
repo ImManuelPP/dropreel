@@ -6,3 +6,16 @@
 [build.environment]
   NITRO_PRESET = "netlify"
   NODE_VERSION = "22"
+
+# La dirección con tilde (la escribe así el autocorrector del móvil) lleva a la landing
+[[redirects]]
+  from = "/guía"
+  to = "/guia"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/gu%C3%ADa"
+  to = "/guia"
+  status = 301
+  force = true
