@@ -44,8 +44,10 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <div className="min-h-screen bg-background">
-      <AlertBanner />
-      <Nav />
+      <div className="fixed inset-x-0 top-0 z-50">
+        <AlertBanner />
+        <Nav />
+      </div>
       <main>
         <HeroEs />
         <Trust />

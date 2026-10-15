@@ -29,11 +29,18 @@ export const WHATSAPP_URL =
 
 /**
  * Fila que se desplaza sola de forma continua, pero el usuario puede tomar
- * el control en cualquier momento arrastrando con el dedo o el ratón — al
- * soltar, retoma el deslizamiento automático tras una pausa breve. El
- * contenido que se le pase ya tiene que venir duplicado una vez (2x) para
- * que el bucle sea perfecto (al llegar a la mitad del ancho total, se
- * reinicia justo donde empezaba la copia).
+ * el control en cualquier momento deslizando con el dedo, el ratón o el
+ * trackpad — cuando deja de tocarla, retoma el deslizamiento automático tras
+ * una pausa breve. El contenido que se le pase ya tiene que venir duplicado
+ * una vez (2x) para que el bucle sea perfecto (al llegar a la mitad del ancho
+ * total, se reinicia justo donde empezaba la copia).
+ *
+ * Safari redondea scrollLeft a píxeles enteros, así que sumarle ~0,6 px por
+ * fotograma no lo movía nunca (en iPhone el carrusel se quedaba quieto). Por
+ * eso la posición se acumula aparte con decimales: el scroll recibe la parte
+ * entera y el resto de píxel se aplica como transform, para que se vea suave.
+ * Mientras el usuario desliza (incluida la inercia del dedo) no se toca el
+ * scroll, y la fila solo se anima cuando está en pantalla.
  */
 function useAutoScrollRow(speedPxPerSec = 36) {
   const ref = useRef<HTMLDivElement>(null);
@@ -43,47 +50,100 @@ function useAutoScrollRow(speedPxPerSec = 36) {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     let raf = 0;
-    let last = performance.now();
+    let last = 0;
+    let pos = el.scrollLeft;
+    let expected = pos; // último scrollLeft que ha puesto el propio bucle
     let paused = false;
+    let holding = false; // dedo o botón del ratón pulsado sobre la fila
     let resumeTimer: ReturnType<typeof setTimeout>;
 
     const tick = (now: number) => {
-      const dt = (now - last) / 1000;
+      // Tope de 0,1 s para no dar un salto al volver de otra pestaña.
+      const dt = Math.min((now - last) / 1000, 0.1);
       last = now;
-      if (!paused) el.scrollLeft += speedPxPerSec * dt;
-      const half = el.scrollWidth / 2;
-      if (half > 0) {
-        if (el.scrollLeft >= half) el.scrollLeft -= half;
-        else if (el.scrollLeft < 0) el.scrollLeft += half;
+      if (!paused) {
+        const half = el.scrollWidth / 2;
+        pos += speedPxPerSec * dt;
+        if (half > 0 && pos >= half) pos -= half;
+        const whole = Math.floor(pos);
+        el.scrollLeft = whole;
+        expected = el.scrollLeft;
+        const frac = expected === whole ? pos - whole : 0;
+        el.style.transform = `translate3d(${-frac}px, 0, 0)`;
       }
       raf = requestAnimationFrame(tick);
     };
-    raf = requestAnimationFrame(tick);
+
+    const start = () => {
+      if (raf) return;
+      last = performance.now();
+      raf = requestAnimationFrame(tick);
+    };
+    const stop = () => {
+      cancelAnimationFrame(raf);
+      raf = 0;
+    };
 
     const pause = () => {
       paused = true;
       clearTimeout(resumeTimer);
+      el.style.transform = "";
     };
     const scheduleResume = () => {
       clearTimeout(resumeTimer);
+      if (holding) return;
       resumeTimer = setTimeout(() => {
-        paused = false;
+        pos = el.scrollLeft;
         last = performance.now();
+        paused = false;
       }, 1500);
     };
 
-    el.addEventListener("pointerdown", pause);
-    el.addEventListener("pointerup", scheduleResume);
-    el.addEventListener("pointercancel", scheduleResume);
-    el.addEventListener("pointerleave", scheduleResume);
+    const hold = () => {
+      holding = true;
+      pause();
+    };
+    const release = () => {
+      holding = false;
+      scheduleResume();
+    };
+    // Cualquier desplazamiento que no venga del bucle es del usuario (dedo,
+    // inercia, trackpad): se pausa y se vuelve a esperar a que termine.
+    const onScroll = () => {
+      if (Math.abs(el.scrollLeft - expected) < 1) return;
+      pause();
+      scheduleResume();
+    };
+
+    // En iPhone el navegador lanza pointercancel en cuanto empieza el
+    // deslizamiento, con el dedo aún encima: por eso el fin del toque se
+    // escucha con touchend y no con pointercancel.
+    const onPointerUp = (e: PointerEvent) => {
+      if (e.pointerType === "mouse") release();
+    };
+    el.addEventListener("pointerdown", hold);
+    el.addEventListener("pointerup", onPointerUp);
+    el.addEventListener("pointerleave", onPointerUp);
+    el.addEventListener("touchend", release, { passive: true });
+    el.addEventListener("touchcancel", release, { passive: true });
+    el.addEventListener("scroll", onScroll, { passive: true });
+
+    const visibility = new IntersectionObserver(([entry]) =>
+      entry?.isIntersecting ? start() : stop(),
+    );
+    visibility.observe(el);
 
     return () => {
-      cancelAnimationFrame(raf);
+      stop();
+      visibility.disconnect();
       clearTimeout(resumeTimer);
-      el.removeEventListener("pointerdown", pause);
-      el.removeEventListener("pointerup", scheduleResume);
-      el.removeEventListener("pointercancel", scheduleResume);
-      el.removeEventListener("pointerleave", scheduleResume);
+      el.style.transform = "";
+      el.removeEventListener("pointerdown", hold);
+      el.removeEventListener("pointerup", onPointerUp);
+      el.removeEventListener("pointerleave", onPointerUp);
+      el.removeEventListener("touchend", release);
+      el.removeEventListener("touchcancel", release);
+      el.removeEventListener("scroll", onScroll);
     };
   }, [speedPxPerSec]);
   return ref;
@@ -149,6 +209,14 @@ function Section({
   );
 }
 
+/**
+ * Las tarjetas de los carruseles reproducen una vista previa ligera (primeros
+ * 8 s, 540 px de ancho, sin audio) desde /videos/previews/; el vídeo completo
+ * solo se descarga al abrirlo. Si se cambia o añade un vídeo, hay que generar
+ * también su vista previa con el mismo nombre.
+ */
+const previewOf = (src: string) => src.replace("/videos/", "/videos/previews/");
+
 function VideoCard({
   src,
   poster,
@@ -177,9 +245,12 @@ function VideoCard({
       ([entry]) => entry?.isIntersecting && setNear(true),
       { rootMargin: "0px 300px" },
     );
-    const visibleObs = new IntersectionObserver(([entry]) => setVisible(!!entry?.isIntersecting), {
-      threshold: 0.25,
-    });
+    // Solo se reproduce la tarjeta que se ve casi entera: en móvil es una (como
+    // mucho dos) a la vez, en vez de todas las que asoman por el borde.
+    const visibleObs = new IntersectionObserver(
+      ([entry]) => setVisible(!!entry && entry.intersectionRatio >= 0.6),
+      { threshold: 0.6 },
+    );
     nearObs.observe(el);
     visibleObs.observe(el);
     return () => {
@@ -222,11 +293,13 @@ function VideoCard({
   );
 }
 
-/* 1 — Banner de alerta */
+/* 1 — Banner de alerta. Va fijo arriba junto con <Nav /> dentro del mismo
+   contenedor (ver routes/index.tsx): así la cabecera queda siempre justo
+   debajo aunque el texto ocupe más líneas en móviles estrechos. */
 export function AlertBanner() {
   return (
-    <div className="fixed inset-x-0 top-0 z-50 border-b border-primary/30 bg-primary/10 backdrop-blur-md">
-      <p className="mx-auto flex max-w-6xl items-center justify-center gap-2 px-4 py-2 text-center text-xs font-medium text-primary sm:text-sm">
+    <div className="border-b border-primary/30 bg-primary/10 backdrop-blur-md">
+      <p className="mx-auto flex max-w-6xl items-center justify-center gap-2 px-3 py-1.5 text-center text-[11px] font-medium leading-snug text-primary sm:px-4 sm:py-2 sm:text-sm">
         <AlertTriangle className="hidden h-4 w-4 shrink-0 sm:block" />
         Si llevas meses pagando pauta con el mismo anuncio, no tienes un problema de presupuesto:
         tienes un problema de creatividades.
@@ -237,7 +310,7 @@ export function AlertBanner() {
 
 export function Nav() {
   return (
-    <header className="fixed inset-x-0 top-[38px] z-40 border-b border-border/60 bg-background/80 backdrop-blur-xl sm:top-[42px]">
+    <header className="border-b border-border/60 bg-background/80 backdrop-blur-xl">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-5">
         <a href="#top" className="flex items-center gap-2">
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
@@ -486,7 +559,7 @@ export function Formats() {
               </span>
               {f.video ? (
                 <VideoCard
-                  src={f.video.src}
+                  src={previewOf(f.video.src)}
                   poster={f.video.poster}
                   label={`Ver ejemplo — ${f.title}`}
                   onClick={() => setActiveVideo(f.video)}
@@ -505,7 +578,8 @@ export function Formats() {
       </div>
 
       <Dialog open={!!activeVideo} onOpenChange={(next) => !next && setActiveVideo(null)}>
-        <DialogContent className="w-auto max-w-[92vw] gap-0 border-border bg-background p-2 sm:max-w-[92vw] sm:p-3">
+        {/* pt-10: la X de cerrar queda en su propia franja y no tapa los controles del vídeo */}
+        <DialogContent className="w-auto max-w-[92vw] gap-0 border-border bg-background p-2 pt-10 sm:max-w-[92vw] sm:p-3 sm:pt-12">
           <DialogTitle className="sr-only">Ejemplo de formato</DialogTitle>
           {activeVideo && (
             <video
@@ -573,7 +647,7 @@ export function RealExamples() {
                 {ex.tagLabel}
               </span>
               <VideoCard
-                src={ex.video.src}
+                src={previewOf(ex.video.src)}
                 poster={ex.video.poster}
                 label={`Ver ejemplo — ${ex.tagLabel}`}
                 onClick={() => setActiveVideo(ex.video)}
@@ -584,7 +658,8 @@ export function RealExamples() {
         </div>
       </div>
       <Dialog open={!!activeVideo} onOpenChange={(next) => !next && setActiveVideo(null)}>
-        <DialogContent className="w-auto max-w-[92vw] gap-0 border-border bg-background p-2 sm:max-w-[92vw] sm:p-3">
+        {/* pt-10: la X de cerrar queda en su propia franja y no tapa los controles del vídeo */}
+        <DialogContent className="w-auto max-w-[92vw] gap-0 border-border bg-background p-2 pt-10 sm:max-w-[92vw] sm:p-3 sm:pt-12">
           <DialogTitle className="sr-only">Ejemplo real</DialogTitle>
           {activeVideo && (
             <video
