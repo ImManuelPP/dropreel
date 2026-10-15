@@ -1,0 +1,1010 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Droppreel · Webs, chatbots con IA, Meta Ads y contenido viral para tu negocio</title>
+<meta name="description" content="Páginas web que venden, chatbots con IA, campañas de Meta Ads que traen clientes y contenido viral creado con IA para marcas y empresas. Hecho a medida.">
+<meta name="theme-color" content="#080E13">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/servicios/apple-touch-icon.png">
+<link rel="canonical" href="https://droppreel.com/servicios/">
+<!-- Vista previa al compartir el enlace -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="Droppreel">
+<meta property="og:title" content="Droppreel · Webs, chatbots con IA, Meta Ads y contenido viral">
+<meta property="og:description" content="Webs desde 149 €, chatbots con IA, campañas en Meta Ads y contenido viral creado con IA para tu negocio. Te respondemos en minutos por WhatsApp.">
+<meta property="og:url" content="https://droppreel.com/servicios/">
+<meta property="og:image" content="https://droppreel.com/servicios/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  /* Colores y letra de Droppreel (los mismos que la portada de droppreel.com) */
+  :root {
+    --fondo: #080E13;
+    --surface: #0F171D;
+    --surface-2: #172128;
+    --claro: #F2F6F8;
+    --texto: #9DA6AD;
+    --suave: #7F8A92;
+    --borde: #27323A;
+    --verde: #8AFA00;
+    --verde-osc: #0C1B02;
+    --grad: linear-gradient(90deg, #8AFA00 0%, #5BF0A0 60%, #3BD9E0 100%);
+    --grad-diag: linear-gradient(120deg, #8AFA00 0%, #3BE8A0 50%, #2BB8D9 100%);
+    --f-display: "Space Grotesk", system-ui, sans-serif;
+    --f-mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--f-display);
+    color: var(--claro);
+    background: var(--fondo);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  .display { font-family: var(--f-display); font-weight: 600; letter-spacing: -0.035em; line-height: 1.02; }
+  .contenedor { width: min(1152px, 100% - 32px); margin-inline: auto; }
+  .chip span { white-space: nowrap; }
+
+  /* ---------- botones ---------- */
+  .btn-lima {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: var(--verde); color: var(--verde-osc);
+    font-weight: 600; font-size: 16px;
+    padding: 17px 26px; border-radius: 12px;
+    box-shadow: 0 10px 34px rgba(138,250,0,.30);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .btn-lima svg { width: 18px; height: 18px; }
+  .btn-oscuro {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--surface); color: var(--claro); font-weight: 500; font-size: 14px;
+    padding: 13px 22px; border-radius: 12px; border: 1px solid var(--borde);
+  }
+  .btn-oscuro svg { width: 16px; height: 16px; color: var(--verde); }
+
+  /* ---------- etiquetas de sección ---------- */
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px; margin-bottom: 22px;
+    font-family: var(--f-mono); font-size: 11.5px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--texto); background: var(--surface); border: 1px solid var(--borde); border-radius: 999px; padding: 6px 13px;
+  }
+  .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--verde); box-shadow: 0 0 10px rgba(138,250,0,.7); }
+  .titulo { font-size: clamp(36px, 5.2vw, 58px); }
+  .resaltado { position: relative; display: inline-block; z-index: 0; color: var(--verde); }
+  .resaltado::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: -.06em; height: .07em; border-radius: 2px;
+    background: var(--grad); z-index: -1; transform-origin: left; transform: scaleX(0);
+    transition: transform .8s cubic-bezier(.2,.8,.2,1) .25s;
+  }
+  .visible .resaltado::after, .resaltado.visible::after { transform: scaleX(1); }
+  .intro { font-size: 18px; line-height: 1.6; color: var(--texto); max-width: 560px; margin-top: 18px; }
+  section { padding: 110px 0; }
+
+  /* ---------- aparición al hacer scroll ---------- */
+  .revelar { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1); }
+  .revelar.visible { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .revelar { opacity: 1; transform: none; transition: none; }
+    .marquesina-pista { animation: none !important; }
+  }
+
+  /* ---------- hero ---------- */
+  .hero {
+    position: relative; padding: 0 0 40px;
+    background:
+      radial-gradient(circle at 1px 1px, rgba(255,255,255,.07) 1px, transparent 0) 0 0 / 22px 22px,
+      radial-gradient(620px 420px at 0% 0%, rgba(138,250,0,.10), transparent 70%),
+      radial-gradient(520px 440px at 100% 45%, rgba(59,217,224,.08), transparent 70%),
+      var(--fondo);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 26px 0 40px; }
+  .logo { display: inline-flex; align-items: center; gap: 10px; font-size: 21px; font-weight: 600; letter-spacing: -0.02em; }
+  .logo-icono { width: 36px; height: 36px; border-radius: 10px; background: var(--verde); color: var(--verde-osc); display: grid; place-items: center; flex: none; }
+  .logo-icono svg { width: 17px; height: 17px; margin-left: 2px; }
+  .nav-cta { background: var(--verde); color: var(--verde-osc); font-weight: 600; font-size: 14px; padding: 10px 16px; border-radius: 10px; white-space: nowrap; }
+  .hero-contenido { width: min(1840px, 100% - 32px); margin-inline: auto; padding-left: clamp(0px, 3vw, 48px); padding-right: clamp(0px, 3vw, 48px); }
+  .chip {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--surface); color: var(--claro); border: 1px solid var(--borde);
+    font-family: var(--f-mono); font-size: 11.5px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+    padding: 7px 14px 7px 12px; border-radius: 999px;
+  }
+  .chip .punto { width: 9px; height: 9px; border-radius: 50%; background: var(--verde); box-shadow: 0 0 0 3px rgba(138,250,0,.25); animation: latido 2s infinite; }
+  @keyframes latido { 50% { box-shadow: 0 0 0 6px rgba(138,250,0,0); } }
+  .hero h1 { font-size: clamp(54px, 9.4vw, 140px); margin: 24px 0 24px; letter-spacing: -0.045em; line-height: .98; }
+  .gradiente-texto { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hero p { font-size: clamp(17px, 1.4vw, 21px); line-height: 1.55; color: var(--texto); max-width: 600px; }
+  .hero-cta { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin-top: 32px; }
+  .hero-cta small { color: var(--suave); font-size: 14px; }
+
+  /* ---------- marquesina ---------- */
+  .marquesina { background: var(--surface); border-block: 1px solid var(--borde); overflow: hidden; padding: 22px 0; }
+  .marquesina-pista { display: flex; width: max-content; animation: desliza 34s linear infinite; }
+  .marquesina-pista span {
+    font-weight: 600; color: var(--claro); font-size: 21px; letter-spacing: -0.01em;
+    display: inline-flex; align-items: center; gap: 46px; padding-right: 46px; white-space: nowrap;
+  }
+  .marquesina-pista span::after { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--verde); }
+  @keyframes desliza { to { transform: translateX(-50%); } }
+
+  /* ---------- tarjetas de servicios ---------- */
+  .rejilla-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 50px; }
+  .tarjeta { position: relative; background: var(--surface); border: 1px solid var(--borde); border-radius: 20px; padding: 28px; }
+  .icono {
+    width: 48px; height: 48px; border-radius: 12px; background: var(--surface-2); color: var(--verde);
+    border: 1px solid var(--borde); display: grid; place-items: center;
+  }
+  .icono svg { width: 22px; height: 22px; }
+  .etiqueta-grad {
+    position: absolute; top: 28px; right: 28px; background: rgba(138,250,0,.10); color: var(--verde); border: 1px solid rgba(138,250,0,.30);
+    font-family: var(--f-mono); font-size: 10.5px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px;
+  }
+  .tarjeta h3 { font-weight: 600; font-size: 23px; letter-spacing: -0.02em; margin: 22px 0 10px; }
+  .tarjeta p { color: var(--texto); line-height: 1.6; font-size: 16px; }
+  .lista { list-style: none; margin-top: 18px; display: grid; gap: 8px; }
+  .lista li { position: relative; padding-left: 16px; color: var(--texto); font-size: 14.5px; line-height: 1.45; }
+  .lista li::before { content: ""; position: absolute; left: 0; top: .6em; width: 5px; height: 5px; border-radius: 50%; background: var(--verde); }
+  .ver-ejemplos { display: inline-flex; align-items: center; gap: 6px; margin-top: 18px; color: var(--verde); font-weight: 500; font-size: 14.5px; border-bottom: 1px solid rgba(138,250,0,.4); padding-bottom: 1px; }
+  .centro-cta { text-align: center; margin-top: 44px; }
+  .centro-cta small { display: block; color: var(--suave); margin-top: 14px; font-size: 14px; }
+
+  /* ---------- quiénes somos ---------- */
+  .sobre { display: grid; grid-template-columns: 1fr 1.25fr; gap: 60px; align-items: center; }
+  .foto-wrap { display: grid; place-items: center; }
+  .foto {
+    width: min(300px, 70vw); aspect-ratio: 1; border-radius: 50%;
+    background: radial-gradient(circle at 50% 40%, rgba(138,250,0,.16), transparent 65%), var(--surface);
+    border: 1px solid var(--borde);
+    box-shadow: 0 0 0 40px rgba(255,255,255,.015), 0 0 0 80px rgba(255,255,255,.01), 0 30px 90px rgba(138,250,0,.12);
+    display: grid; place-items: center;
+  }
+  .emblema { width: 42%; aspect-ratio: 1; border-radius: 26%; background: var(--verde); color: var(--verde-osc); display: grid; place-items: center; box-shadow: 0 0 60px rgba(138,250,0,.45); }
+  .emblema svg { width: 44%; height: 44%; margin-left: 6%; }
+  .mini-tarjetas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 34px; }
+  .mini { background: var(--surface); border: 1px solid var(--borde); color: var(--claro); border-radius: 14px; padding: 18px 16px 20px; }
+  .mini svg { width: 26px; height: 26px; color: var(--verde); }
+  .mini b { display: block; font-size: 15px; font-weight: 600; margin: 12px 0 4px; }
+  .mini span { font-size: 13px; color: var(--texto); line-height: 1.4; display: block; }
+
+  /* ---------- qué incluye ---------- */
+  .rejilla-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 50px; }
+  .rejilla-4 .tarjeta { padding: 24px; border-radius: 16px; }
+  .rejilla-4 .icono { width: 44px; height: 44px; }
+  .rejilla-4 .icono svg { width: 19px; height: 19px; }
+  .rejilla-4 h3 { font-size: 20px; margin: 20px 0 4px; }
+
+  /* ---------- entrega ---------- */
+  .entrega {
+    position: relative; overflow: hidden; text-align: center; color: var(--claro); border-radius: 28px; border: 1px solid var(--borde);
+    width: min(1024px, 100% - 32px); margin-inline: auto; padding: 70px 24px 64px;
+    background:
+      radial-gradient(500px 260px at 50% 0%, rgba(138,250,0,.12), transparent 70%),
+      linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px) 0 0 / 44px 44px,
+      linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px) 0 0 / 44px 44px,
+      var(--surface);
+  }
+  .entrega .eyebrow-lima, .final .eyebrow-lima { color: var(--verde); font-family: var(--f-mono); font-size: 12px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; }
+  .entrega h2 { font-size: clamp(40px, 5.6vw, 60px); margin-top: 14px; }
+  .entrega h2 em { font-style: normal; color: var(--verde); }
+  .cifra { font-weight: 700; letter-spacing: -0.05em; font-size: clamp(110px, 17vw, 170px); line-height: 1; margin-top: 26px; display: flex; justify-content: center; align-items: center; gap: 22px; }
+  .cifra i { display: block; width: .24em; height: .08em; border-radius: 4px; background: var(--verde); }
+  .entrega .dias { font-family: var(--f-mono); font-size: 15px; letter-spacing: .24em; color: var(--texto); margin-top: 18px; }
+  .entrega .linea { width: 128px; height: 1px; background: var(--grad); margin: 36px auto 30px; }
+  .entrega p { color: var(--texto); max-width: 440px; margin-inline: auto; line-height: 1.55; font-size: 16px; }
+
+  /* ---------- portfolio ---------- */
+  .cabecera-flex { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
+  .carrusel {
+    position: relative; display: flex; gap: 26px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+    padding: 40px max(16px, calc((100vw - 1024px) / 2)) 10px;
+  }
+  .carrusel::-webkit-scrollbar { display: none; }
+  .proyecto {
+    position: relative; flex: 0 0 min(750px, 86vw); aspect-ratio: 4 / 3; max-height: 560px; border-radius: 22px; overflow: hidden;
+    scroll-snap-align: center; color: #fff; background: var(--surface-2); border: 1px solid var(--borde);
+  }
+  .proyecto .captura { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: scale .7s ease; }
+  .proyecto .sombra { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(8,14,19,0) 45%, rgba(8,14,19,.6) 65%, rgba(8,14,19,.96) 90%); }
+  .proyecto .info { position: absolute; left: 24px; right: 24px; bottom: 24px; }
+  .proyecto .tag { display: inline-block; background: rgba(138,250,0,.14); color: var(--verde); font-family: var(--f-mono); font-size: 11px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; padding: 5px 10px; border-radius: 999px; }
+  .proyecto h3 { font-weight: 600; letter-spacing: -0.025em; font-size: 32px; margin: 10px 0 6px; }
+  .proyecto p { font-size: 15px; color: #C9D1D6; }
+  .proyecto .resultado { color: var(--verde); font-weight: 600; margin-top: 10px; font-size: 15px; }
+  .carrusel-marco { position: relative; }
+  .flecha { position: absolute; z-index: 2; top: calc(50% + 15px); translate: 0 -50%; width: 54px; height: 54px; border-radius: 50%; border: 1px solid rgba(138,250,0,.4); background: var(--surface); color: var(--verde); display: grid; place-items: center; cursor: pointer; box-shadow: 0 10px 24px rgba(0,0,0,.45); transition: transform .2s, opacity .2s; }
+  .flecha svg { width: 24px; height: 24px; }
+  #flecha-ant { left: max(6px, calc(50% - min(750px, 86vw) / 2 - 27px)); }
+  #flecha-sig { right: max(6px, calc(50% - min(750px, 86vw) / 2 - 27px)); }
+  .flecha:hover { transform: scale(1.06); }
+  .flecha:active { transform: scale(.94); }
+  .flecha:focus-visible { outline: 3px solid var(--verde); outline-offset: 3px; }
+  .flecha:disabled { opacity: 0; pointer-events: none; }
+  .puntos { display: flex; justify-content: center; gap: 8px; margin-top: 26px; }
+  .puntos button { width: 8px; height: 8px; border-radius: 99px; border: 0; background: #2C3943; cursor: pointer; transition: width .3s, background .3s; }
+  .puntos button.activo { width: 32px; background: var(--grad); }
+
+  /* ---------- por qué ---------- */
+  .razones { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 50px; }
+  .razon { display: flex; align-items: center; gap: 14px; background: var(--surface); border: 1px solid var(--borde); border-radius: 14px; padding: 18px 20px; font-weight: 500; font-size: 15.5px; }
+  .razon i { flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--surface-2); border: 1px solid var(--borde); display: grid; place-items: center; }
+  .razon i svg { width: 14px; height: 14px; color: var(--verde); }
+
+  /* ---------- proceso ---------- */
+  .pasos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 50px; }
+  .paso { position: relative; background: var(--surface); border: 1px solid var(--borde); border-radius: 18px; padding: 26px 24px; }
+  .paso-top { display: flex; align-items: center; gap: 14px; }
+  .paso .icono { width: 44px; height: 44px; }
+  .paso .icono svg { width: 20px; height: 20px; }
+  .paso .num { font-family: var(--f-mono); font-size: 30px; font-weight: 500; line-height: 1; color: rgba(255,255,255,.14); font-variant-numeric: tabular-nums; transition: color .3s; }
+  .paso h3 { font-weight: 600; font-size: 22px; letter-spacing: -0.02em; margin: 16px 0 8px; }
+  .paso p { color: var(--texto); font-size: 15px; line-height: 1.55; }
+  .paso .recibes { margin-top: 18px; padding-top: 16px; border-top: 1px dashed var(--borde); font-size: 14px; color: var(--claro); }
+  .paso .recibes span { display: block; font-family: var(--f-mono); font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--verde); margin-bottom: 4px; }
+
+  /* ---------- pago ---------- */
+  .pago { display: grid; grid-template-columns: 1fr 1fr 1.1fr; gap: 16px; margin-top: 50px; }
+  .pago .bloque { background: var(--surface); border: 1px solid var(--borde); border-radius: 18px; padding: 30px 28px; }
+  .pago .bloque .pct { font-weight: 700; letter-spacing: -0.05em; font-size: 72px; line-height: 1; }
+  .pago .bloque h3 { font-weight: 600; font-size: 22px; letter-spacing: -0.02em; margin: 14px 0 6px; }
+  .pago .bloque p { color: var(--texto); line-height: 1.55; font-size: 15px; }
+  .pago .garantia { background: linear-gradient(160deg, #1C3517 0%, var(--surface) 70%); border-color: rgba(138,250,0,.28); display: flex; flex-direction: column; justify-content: center; }
+  .pago .garantia svg { width: 40px; height: 40px; color: var(--verde); }
+  .pago .garantia .garantia-tit { font-size: 26px; margin: 16px 0 6px; }
+  .pago .garantia p { color: #C9D1D6; }
+
+  /* ---------- FAQ ---------- */
+  .faq-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 60px; }
+  .faq-lista { border-top: 1px solid var(--borde); }
+  .faq-item { border-bottom: 1px solid var(--borde); }
+  .faq-item button {
+    width: 100%; background: none; border: 0; font: inherit; color: var(--claro); text-align: left; cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 22px 0; font-size: 17px; font-weight: 500;
+  }
+  .faq-item button i { flex: none; width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--borde); display: grid; place-items: center; transition: transform .3s, background .3s; }
+  .faq-item button i svg { width: 14px; height: 14px; }
+  .faq-item.abierto button i { transform: rotate(45deg); background: var(--verde); border-color: var(--verde); color: var(--verde-osc); }
+  .faq-respuesta { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .35s ease; }
+  .faq-respuesta > div { overflow: hidden; }
+  .faq-respuesta p { color: var(--texto); line-height: 1.65; padding-bottom: 22px; font-size: 15.5px; }
+  .faq-item.abierto .faq-respuesta { grid-template-rows: 1fr; }
+  .enlace-flecha { display: inline-flex; align-items: center; gap: 8px; font-weight: 500; margin-top: 26px; border-bottom: 2px solid var(--verde); padding-bottom: 2px; }
+
+  /* ---------- CTA final ---------- */
+  .final {
+    position: relative; color: var(--claro); text-align: center; padding: 120px 0; border-top: 1px solid var(--borde);
+    background:
+      radial-gradient(700px 360px at 50% 0%, rgba(138,250,0,.16), transparent 70%),
+      linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px) 0 0 / 44px 44px,
+      linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px) 0 0 / 44px 44px,
+      var(--surface);
+  }
+  .final h2 { font-size: clamp(50px, 8vw, 108px); margin-top: 16px; letter-spacing: -0.045em; }
+  .final h2 em { font-style: normal; color: var(--verde); }
+  .final p { max-width: 560px; margin: 24px auto 0; font-size: 18px; line-height: 1.55; color: #C9D1D6; }
+  .final .btn-lima { margin-top: 36px; }
+  .final .tel { display: inline-block; margin-top: 18px; color: var(--texto); font-size: 15px; }
+
+  /* ---------- footer ---------- */
+  footer { padding: 70px 0 34px; border-top: 1px solid var(--borde); }
+  .pie { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; }
+  .pie .marca { font-size: 26px; }
+  .pie .marca .logo-icono { width: 40px; height: 40px; }
+  .pie h4 { display: block; }
+  .pie p, .pie a { color: var(--texto); font-size: 15px; line-height: 1.9; }
+  .pie p { margin-top: 10px; }
+  .pie h4 { font-family: var(--f-mono); font-size: 11.5px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--claro); margin-bottom: 10px; }
+  .pie nav a { display: block; }
+  .pie a:hover { color: var(--verde); }
+  .legal { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; border-top: 1px solid var(--borde); margin-top: 46px; padding-top: 24px; color: var(--suave); font-size: 13px; }
+
+  /* ---------- botón flotante WhatsApp ---------- */
+  .wa-flotante {
+    position: fixed; right: 20px; bottom: 20px; z-index: 50; width: 58px; height: 58px; border-radius: 50%;
+    background: #25D366; color: #fff; display: grid; place-items: center; box-shadow: 0 10px 30px rgba(37,211,102,.35);
+    transition: transform .2s;
+  }
+  .wa-flotante:hover { transform: scale(1.07); }
+  .wa-flotante svg { width: 30px; height: 30px; }
+
+  /* =========================================================
+     EFECTOS AL PASAR EL RATÓN
+     Se usan "translate" y "scale" sueltos para no pisar la
+     animación de aparición, que usa "transform".
+     ========================================================= */
+  .btn-lima, .btn-oscuro { position: relative; overflow: hidden; isolation: isolate; }
+  .btn-lima {
+    animation: halo-lima 2.2s ease-in-out infinite;
+    transition: translate .35s cubic-bezier(.2,.8,.2,1), scale .25s ease;
+  }
+  @keyframes halo-lima {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(138,250,0,.45), 0 10px 40px -12px rgba(138,250,0,.40); }
+    50%      { box-shadow: 0 0 0 14px rgba(138,250,0,0), 0 12px 50px -8px rgba(138,250,0,.60); }
+  }
+  /* brillo que cruza el botón */
+  .btn-lima::before {
+    content: ""; position: absolute; top: 0; bottom: 0; left: -100%; width: 50%; pointer-events: none;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.5), transparent);
+    transform: skewX(-20deg); transition: translate .7s ease-out;
+  }
+  .btn-lima svg { transition: translate .25s ease; }
+  .btn-oscuro { transition: translate .35s cubic-bezier(.2,.8,.2,1), scale .25s ease, border-color .3s ease; }
+  .wa-flotante { transition: translate .35s cubic-bezier(.2,.8,.2,1), scale .25s ease; }
+
+  /* luz que sigue al cursor dentro de las tarjetas */
+  .tarjeta, .razon { position: relative; overflow: hidden; isolation: isolate; }
+  .tarjeta::before, .razon::before {
+    content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0; transition: opacity .3s;
+    background: radial-gradient(260px at var(--fx, -9999px) var(--fy, -9999px), rgba(138,250,0,.08), transparent 70%);
+  }
+  .razon::before { background: radial-gradient(200px at var(--fx, -9999px) var(--fy, -9999px), rgba(138,250,0,.08), transparent 70%); }
+  .tarjeta, .razon, .paso, .pago .bloque, .mini, .proyecto {
+    transition: opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1),
+                translate .3s ease, box-shadow .3s ease, border-color .3s ease, background-color .3s ease;
+  }
+  .icono, .mini svg, .razon i { transition: scale .3s ease, background-color .3s ease, color .3s ease; }
+  .razon i svg { transition: color .3s ease; }
+
+  @media (hover: hover) {
+    .btn-lima:hover, .btn-oscuro:hover, .wa-flotante:hover { scale: 1.04; }
+    .btn-lima:hover::before { translate: 400% 0; }
+    .btn-lima:hover svg { translate: 4px 0; }
+    .btn-oscuro:hover { border-color: rgba(138,250,0,.5); }
+
+    .tarjeta:hover::before, .razon:hover::before { opacity: 1; }
+    .rejilla-2 .tarjeta:hover { translate: 0 -6px; }
+    .rejilla-4 .tarjeta:hover { translate: 0 -8px; }
+    .tarjeta:hover, .paso:hover, .pago .bloque:not(.garantia):hover { border-color: #3A4852; box-shadow: 0 30px 60px -30px rgba(0,0,0,.7); }
+    .tarjeta:hover .icono, .paso:hover .icono { scale: 1.05; }
+    .paso:hover .num { color: rgba(138,250,0,.5); }
+
+    .mini:hover { border-color: rgba(138,250,0,.45); }
+    .mini:hover svg { scale: 1.1; }
+
+    .razon:hover { border-color: #3A4852; }
+    .razon:hover i { scale: 1.1; background: var(--verde); border-color: var(--verde); }
+    .razon:hover i svg { color: var(--verde-osc); }
+
+    .paso:hover, .pago .bloque:hover { translate: 0 -6px; }
+
+    .proyecto:hover { box-shadow: 0 30px 80px -40px rgba(0,0,0,.8); }
+    .proyecto:hover .captura { scale: 1.05; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .btn-lima { animation: none; }
+  }
+
+  /* =========================================================
+     FORMULARIO "CUÉNTANOS TU PROYECTO" (ventana emergente)
+     ========================================================= */
+  .modal { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 16px; visibility: hidden; }
+  .modal.abierto { visibility: visible; }
+  .modal-fondo { position: absolute; inset: 0; background: rgba(0,0,0,.65); backdrop-filter: blur(4px); opacity: 0; transition: opacity .3s; }
+  .modal.abierto .modal-fondo { opacity: 1; }
+  .modal-caja {
+    position: relative; width: min(450px, 100%); max-height: calc(100dvh - 32px); overflow-y: auto; overscroll-behavior: contain;
+    background: var(--surface); border: 1px solid var(--borde); border-radius: 18px; padding: 30px 28px 20px; box-shadow: 0 40px 100px -30px rgba(0,0,0,.8);
+    opacity: 0; transform: translateY(24px) scale(.97); transition: opacity .3s ease, transform .35s cubic-bezier(.2,.8,.2,1);
+  }
+  .modal.abierto .modal-caja { opacity: 1; transform: none; }
+  .modal-caja::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--grad); border-radius: 18px 18px 0 0; }
+  .modal-cerrar { position: absolute; top: 14px; right: 14px; width: 34px; height: 34px; border: 0; border-radius: 50%; background: none; color: var(--texto); cursor: pointer; display: grid; place-items: center; transition: background .2s; }
+  .modal-cerrar:hover { background: var(--surface-2); }
+  .modal-cerrar svg { width: 18px; height: 18px; }
+  .modal-cabecera { display: flex; align-items: center; gap: 14px; }
+  .modal-avatar { position: relative; flex: none; width: 48px; height: 48px; }
+  .modal-avatar .logo-icono { width: 48px; height: 48px; border-radius: 13px; }
+  .modal-avatar .logo-icono svg { width: 21px; height: 21px; }
+  .modal-avatar::after { content: ""; position: absolute; right: -3px; bottom: -3px; width: 14px; height: 14px; border-radius: 50%; background: #22C55E; border: 2.5px solid var(--surface); }
+  .modal-cabecera b { font-size: 20px; font-weight: 600; display: block; line-height: 1.15; }
+  .modal-cabecera small { color: var(--suave); font-size: 12.5px; }
+  .modal-intro { color: var(--texto); font-size: 15px; line-height: 1.6; margin-top: 16px; }
+  .modal-progreso { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 18px 0 20px; }
+  .modal-progreso i { height: 4px; border-radius: 4px; background: #22303A; transition: background .3s; }
+  .modal-progreso i.lleno { background: var(--grad); }
+  .modal form label:not(.opcion), .modal .etiq { display: block; font-size: 14px; font-weight: 500; color: var(--claro); margin: 16px 0 8px; }
+  .opciones { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .opcion { position: relative; }
+  .opcion input { position: absolute; opacity: 0; pointer-events: none; }
+  .opcion span {
+    display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 9px 12px; border: 1px solid var(--borde); border-radius: 12px;
+    font-size: 13.5px; line-height: 1.25; color: var(--claro); cursor: pointer; background: var(--surface-2); transition: border-color .2s, background .2s, box-shadow .2s;
+  }
+  .opcion span svg { flex: none; width: 18px; height: 18px; color: var(--texto); transition: color .2s; }
+  .opcion span:hover { border-color: #3A4852; }
+  .opcion input:checked + span { border-color: var(--verde); box-shadow: 0 0 0 1px var(--verde); }
+  .opcion input:checked + span svg { color: var(--verde); }
+  .opcion input:focus-visible + span { outline: 2px solid var(--verde); outline-offset: 2px; }
+  .campo-icono { position: relative; }
+  .campo-icono svg { position: absolute; left: 14px; top: 15px; width: 18px; height: 18px; color: var(--suave); pointer-events: none; }
+  .campo-icono input, .campo-icono textarea {
+    width: 100%; font: inherit; font-size: 15px; color: var(--claro); background: var(--surface-2); border: 1px solid var(--borde); border-radius: 12px;
+    padding: 13px 14px 13px 42px; transition: border-color .2s, background .2s, box-shadow .2s;
+  }
+  .campo-icono textarea { resize: none; min-height: 74px; line-height: 1.45; }
+  .campo-icono input::placeholder, .campo-icono textarea::placeholder { color: #66727A; }
+  .campo-icono input:focus, .campo-icono textarea:focus { outline: 0; border-color: var(--verde); box-shadow: 0 0 0 3px rgba(138,250,0,.12); }
+  .btn-enviar {
+    width: 100%; margin-top: 22px; border: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
+    font: inherit; font-weight: 600; font-size: 16px; color: var(--verde-osc);
+    background: var(--verde); border-radius: 12px; padding: 17px; transition: opacity .25s, box-shadow .25s, scale .2s;
+  }
+  .btn-enviar svg { width: 18px; height: 18px; }
+  .btn-enviar[aria-disabled="true"] { opacity: .45; cursor: not-allowed; }
+  .btn-enviar:not([aria-disabled="true"]) { box-shadow: 0 10px 30px -8px rgba(138,250,0,.6); }
+  .btn-enviar:not([aria-disabled="true"]):hover { scale: 1.02; }
+  .modal-aviso { text-align: center; color: var(--suave); font-size: 12px; line-height: 1.5; margin-top: 12px; }
+  .modal-falta { text-align: center; color: #FF7A93; font-size: 13px; margin-top: 10px; min-height: 1em; }
+  body.sin-scroll { overflow: hidden; }
+  @media (max-width: 420px) { .modal-caja { padding: 26px 18px 18px; } .opcion span { font-size: 12.5px; gap: 8px; padding: 8px 10px; } }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 960px) {
+    .rejilla-4, .pasos { grid-template-columns: repeat(2, 1fr); }
+    .razones { grid-template-columns: repeat(2, 1fr); }
+    .sobre, .faq-grid { grid-template-columns: 1fr; gap: 40px; }
+    .pago { grid-template-columns: 1fr 1fr; }
+    .pago .garantia { grid-column: 1 / -1; }
+  }
+  @media (max-width: 640px) {
+    section { padding: 80px 0; }
+    .nav { padding: 20px 0 30px; }
+    .logo { font-size: 19px; }
+    .logo-icono { width: 32px; height: 32px; }
+    .nav-cta { font-size: 13px; padding: 9px 13px; }
+    .rejilla-2, .rejilla-4, .pasos, .razones, .pago, .pie { grid-template-columns: 1fr; }
+    .mini-tarjetas { grid-template-columns: 1fr; }
+    .etiqueta-grad { position: static; display: inline-block; margin-left: 12px; vertical-align: middle; }
+    .chip { font-size: 9px; letter-spacing: .02em; gap: 7px; padding: 6px 11px 6px 10px; }
+    .btn-lima { padding: 16px 22px; font-size: 15px; }
+    .marquesina-pista span { font-size: 18px; }
+    .proyecto { aspect-ratio: auto; max-height: none; display: flex; flex-direction: column; }
+    .proyecto .captura { position: relative; height: auto; aspect-ratio: 1184 / 864; }
+    .proyecto .sombra { display: none; }
+    .proyecto .info { position: relative; left: 0; right: 0; bottom: 0; padding: 18px 20px 22px; margin-top: -40px; background: linear-gradient(180deg, rgba(23,33,40,0), var(--surface-2) 40px); }
+    .proyecto h3 { font-size: 27px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- =========================================================
+     TUS DATOS: cambia estos dos valores y se actualizan
+     todos los botones de WhatsApp de la página.
+     ========================================================= -->
+<script>
+  var WHATSAPP = "34603053272";            // tu número con prefijo 34, sin espacios ni +
+  var MENSAJE  = "Hola, vengo de la web de Droppreel y quiero información sobre ";
+</script>
+
+<!-- ======================= HERO ======================= -->
+<header class="hero">
+  <div class="hero-contenido">
+    <div class="nav">
+      <a href="#" class="logo"><span class="logo-icono"><svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M6 3.5 19.5 12 6 20.5z"/></svg></span>Droppreel</a>
+      <a class="nav-cta js-wa js-form" data-motivo="un proyecto" href="#">Pide tu presupuesto</a>
+    </div>
+
+    <div class="revelar">
+      <span class="chip"><span class="punto"></span>Webs desde <span>149 €</span> · Chatbots con IA · Meta Ads</span>
+      <h1 class="display">Webs, apps y <span class="gradiente-texto">sistemas</span></h1>
+      <p>Webs que venden, chatbots con IA que atienden a tus clientes, campañas de Meta Ads que traen ventas y contenido viral creado con IA. Todo a medida y sin plantillas.</p>
+      <div class="hero-cta">
+        <a class="btn-lima js-wa js-form" data-motivo="una web" href="#">Pide presupuesto por WhatsApp
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <small>Te respondemos en minutos</small>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="marquesina" aria-hidden="true">
+  <div class="marquesina-pista">
+    <span>Páginas web</span><span>Chatbots con IA</span><span>Meta Ads</span><span>Contenido viral con IA</span><span>WhatsApp Business</span><span>Aplicaciones a medida</span><span>Automatización</span><span>Tiendas online</span><span>Paneles y reportes</span><span>Integración de APIs</span>
+    <span>Páginas web</span><span>Chatbots con IA</span><span>Meta Ads</span><span>Contenido viral con IA</span><span>WhatsApp Business</span><span>Aplicaciones a medida</span><span>Automatización</span><span>Tiendas online</span><span>Paneles y reportes</span><span>Integración de APIs</span>
+  </div>
+</div>
+
+<!-- ======================= QUÉ HACEMOS ======================= -->
+<section id="servicios">
+  <div class="contenedor" style="max-width: 1152px;">
+    <div class="revelar">
+      <div class="eyebrow">Qué hacemos</div>
+      <h2 class="display titulo">Soluciones que hacen <span class="resaltado">crecer</span><br>tu negocio</h2>
+      <p class="intro">Desde tu página web hasta las campañas y el contenido que te traen clientes. Todo hecho a medida y explicado sin tecnicismos.</p>
+    </div>
+
+    <div class="rejilla-2">
+      <article class="tarjeta revelar">
+        <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg></div>
+        <span class="etiqueta-grad">Lo más pedido</span>
+        <h3>Páginas web</h3>
+        <p>Tu negocio en internet vendiendo las 24 horas. Diseño propio, nada de plantillas.</p>
+        <ul class="lista"><li>Landing pages que convierten</li><li>Webs de empresa</li><li>Tiendas online</li><li>Dominio y hosting incluidos</li></ul>
+      </article>
+      <article class="tarjeta revelar">
+        <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4" y="8" width="16" height="11" rx="3"/><path d="M12 4v4M9 13h.01M15 13h.01M2 13v2M22 13v2"/></svg></div>
+        <span class="etiqueta-grad">Tendencia 2026</span>
+        <h3>Chatbots con IA</h3>
+        <p>Un asistente que atiende, responde y vende por ti mientras tú duermes.</p>
+        <ul class="lista"><li>Chatbot para WhatsApp</li><li>Instagram y Messenger</li><li>Asistente dentro de tu web</li><li>Filtra y agenda clientes</li></ul>
+      </article>
+      <article class="tarjeta revelar">
+        <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M11 18h2"/></svg></div>
+        <h3>Aplicaciones</h3>
+        <p>Apps a medida para que tu equipo y tus clientes trabajen más fácil.</p>
+        <ul class="lista"><li>Apps de gestión interna</li><li>Área privada para clientes</li><li>Reservas y pedidos</li></ul>
+      </article>
+      <article class="tarjeta revelar">
+        <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/><path d="M7 11v3a3 3 0 0 0 3 3h3"/></svg></div>
+        <h3>Sistemas automatizados</h3>
+        <p>Software que hace solo las tareas repetitivas que hoy te comen horas.</p>
+        <ul class="lista"><li>Automatización de procesos</li><li>Paneles y reportes</li><li>Conexión entre tus herramientas</li></ul>
+      </article>
+      <article class="tarjeta revelar">
+        <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg></div>
+        <span class="etiqueta-grad">Más clientes</span>
+        <h3>Campañas en Meta Ads</h3>
+        <p>Anuncios en Facebook e Instagram que llevan clientes a tu web o a tu WhatsApp. Los creamos, los medimos y los optimizamos.</p>
+        <ul class="lista"><li>Estrategia y público objetivo</li><li>Creación y gestión de campañas</li><li>Optimización y retargeting</li><li>Informes claros de resultados</li></ul>
+      </article>
+      <article class="tarjeta revelar">
+        <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="m10.5 9 4 3-4 3z" fill="currentColor"/></svg></div>
+        <span class="etiqueta-grad">Novedad</span>
+        <h3>Contenido viral con IA</h3>
+        <p>Vídeos e imágenes con IA para que tu marca destaque en redes. Más contenido, más rápido y sin rodajes caros.</p>
+        <ul class="lista"><li>Reels y TikToks para tu marca</li><li>Vídeos de producto con IA</li><li>Guiones con ganchos que enganchan</li><li>Creativos listos para anuncios</li></ul>
+        <a class="ver-ejemplos" href="/">Ver ejemplos de anuncios con IA →</a>
+      </article>
+    </div>
+
+    <div class="centro-cta revelar">
+      <a class="btn-lima js-wa js-form" data-motivo="un proyecto" href="#">Cuéntanos qué necesitas
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <small>¿No sabes qué te conviene? Escríbenos y lo vemos juntos.</small>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= QUIÉNES SOMOS ======================= -->
+<section id="nosotros" style="padding-top: 40px;">
+  <div class="contenedor sobre">
+    <div class="foto-wrap revelar">
+      <div class="foto"><span class="emblema"><svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M6 3.5 19.5 12 6 20.5z"/></svg></span></div>
+    </div>
+    <div class="revelar">
+      <div class="eyebrow">Quiénes somos</div>
+      <h2 class="display titulo">Esto es <span class="resaltado">Droppreel</span></h2>
+      <p class="intro">Diseñamos webs y sistemas, lanzamos campañas en Meta Ads y creamos contenido con IA para negocios que quieren dar un salto. Sin plantillas y sin atajos: todo se piensa para vender.</p>
+      <div class="mini-tarjetas">
+        <div class="mini"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3 2 8l10 5 10-5-10-5z"/><path d="m2 13 10 5 10-5"/><path d="m2 17.5 10 5 10-5" opacity=".6"/></svg><b>Diseño UX/UI</b><span>Pantallas cuidadas pensadas para convertir.</span></div>
+        <div class="mini"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m8 8-5 4 5 4M16 8l5 4-5 4M14 4l-4 16"/></svg><b>Desarrollo web</b><span>Código limpio, rápido y pensado para móvil.</span></div>
+        <div class="mini"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg><b>Estrategia de conversión</b><span>Cada sección con un objetivo claro.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= QUÉ INCLUYE ======================= -->
+<section id="paquete" style="padding-top: 40px;">
+  <div class="contenedor">
+    <div class="revelar">
+      <div class="eyebrow">Qué incluye</div>
+      <h2 class="display titulo">Todo lo que <span class="resaltado">recibes</span></h2>
+      <p class="intro">Llave en mano: te lo entregamos funcionando y listo para usar. Sin sorpresas ni costes ocultos.</p>
+    </div>
+    <div class="rejilla-4">
+      <article class="tarjeta revelar">
+        <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg></div>
+        <h3>Dominio + hosting</h3>
+        <ul class="lista"><li>Dominio propio (12 meses)</li><li>Hosting rápido</li><li>Certificado SSL (HTTPS)</li></ul>
+      </article>
+      <article class="tarjeta revelar">
+        <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M10 3 8.5 8.5 3 10l5.5 1.5L10 17l1.5-5.5L17 10l-5.5-1.5zM18 14l-.8 2.2L15 17l2.2.8L18 20l.8-2.2L21 17l-2.2-.8z"/></svg></div>
+        <h3>Diseño premium</h3>
+        <ul class="lista"><li>100% adaptado a móvil</li><li>Animaciones modernas</li><li>Diseño exclusivo, sin plantillas</li></ul>
+      </article>
+      <article class="tarjeta revelar">
+        <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></div>
+        <h3>Soporte + SEO</h3>
+        <ul class="lista"><li>Soporte técnico 12 meses</li><li>SEO básico para Google</li><li>Optimización de velocidad</li></ul>
+      </article>
+      <article class="tarjeta revelar">
+        <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 20V4M4 20h16M9 16v-5M13 16V8M17 16v-3"/></svg></div>
+        <h3>Extras incluidos</h3>
+        <ul class="lista"><li>Google Analytics configurado</li><li>Conexión con tus redes</li><li>Formulario de contacto + copia de seguridad</li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= ENTREGA ======================= -->
+<section style="padding-top: 20px;">
+  <div class="entrega revelar">
+    <div class="eyebrow-lima">Tiempo de entrega</div>
+    <h2 class="display">Entrega <em>rápida</em></h2>
+    <div class="cifra"><span class="js-contador" data-fin="3">0</span><i></i><span class="js-contador" data-fin="5">0</span></div>
+    <div class="dias">DÍAS LABORABLES</div>
+    <div class="linea"></div>
+    <p>Trabajamos rápido sin bajar la calidad. Tu web lista para vender en menos de una semana.</p>
+  </div>
+</section>
+
+<!-- ======================= PORTFOLIO ======================= -->
+<section id="portfolio" style="padding-bottom: 60px;">
+  <div class="contenedor" style="width: min(1024px, 100% - 32px);">
+    <div class="cabecera-flex revelar">
+      <div>
+        <div class="eyebrow">Portfolio</div>
+        <h2 class="display titulo">Lo que <span class="resaltado">construimos</span></h2>
+        <p class="intro" style="margin-top: 12px;">Webs, chatbots, campañas y contenido como estos, hechos a medida para tu negocio.</p>
+      </div>
+      <a class="btn-oscuro" href="https://www.instagram.com/aimundial/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+        Ver más proyectos ↗</a>
+    </div>
+  </div>
+  <div class="carrusel-marco">
+  <button type="button" class="flecha" id="flecha-ant" aria-label="Proyecto anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+  <div class="carrusel" id="carrusel">
+    <article class="proyecto p1"><img class="captura" src="/servicios/img/p1-restaurante.jpg" alt="Web de restaurante en un portátil" loading="lazy"><div class="sombra"></div>
+      <div class="info"><span class="tag">Página web</span><h3>Web para restaurante</h3><p>Web de alta cocina con sistema de reservas integrado.</p><div class="resultado">Reservas online 24/7</div></div></article>
+    <article class="proyecto p2"><img class="captura" src="/servicios/img/p2-chatbot.jpg" alt="Panel de chatbot con IA en un portátil" loading="lazy"><div class="sombra"></div>
+      <div class="info"><span class="tag">Chatbot con IA</span><h3>Asistente de WhatsApp</h3><p>Atiende, responde dudas y agenda clientes solo, 24/7.</p><div class="resultado">Menos mensajes a mano</div></div></article>
+    <article class="proyecto p3"><img class="captura" src="/servicios/img/p3-tienda.jpg" alt="Tienda online de moda en un portátil" loading="lazy"><div class="sombra"></div>
+      <div class="info"><span class="tag">Tienda online</span><h3>Tienda de moda</h3><p>Tienda online con compra rápida pensada para móvil.</p><div class="resultado">Pago en pocos toques</div></div></article>
+    <article class="proyecto p4"><img class="captura" src="/servicios/img/p4-automatizacion.jpg" alt="Flujo de automatización en un portátil" loading="lazy"><div class="sombra"></div>
+      <div class="info"><span class="tag">Automatización</span><h3>Flujos automáticos</h3><p>Pedidos, avisos y tareas internas en piloto automático.</p><div class="resultado">Horas de trabajo ahorradas</div></div></article>
+    <article class="proyecto p5"><img class="captura" src="/servicios/img/p5-corporativa.jpg" alt="Web corporativa de agencia en un portátil" loading="lazy"><div class="sombra"></div>
+      <div class="info"><span class="tag">Web corporativa</span><h3>Web de agencia</h3><p>Web de empresa con escaparate interactivo de proyectos.</p><div class="resultado">Más contactos cualificados</div></div></article>
+    <article class="proyecto p6"><img class="captura" src="/servicios/img/p6-panel.jpg" alt="Panel de gestión en un portátil" loading="lazy"><div class="sombra"></div>
+      <div class="info"><span class="tag">Sistema a medida</span><h3>Panel de gestión</h3><p>Panel de control con métricas, stock e informes automáticos.</p><div class="resultado">Todo tu negocio en una pantalla</div></div></article>
+    <article class="proyecto p7"><img class="captura" src="/servicios/img/p7-meta-ads.jpg" alt="Panel de campañas de Meta Ads en un portátil" loading="lazy"><div class="sombra"></div>
+      <div class="info"><span class="tag">Meta Ads</span><h3>Campañas que venden</h3><p>Anuncios en Facebook e Instagram medidos y optimizados cada semana.</p><div class="resultado">Cada euro, controlado</div></div></article>
+    <article class="proyecto p8"><img class="captura" src="/servicios/img/p8-contenido-ia.jpg" alt="Vídeo vertical para redes creado con IA en un móvil" loading="lazy"><div class="sombra"></div>
+      <div class="info"><span class="tag">Contenido con IA</span><h3>Contenido viral</h3><p>Reels y vídeos de producto creados con IA para marcas y empresas.</p><div class="resultado">Contenido nuevo cada semana</div></div></article>
+  </div>
+  <button type="button" class="flecha" id="flecha-sig" aria-label="Proyecto siguiente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </div>
+  <div class="puntos" id="puntos"></div>
+</section>
+
+<!-- ======================= POR QUÉ ======================= -->
+<section id="por-que" style="padding-top: 60px;">
+  <div class="contenedor">
+    <div class="revelar">
+      <div class="eyebrow">Por qué</div>
+      <h2 class="display titulo">Por qué trabajar con <span class="resaltado">nosotros</span></h2>
+    </div>
+    <div class="razones" id="razones"></div>
+  </div>
+</section>
+
+<!-- ======================= PROCESO ======================= -->
+<section id="proceso">
+  <div class="contenedor">
+    <div class="revelar">
+      <div class="eyebrow">Cómo trabajamos</div>
+      <h2 class="display titulo">Así será tu <span class="resaltado">proyecto</span></h2>
+      <p class="intro">Sin sorpresas: sabes qué pasa en cada paso y qué recibes al terminar cada uno.</p>
+    </div>
+    <div class="pasos">
+      <article class="paso revelar"><div class="paso-top"><span class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.3A8.5 8.5 0 1 1 21 12z"/></svg></span><span class="num">01</span></div><h3>Hablamos</h3><p>Nos cuentas qué necesita tu negocio. Sin tecnicismos y sin compromiso.</p><div class="recibes"><span>Recibes</span>Propuesta con alcance y precio cerrado.</div></article>
+      <article class="paso revelar"><div class="paso-top"><span class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.6 7.6"/><circle cx="11" cy="11" r="2"/></svg></span><span class="num">02</span></div><h3>Diseño</h3><p>Definimos cómo va a funcionar y cómo se va a ver antes de programar nada. Ajustamos hasta que te guste.</p><div class="recibes"><span>Recibes</span>Diseño o plan técnico para aprobar.</div></article>
+      <article class="paso revelar"><div class="paso-top"><span class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m8 8-5 4 5 4M16 8l5 4-5 4M14 4l-4 16"/></svg></span><span class="num">03</span></div><h3>Desarrollo</h3><p>Construimos lo aprobado y lo probamos con casos reales de tu negocio.</p><div class="recibes"><span>Recibes</span>Enlace de prueba para verlo en vivo.</div></article>
+      <article class="paso revelar"><div class="paso-top"><span class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.9A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22.4 22.4 0 0 1-4 2z"/><path d="M9 12H4s.6-3 2-4c1.6-1.1 5 0 5 0M12 15v5s3-.6 4-2c1.1-1.6 0-5 0-5"/></svg></span><span class="num">04</span></div><h3>Entrega</h3><p>Te lo dejamos funcionando, te enseñamos a usarlo y tienes soporte durante 12 meses.</p><div class="recibes"><span>Recibes</span>Proyecto publicado, accesos y soporte.</div></article>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= PAGO ======================= -->
+<section id="pago" style="padding-top: 20px;">
+  <div class="contenedor">
+    <div class="revelar">
+      <div class="eyebrow">Forma de pago</div>
+      <h2 class="display titulo">Cómo funciona el <span class="resaltado">pago</span></h2>
+    </div>
+    <div class="pago">
+      <div class="bloque revelar"><div class="pct gradiente-texto">50%</div><h3>Al empezar</h3><p>Reservas tu proyecto y arrancamos.</p></div>
+      <div class="bloque revelar"><div class="pct gradiente-texto">50%</div><h3>Al entregar</h3><p>Pagas el resto cuando apruebes la web lista para vender.</p></div>
+      <div class="bloque garantia revelar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6l-8-3z"/><path d="m8.5 12 2.5 2.5 4.5-5" stroke-linecap="round"/></svg>
+        <h3 class="garantia-tit">Satisfacción garantizada</h3>
+        <p>Solo pagas la segunda mitad cuando tu web esté aprobada y lista para usar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= FAQ ======================= -->
+<section id="faq">
+  <div class="contenedor faq-grid">
+    <div class="revelar">
+      <div class="eyebrow">Dudas</div>
+      <h2 class="display titulo">Preguntas <span class="resaltado">frecuentes</span></h2>
+      <p class="intro">Lo que más nos preguntan antes de empezar. Si tu caso es distinto, escríbenos y lo vemos.</p>
+      <a class="enlace-flecha js-wa" data-motivo="una duda" href="#">¿Tienes otra duda? Escríbenos →</a>
+    </div>
+    <div class="faq-lista revelar" id="faq-lista"></div>
+  </div>
+</section>
+
+<!-- ======================= CTA FINAL ======================= -->
+<section class="final" id="contacto">
+  <div class="contenedor revelar">
+    <div class="eyebrow-lima">Listos para empezar</div>
+    <h2 class="display">¿Empezamos tu<br><em>proyecto</em>?</h2>
+    <p>Cuéntanos qué necesitas (web, chatbot, campañas en Meta Ads o contenido con IA) y te decimos cómo lo resolvemos. Respondemos en minutos y sin compromiso.</p>
+    <a class="btn-lima js-wa js-form" data-motivo="empezar un proyecto" href="#">Escríbenos por WhatsApp
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <div><span class="tel js-tel"></span></div>
+  </div>
+</section>
+
+<!-- ======================= FOOTER ======================= -->
+<footer>
+  <div class="contenedor">
+    <div class="pie">
+      <div><span class="logo marca"><span class="logo-icono"><svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M6 3.5 19.5 12 6 20.5z"/></svg></span>Droppreel</span><p>Webs, IA, Meta Ads y contenido para marcas.</p></div>
+      <div><h4>Navega</h4><nav><a href="#">Inicio</a><a href="#paquete">Qué incluye</a><a href="#portfolio">Portfolio</a><a href="#faq">Preguntas</a><a href="#contacto">Contacto</a><a href="/">Anuncios con IA</a></nav></div>
+      <div><h4>Conecta</h4><a href="https://www.instagram.com/aimundial/" target="_blank" rel="noopener">@aimundial</a><br><a class="js-tel" href="#"></a></div>
+    </div>
+    <div class="legal"><span>© <span id="anio"></span> Droppreel · Todos los derechos reservados.</span><span>Hecho con obsesión por el detalle.</span></div>
+  </div>
+</footer>
+
+
+<!-- ======================= FORMULARIO WHATSAPP ======================= -->
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="modal-fondo" data-cerrar></div>
+  <div class="modal-caja" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+    <button class="modal-cerrar" type="button" data-cerrar aria-label="Cerrar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <div class="modal-cabecera">
+      <div class="modal-avatar"><span class="logo-icono"><svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M6 3.5 19.5 12 6 20.5z"/></svg></span></div>
+      <div><b id="modal-titulo">Droppreel</b><small>En línea · respondemos en minutos</small></div>
+    </div>
+    <p class="modal-intro">Cuéntanos tu proyecto y te dejamos un mensaje listo para enviarnos por WhatsApp.</p>
+    <div class="modal-progreso" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <form id="form-wa" novalidate>
+      <span class="etiq">¿Qué necesitas?</span>
+      <div class="opciones" role="radiogroup" aria-label="¿Qué necesitas?"><label class="opcion"><input type="radio" name="servicio" value="una página web"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg>Una página web</span></label><label class="opcion"><input type="radio" name="servicio" value="un chatbot con IA"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4" y="8" width="16" height="11" rx="3"/><path d="M12 4v4M9 13h.01M15 13h.01"/></svg>Un chatbot con IA</span></label><label class="opcion"><input type="radio" name="servicio" value="una aplicación"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M11 18h2"/></svg>Una aplicación</span></label><label class="opcion"><input type="radio" name="servicio" value="un sistema automatizado"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/><path d="M7 11v3a3 3 0 0 0 3 3h3"/></svg>Un sistema automatizado</span></label><label class="opcion"><input type="radio" name="servicio" value="campañas en Meta Ads"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg>Campañas en Meta Ads</span></label><label class="opcion"><input type="radio" name="servicio" value="contenido viral con IA"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M10 3 8.5 8.5 3 10l5.5 1.5L10 17l1.5-5.5L17 10l-5.5-1.5zM18 14l-.8 2.2L15 17l2.2.8L18 20l.8-2.2L21 17l-2.2-.8z"/></svg>Contenido viral con IA</span></label></div>
+      <label for="f-nombre">Tu nombre</label>
+      <div class="campo-icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" stroke-linecap="round"/></svg>
+        <input id="f-nombre" name="nombre" type="text" autocomplete="given-name" placeholder="Ej: Laura García"></div>
+      <label for="f-negocio">¿Qué tipo de negocio tienes?</label>
+      <div class="campo-icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 10v10h16V10M3 10l1.5-6h15L21 10z"/><path d="M10 20v-5h4v5"/></svg>
+        <input id="f-negocio" name="negocio" type="text" placeholder="Ej: restaurante, tienda de ropa, clínica…"></div>
+      <label for="f-para">¿Para qué lo necesitas?</label>
+      <div class="campo-icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
+        <textarea id="f-para" name="para" rows="2" placeholder="Vender online, conseguir más clientes, ahorrar tiempo…"></textarea></div>
+      <button class="btn-enviar" type="submit" aria-disabled="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>
+        Ir a WhatsApp</button>
+      <p class="modal-falta" id="modal-falta" aria-live="polite"></p>
+      <p class="modal-aviso">Se abrirá WhatsApp con tu mensaje ya escrito, listo para enviar.</p>
+    </form>
+  </div>
+</div>
+
+<a class="wa-flotante js-wa" data-motivo="una web" href="#" aria-label="Escríbenos por WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4c-1-1.6-1.5-3.4-1.5-5.2C2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9 1.8 1.8 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8zm8.4-18.2C18.2 1.3 15.2 0 12 0 5.4 0 .1 5.3.1 11.9c0 2.1.6 4.2 1.6 6L0 24l6.3-1.6c1.8 1 3.8 1.5 5.7 1.5 6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.5-8.4z"/></svg>
+</a>
+
+<script>
+  // ---------- enlaces de WhatsApp ----------
+  function telefonoBonito(n) {
+    var local = n.replace(/^34/, "");
+    return "+34 " + local.replace(/(\d{3})(\d{3})(\d{3})/, "$1 $2 $3");
+  }
+  document.querySelectorAll(".js-wa").forEach(function (a) {
+    var texto = MENSAJE + (a.dataset.motivo || "una web") + ".";
+    a.href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(texto);
+    a.target = "_blank"; a.rel = "noopener";
+  });
+  document.querySelectorAll(".js-tel").forEach(function (el) {
+    el.textContent = telefonoBonito(WHATSAPP);
+    if (el.tagName === "A") { el.href = "https://wa.me/" + WHATSAPP; el.target = "_blank"; el.rel = "noopener"; }
+  });
+  document.getElementById("anio").textContent = new Date().getFullYear();
+
+  // ---------- razones ----------
+  var RAZONES = [
+    "Diseño 100% adaptado a móvil", "Carga rápida optimizada", "Chatbot conectado a WhatsApp",
+    "Atención automática 24/7", "SEO básico para Google", "Seguridad SSL incluida",
+    "Soporte técnico 12 meses", "Entrega rápida y sin vueltas", "Dominio + hosting el primer año",
+    "Panel fácil de manejar", "Conexión con tus herramientas", "Garantía de satisfacción"
+  ];
+  var check = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg>';
+  document.getElementById("razones").innerHTML = RAZONES.map(function (r) {
+    return '<div class="razon revelar"><i>' + check + '</i>' + r + '</div>';
+  }).join("");
+
+  // ---------- FAQ ----------
+  var FAQ = [
+    ["¿Cuánto cuesta y cuánto tarda?", "Las webs empiezan desde 149 € y suelen estar listas en 3 a 5 días laborables. Los chatbots, apps y sistemas dependen de lo que necesites: te pasamos un precio cerrado antes de empezar, sin sorpresas."],
+    ["¿Qué hace exactamente un chatbot con IA?", "Responde a tus clientes al momento, a cualquier hora: resuelve dudas, da precios, toma datos y agenda citas. Aprende de la información de tu negocio y te pasa la conversación cuando hace falta una persona."],
+    ["¿En qué plataformas funciona el chatbot?", "En WhatsApp, Instagram, Facebook Messenger y dentro de tu propia web. Puede estar en una sola o en todas a la vez."],
+    ["¿Incluye dominio y hosting?", "Sí. El primer año de dominio y hosting va incluido, junto con el certificado SSL para que tu web salga como segura."],
+    ["¿Qué soporte incluye?", "12 meses de soporte técnico: si algo falla, lo arreglamos. También te enseñamos a cambiar textos e imágenes tú mismo."],
+    ["¿Cómo funciona la gestión de Meta Ads?", "Analizamos tu negocio y tu público, preparamos los anuncios y los lanzamos en Facebook e Instagram. Cada semana revisamos los números, quitamos lo que no funciona y potenciamos lo que sí. Recibes informes claros para saber qué te devuelve cada euro. El dinero de la publicidad lo pagas tú directamente a Meta, aparte de nuestra gestión."],
+    ["¿Qué contenido creáis con IA?", "Reels, TikToks, vídeos de producto e imágenes para tu marca, con guiones pensados para enganchar desde el primer segundo. Sirven para tus redes y como anuncios. Todo se revisa contigo antes de publicarlo."],
+    ["¿Puedo empezar por la web y añadir el chatbot después?", "Claro. Muchos clientes empiezan con la web y suman el chatbot o las automatizaciones cuando el negocio lo pide. Todo se deja preparado para crecer."],
+    ["¿Se ve bien en el móvil?", "Sí. Todo se diseña primero para móvil, que es desde donde entra la mayoría de tus clientes, y luego se adapta a tablet y ordenador."],
+    ["¿Cuál es el siguiente paso?", "Escríbenos por WhatsApp y cuéntanos tu negocio. Te respondemos en minutos con una propuesta y un precio cerrado."]
+  ];
+  var mas = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>';
+  document.getElementById("faq-lista").innerHTML = FAQ.map(function (f, i) {
+    return '<div class="faq-item' + (i === 0 ? " abierto" : "") + '"><button aria-expanded="' + (i === 0) + '">' + f[0] + '<i>' + mas + '</i></button>' +
+      '<div class="faq-respuesta"><div><p>' + f[1] + '</p></div></div></div>';
+  }).join("");
+  document.querySelectorAll(".faq-item button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var item = b.parentElement, abierto = item.classList.toggle("abierto");
+      b.setAttribute("aria-expanded", abierto);
+    });
+  });
+
+  // ---------- carrusel del portfolio ----------
+  var carrusel = document.getElementById("carrusel");
+  var tarjetas = carrusel.querySelectorAll(".proyecto");
+  var puntos = document.getElementById("puntos");
+  var flechaAnt = document.getElementById("flecha-ant");
+  var flechaSig = document.getElementById("flecha-sig");
+  var actual = 0;
+  function irA(i) {
+    i = Math.max(0, Math.min(tarjetas.length - 1, i));
+    var t = tarjetas[i];
+    carrusel.scrollTo({ left: t.offsetLeft - (carrusel.clientWidth - t.offsetWidth) / 2, behavior: "smooth" });
+  }
+  tarjetas.forEach(function (t, i) {
+    var b = document.createElement("button");
+    b.setAttribute("aria-label", "Proyecto " + (i + 1));
+    b.addEventListener("click", function () { irA(i); });
+    puntos.appendChild(b);
+  });
+  flechaAnt.addEventListener("click", function () { irA(actual - 1); });
+  flechaSig.addEventListener("click", function () { irA(actual + 1); });
+  function marcarPunto() {
+    var centro = carrusel.scrollLeft + carrusel.clientWidth / 2, mejor = 0, dist = Infinity;
+    tarjetas.forEach(function (t, i) {
+      var d = Math.abs(t.offsetLeft + t.offsetWidth / 2 - centro);
+      if (d < dist) { dist = d; mejor = i; }
+    });
+    puntos.querySelectorAll("button").forEach(function (b, i) { b.classList.toggle("activo", i === mejor); });
+    actual = mejor;
+    flechaAnt.disabled = mejor === 0;
+    flechaSig.disabled = mejor === tarjetas.length - 1;
+  }
+  carrusel.addEventListener("scroll", marcarPunto, { passive: true });
+  marcarPunto();
+
+
+
+  // ---------- formulario "cuéntanos tu proyecto" ----------
+  (function () {
+    var modal = document.getElementById("modal");
+    var form = document.getElementById("form-wa");
+    var boton = form.querySelector(".btn-enviar");
+    var falta = document.getElementById("modal-falta");
+    var barras = modal.querySelectorAll(".modal-progreso i");
+    var ultimoFoco = null;
+
+    function valores() {
+      var s = form.querySelector('input[name="servicio"]:checked');
+      return {
+        servicio: s ? s.value : "",
+        nombre: form.nombre.value.trim(),
+        negocio: form.negocio.value.trim(),
+        para: form.para.value.trim()
+      };
+    }
+    function actualizar() {
+      var v = valores();
+      [v.servicio, v.nombre, v.negocio, v.para].forEach(function (x, i) { barras[i].classList.toggle("lleno", !!x); });
+      var listo = v.servicio && v.nombre;
+      boton.setAttribute("aria-disabled", listo ? "false" : "true");
+      if (listo) falta.textContent = "";
+    }
+    function abrir(e) {
+      e.preventDefault();
+      ultimoFoco = document.activeElement;
+      modal.classList.add("abierto"); modal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("sin-scroll");
+      setTimeout(function () { (form.querySelector('input[name="servicio"]:checked') || form.querySelector('input[name="servicio"]')).focus(); }, 50);
+    }
+    function cerrar() {
+      modal.classList.remove("abierto"); modal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("sin-scroll");
+      if (ultimoFoco) ultimoFoco.focus();
+    }
+    document.querySelectorAll(".js-form").forEach(function (b) { b.addEventListener("click", abrir); });
+    modal.querySelectorAll("[data-cerrar]").forEach(function (b) { b.addEventListener("click", cerrar); });
+    document.addEventListener("keydown", function (e) {
+      if (!modal.classList.contains("abierto")) return;
+      if (e.key === "Escape") cerrar();
+      if (e.key === "Tab") { // mantener el foco dentro de la ventana
+        var f = modal.querySelectorAll("button, input, textarea");
+        var primero = f[0], ultimo = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === primero) { e.preventDefault(); ultimo.focus(); }
+        else if (!e.shiftKey && document.activeElement === ultimo) { e.preventDefault(); primero.focus(); }
+      }
+    });
+    form.addEventListener("input", actualizar);
+    form.addEventListener("change", actualizar);
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var v = valores();
+      if (!v.servicio || !v.nombre) {
+        falta.textContent = !v.servicio ? "Elige qué necesitas para continuar." : "Escribe tu nombre para continuar.";
+        (!v.servicio ? form.querySelector('input[name="servicio"]') : form.nombre).focus();
+        return;
+      }
+      var texto = "Hola, soy " + v.nombre + ". Me interesa " + v.servicio + ".";
+      if (v.negocio) texto += "\nMi negocio: " + v.negocio + ".";
+      if (v.para) texto += "\nLo necesito para: " + v.para + ".";
+      texto += "\n\n(Os escribo desde la web de Droppreel)";
+      window.open("https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(texto), "_blank", "noopener");
+    });
+  })();
+
+  // ---------- efectos que siguen al ratón ----------
+  var conRaton = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  var sinMovimiento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (conRaton && !sinMovimiento) {
+    // luz que sigue al cursor dentro de las tarjetas
+    document.querySelectorAll(".tarjeta, .razon").forEach(function (el) {
+      el.addEventListener("mousemove", function (e) {
+        var r = el.getBoundingClientRect();
+        el.style.setProperty("--fx", (e.clientX - r.left) + "px");
+        el.style.setProperty("--fy", (e.clientY - r.top) + "px");
+      });
+    });
+    // botones "imán": se desplazan hacia el ratón mientras está encima
+    var FUERZA = 0.27;
+    document.querySelectorAll(".btn-lima, .btn-oscuro, .wa-flotante").forEach(function (b) {
+      b.addEventListener("mousemove", function (e) {
+        var r = b.getBoundingClientRect();
+        var x = (e.clientX - (r.left + r.width / 2)) * FUERZA;
+        var y = (e.clientY - (r.top + r.height / 2)) * FUERZA;
+        b.style.translate = x.toFixed(1) + "px " + y.toFixed(1) + "px";
+      });
+      b.addEventListener("mouseleave", function () { b.style.translate = ""; });
+    });
+  }
+
+  // ---------- animaciones al hacer scroll ----------
+  function contar(el) {
+    var fin = +el.dataset.fin, t0 = null;
+    function paso(t) {
+      if (!t0) t0 = t;
+      var p = Math.min(1, (t - t0) / 1200);
+      el.textContent = Math.round(fin * (1 - Math.pow(1 - p, 3)));
+      if (p < 1) requestAnimationFrame(paso);
+    }
+    requestAnimationFrame(paso);
+  }
+  var obs = new IntersectionObserver(function (entradas) {
+    entradas.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.add("visible");
+      var el = e.target; setTimeout(function () { el.style.transitionDelay = ""; }, 1100);
+      e.target.querySelectorAll(".js-contador").forEach(contar);
+      obs.unobserve(e.target);
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll(".revelar").forEach(function (el, i) {
+    el.style.transitionDelay = (i % 4) * 70 + "ms";
+    obs.observe(el);
+  });
+</script>
+</body>
+</html>
