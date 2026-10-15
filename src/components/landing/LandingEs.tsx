@@ -233,6 +233,9 @@ function VideoCard({
   // El vídeo solo se descarga cuando la tarjeta está cerca de la pantalla y
   // solo se reproduce mientras se ve. Antes los 12 vídeos de cada carrusel
   // (duplicados por el bucle) empezaban a bajar a la vez, algo inviable en móvil.
+  // Al alejarse se suelta otra vez: como los carruseles dan vueltas solos, si no
+  // se liberaban acababan los 24 vídeos cargados y Safari en iPhone se quedaba
+  // sin memoria y recargaba la página (el visitante veía saltos hacia arriba).
   const buttonRef = useRef<HTMLButtonElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [near, setNear] = useState(false);
@@ -242,8 +245,8 @@ function VideoCard({
     const el = buttonRef.current;
     if (!el) return;
     const nearObs = new IntersectionObserver(
-      ([entry]) => entry?.isIntersecting && setNear(true),
-      { rootMargin: "0px 300px" },
+      ([entry]) => setNear(!!entry?.isIntersecting),
+      { rootMargin: "200px 300px" },
     );
     // Solo se reproduce la tarjeta que se ve casi entera: en móvil es una (como
     // mucho dos) a la vez, en vez de todas las que asoman por el borde.
@@ -261,7 +264,12 @@ function VideoCard({
 
   useEffect(() => {
     const v = videoRef.current;
-    if (!v || !near) return;
+    if (!v) return;
+    if (!near) {
+      // React ya ha quitado el src; load() hace que el navegador suelte el vídeo.
+      if (v.currentSrc) v.load();
+      return;
+    }
     if (visible) v.play().catch(() => {});
     else v.pause();
   }, [near, visible]);
@@ -285,7 +293,7 @@ function VideoCard({
         className="absolute inset-0 h-full w-full object-cover opacity-80 transition-all duration-500 group-hover:scale-[1.04] group-hover:opacity-100"
       />
       <span className="absolute inset-0 flex items-center justify-center">
-        <span className="flex h-14 w-14 items-center justify-center rounded-full border border-primary/40 bg-background/60 text-primary backdrop-blur-md transition-transform duration-300 group-hover:scale-110">
+        <span className="flex h-14 w-14 items-center justify-center rounded-full border border-primary/40 bg-background/75 text-primary transition-transform duration-300 group-hover:scale-110">
           <Play className="h-5 w-5 fill-current" />
         </span>
       </span>
@@ -551,7 +559,7 @@ export function Formats() {
           la pantalla, como en la referencia -- los vídeos van a pantalla
           casi completa, no metidos en una cajita pequeña. */}
       <div data-reveal className="reveal relative left-1/2 right-1/2 -mx-[50vw] mt-12 w-screen">
-        <div ref={rowRef} className="no-scrollbar flex touch-pan-x gap-4 overflow-x-auto px-5">
+        <div ref={rowRef} className="no-scrollbar flex gap-4 overflow-x-auto px-5">
           {looped.map((f, i) => (
             <div key={`${f.title}-${i}`} className="flex shrink-0 flex-col items-start" aria-hidden={i >= formats.length}>
               <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
@@ -640,7 +648,7 @@ export function RealExamples() {
         </p>
       </div>
       <div data-reveal className="reveal relative left-1/2 right-1/2 -mx-[50vw] mt-12 w-screen">
-        <div ref={rowRef} className="no-scrollbar flex touch-pan-x gap-4 overflow-x-auto px-5">
+        <div ref={rowRef} className="no-scrollbar flex gap-4 overflow-x-auto px-5">
           {looped.map((ex, i) => (
             <div key={`${ex.tagLabel}-${i}`} className="flex shrink-0 flex-col items-start" aria-hidden={i >= examples.length}>
               <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
@@ -701,7 +709,7 @@ export function AiImages() {
         </p>
       </div>
       <div data-reveal className="reveal relative left-1/2 right-1/2 -mx-[50vw] mt-12 w-screen">
-        <div ref={rowRef} className="no-scrollbar flex touch-pan-x gap-4 overflow-x-auto px-5">
+        <div ref={rowRef} className="no-scrollbar flex gap-4 overflow-x-auto px-5">
           {looped.map((img, i) => (
             <div key={`${img.src}-${i}`} className="shrink-0" aria-hidden={i >= images.length}>
               <img
